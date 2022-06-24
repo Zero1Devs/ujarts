@@ -1,5 +1,6 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import {Link,NavLink} from 'react-router-dom';
+
 
 const Navbar=()=>{
     return(
@@ -8,11 +9,46 @@ const Navbar=()=>{
             <Link to="/" style={{color:"white"}}>UJ ARTS & CULTURE</Link>
             </h1>
             <nav className='nav'>
-            <Link to="/events">Events</Link>
-            <Link to="/venues">Venues</Link> 
-            <Link to="/about">About</Link>
+                <NavLink 
+                    style={({isActive})=>{
+                        return {
+                            color: isActive ? "#ff4102" : "",
+                        };
+                    }} 
+                    to="/events"
+                >
+                    Events
+                </NavLink>
+                
+                <NavLink 
+                    style={({isActive})=>{
+                        return {
+                            color: isActive ? "#ff4102" : "",
+                        };
+                    }} 
+                    to="/venues"
+                >
+                    Venues
+                </NavLink>
+                
+                <a href="https://movingcube.uj.ac.za/"> Moving Cube</a>
+                <a href="https://artmuch.uj.ac.za/">Art Much?</a>
+                <a href="https://futuresandbeyond.uj.ac.za/"> Conferences</a>
+                <NavLink 
+                    style={({isActive})=>{
+                        return {
+                            color: isActive ? "#ff4102" : "",
+                        };
+                    }} 
+                    to="/about"
+                >
+                    About
+                </NavLink>
             </nav>
         </div>
     )
+  
 }
+
+
 export default Navbar;

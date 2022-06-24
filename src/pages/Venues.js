@@ -1,5 +1,6 @@
 import React from "react";
-import '../App.css';
+import '../styles/index.css';
+import '../styles/customerLayout.css';
 import CustomerLayout from "../CustomerLayout";
 
 const Venues=()=>{

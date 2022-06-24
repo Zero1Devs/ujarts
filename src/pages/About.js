@@ -1,5 +1,5 @@
 import React from "react";
-import '../App.css';
+import '../styles/index.css';
 import weArtBanner from "../assets/We_ART_Web_banner.width-500.png"
 import CustomerLayout from "../CustomerLayout";
 const About=()=>{

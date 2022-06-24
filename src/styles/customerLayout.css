@@ -1,0 +1,291 @@
+  :root{
+    --orange:#f25622;
+    --darkorange:#ff4102;
+    --gray:#646464;
+    --purple:#643E77;
+    --darkpurple:#45116d;
+    --darkerpurple:#22092F;
+  }
+  a, Link{
+    text-decoration: none;
+    text-transform: none;
+  }
+/* NAVBAR-----------------------------------------------------------------------------------------*/
+  #menu{
+    background-color: #270c3b;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    height: 10px;
+  }
+  #menu h1{
+    flex: 2;
+  }
+  .nav{
+  flex: 2;
+  border: solid 1px;
+  display: flex;
+  justify-content: right;
+  }
+  .nav a{
+    margin: 10px;
+    text-transform: uppercase;
+    color: white;
+  }
+  .nav a:hover{
+    color: var(--darkorange);
+  }
+/* -----------------------------------------------------------------------------------------*/
+  #select{
+    width: 120px;
+    height: 42px;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    padding: 10px;
+    color: white;
+    background: var(--purple);
+    border: none;
+  }
+  
+  .eventList,.venuesList{
+    display:flex;
+    align-items:center;
+    border:solid black;
+    flex-wrap:wrap;
+    padding:15px;
+  }
+  /* EVENT-----------------------------------------------------------------------------------------*/
+  .eventCard{
+  border: solid 0px;
+  height: auto;
+  height: 454px;
+  width: 361px;
+  border-radius: 5px;
+  background-color: #EEEDED;
+  color: var(--darkerpurple);
+  filter: drop-shadow(2px 2px 4px var(--gray));
+  padding: 10px;
+  padding-top: 40px;
+  cursor: pointer;
+  
+  margin: 20px;
+  text-align: center;
+  
+  }
+  .eventCard:hover{
+    animation: scale 1s;
+  }
+  @keyframes scale{
+    50%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1) ;
+  
+    }
+  }
+  .eventName{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Poppins';
+  } 
+  .eventCard label{
+    display: flex;
+    text-align: left;
+    margin: 5px;
+    padding: 4px;
+  }
+  
+  .thumbnail{
+    display: flex;
+    flex-direction: column;
+    border: solid 0px;
+    width:325px;
+    filter: drop-shadow(2px 2px 4px var(--gray));
+    margin: auto;
+  }
+  .thumbnail img{
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  width:100%;
+  height:233px;
+  
+  
+  }
+  .eventType{
+    background: var(--orange);
+    color:white;
+    border-top-right-radius: 6px;
+    width: 100px;
+    padding: 10px;
+    height: 20px;
+    text-align: center;
+  }
+  .thumbnail .eventType{
+    margin-top: -40px;
+  }
+  .eventInfo{
+    margin: 10px;
+  }
+  
+  .btnFullDetails, .btnBookNow, .subscribeButton, .cancelButton{
+    width: 50%;
+    height: 35px;
+    margin: 3px;
+    border: none;
+    cursor: pointer;
+    border-radius:5px ;
+    color: white;
+    text-decoration: none;
+  }
+  .btnFullDetails{ background:var(--darkpurple)}
+  .btnBookNow, .subscribeButton{background:var(--orange)}
+  .cancelButton{color: var(--orange);background: none;}
+  .btnFullDetails:hover{
+    background-color: var(--darkerpurple);
+  }
+  
+  .btnBookNow:hover{
+    background: var(--darkorange);
+  }
+  .activeEvent{
+    width:361px;
+    height:5px;
+    border-radius:2px;
+    background:var(--orange);
+    filter:drop-shadow(2px 2px 8px var(--orange));
+    margin-left:29px;
+    margin-bottom: 20px;
+  }
+  .eventSummary{
+    background:white;
+    border: solid 0px;
+    height:400px;
+    position:absolute;
+    z-index:1;
+    width:86%;
+    left:0; 
+    border-radius:20px;
+    margin: 0px 33px;
+    overflow: hidden;
+    background-image: url("../assets/thumbnail.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color: white;
+    padding: 20px 50px;
+  }
+  .info{
+    z-index: 2;
+    position: relative;
+  }
+  .eventSummary::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+    /*background: linear-gradient(180deg,#0b0d0f36,rgba(11, 13, 15, 0.205) 50%,#0b0d0f11);*/
+    background: linear-gradient(139deg, rgba(0, 0, 0, 0.596) 33%, rgba(0, 0, 0, 0.596) 59%) no-repeat;
+  }
+/* ------------------------------------------------------------------------------------------------*/
+/* FOOTER-----------------------------------------------------------------------------------------*/
+  footer{
+    color: white;
+    background-color: #282c34;
+    height: auto;
+    padding: 3% 10%;
+    position: relative;
+    bottom: 0%;
+    top: 100%;
+    margin-top: 100px;
+  }
+  .subscribeSection{
+  text-align: center;
+  border: solid 0px var(--darkorange);
+  padding:0px 60px ;
+  }
+  .subscribeSection p{
+    text-align: start;
+  }
+  .subscribeSection span{
+    border: solid 1px var(--darkorange);
+    color: var(--darkorange);
+    padding: 5px;
+    margin: 10px;
+    border-radius: 10px;
+    
+  }
+  .subscribeSection input{
+    height: 50px;
+    width: 35%;
+    border: none;
+    background-color: black;
+    padding-left: 30px;
+    color: white;
+  }
+  #interests{
+    margin-bottom: 30px;
+  }
+  .subscribeButton{
+  width: 10vw;
+  max-width: 200px;
+  height: 50px;
+  
+  }
+  #getInTouch{
+    display: flex;
+    border: solid  0 var(--darkorange);
+    justify-content: center;
+    
+    
+  }
+  #getInTouch div{
+    border: solid 0 var(--darkorange);
+    margin:15px;
+    width: 220px;
+    padding: 20px;
+  }
+  #getInTouch h2{
+    font-size: 16px;
+  }
+  #getInTouch label{
+    display: flex;
+    width: 200px;
+    margin: 5px;
+  }
+  #social{
+  display: flex;
+  flex-direction: column;
+  }
+  #getInTouch a{
+    text-decoration: none;
+    text-transform: none;
+    color: white;
+    border: solid 0px;
+    display: flex;
+    margin-bottom: 10px;
+  }
+  #getInTouch a:hover{
+    color: var(--darkorange);
+  }
+  #getInTouch span{
+    margin-right:5px ;
+  }
+  #ujLogo{
+    display:flex;
+    flex-direction:column;
+    border:solid;
+    align-items: center;
+  }
+  #ujLogo img{
+    margin: 3px;
+  }
+  .container ul{
+    list-style: none;
+  }
+  

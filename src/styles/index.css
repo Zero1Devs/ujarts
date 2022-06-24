@@ -1,0 +1,20 @@
+@font-face{  
+    font-family: "Poppins";
+    src: url("../Poppins/Poppins-Regular.ttf");
+  
+  }
+  *{
+    font-family: "Poppins";
+  }
+  body{
+    margin: 0;
+  -webkit-font-smoothing: antialiased;
+  background: #EEEDED;
+  }
+  .container{
+    display:flex;
+    border:solid red;
+    flex-direction:column;
+    flex-wrap:wrap;
+    color:#22092F ;
+  }

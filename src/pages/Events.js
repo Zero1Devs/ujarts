@@ -1,10 +1,12 @@
 import React from "react";
-import '../App.css';
+import '../styles/index.css';
+import '../styles/customerLayout.css';
 import Event from "../components/Event";
 import CustomerLayout from "../CustomerLayout";
+import { observer } from "mobx-react";
 
-const Events=()=>{
-    
+const Events=observer(()=>{
+
 return(
     <CustomerLayout>
         <div className="container">
@@ -29,17 +31,17 @@ return(
                 <Event id={3}/>
                 <Event id={4}/>
                 <Event id={5}/>
-                <Event id={5}/>
-                <Event id={5}/>
-                <Event id={5}/>
-                <Event id={5}/>
-                <Event id={5}/>
-                <Event id={5}/>
-            </div>
+                <Event id={6}/>
+                <Event id={7}/>
+                <Event id={8}/>
+                <Event id={9}/>
+                <Event id={10}/>
+                <Event id={11}/>
             
+            </div>
         
         </div>
     </CustomerLayout>
 );
-}
+})
 export default Events;
