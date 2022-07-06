@@ -1,14 +1,14 @@
 import { makeAutoObservable } from "mobx";
 import { makePersistable } from "mobx-persist-store";
 import { SupabaseGateway } from "../gateways/SupaBaseGateway";
-import { Navigation } from "./navigationStore";
+import { NavigationStore } from "./navigationStore";
 
 class userStore {
-  userprofile = { email: "viv", password: "" };
   isLoggedIn = localStorage.getItem("@isLoggedIn") === "true";
+  supabaseGateway = SupabaseGateway;
   auth = SupabaseGateway.sbClient.auth;
-  navigation = Navigation;
-  
+  navigation = NavigationStore;
+  user;
   constructor() {
     makeAutoObservable(this);
     makePersistable(this, {
@@ -32,6 +32,27 @@ class userStore {
     localStorage.setItem("@isLoggedIn", `false`);
   };
 
+  signUp = () => {
+    try {
+      const { user, error } = this.auth.signUp({
+        email: this.email,
+        password: this.password,
+      });
+      if (error) throw new Error(error.message);
+      this.saveProfileData(user);
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  saveProfileData = async (user) => {
+    try {
+      const { error } = await this.supabaseGateway.insertToTable("users", user);
+      if (error) throw new Error(error.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   login = async (email, password) => {
     try {
       const { user, error } = await this.auth.signIn({
@@ -40,9 +61,10 @@ class userStore {
       });
       if (error) throw new Error(error.message);
       console.log(user);
-      this.user = user;
-      this.setIsLoggedIn();
       this.navigation.push("/admin/index");
+      this.setIsLoggedIn();
+      this.supabaseGateway.getUserData({uuid:user.id});
+      this.user = user;
     } catch (error) {
       console.log(error.message);
       alert(error.message);

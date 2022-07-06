@@ -1,22 +1,24 @@
 import { SupabaseGateway } from "../../gateways/SupaBaseGateway";
 import { makeAutoObservable } from "mobx";
-import { Navigation } from "../../stores/navigationStore";
+import { NavigationStore } from "../../stores/navigationStore";
 import { UserStore } from "../../stores/userStore";
 
 class AdminPresenter {
   auth = SupabaseGateway.sbClient.auth;
   userStore = UserStore;
+  name = "";
+  surname = "";
   email = "";
   password = "";
-  navigation = Navigation;
+  navigation = NavigationStore;
   constructor() {
     makeAutoObservable(this);
   }
 
-  get user(){
+  get user() {
     return this.userStore.user;
   }
-  setValue = (e) => {
+  setFormValue = (e) => {
     this[e.target.name] = e.target.value;
     console.log(this[e.target.name]);
   };
@@ -29,6 +31,14 @@ class AdminPresenter {
       });
       if (error) throw new Error(error.message);
       console.log(user);
+
+      this.userStore.saveProfileData({
+        id: user.uuid,
+        name: this.name,
+        surname: this.surname,
+        user_type: 3,
+        created_at: user.created_at,
+      });
     } catch (error) {
       console.log(error);
     }

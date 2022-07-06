@@ -12,6 +12,7 @@
     "mobx-persist-store": "^1.0.6",
     "mobx-react": "^7.5.0",
     "react": "^18.1.0",
+    "react-data-table-component": "^7.5.2",
     "react-dom": "^18.1.0",
     "react-feather": "^2.0.10",
     "react-router-dom": "^6.3.0",

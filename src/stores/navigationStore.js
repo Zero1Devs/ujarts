@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx"
 import {createBrowserHistory} from "history";
 
-class NavigationStore{
+class Navigation{
     history= createBrowserHistory();
 
     constructor(){
@@ -30,4 +30,4 @@ class NavigationStore{
     
 
 }
-export const Navigation=new NavigationStore();
+export const NavigationStore=new Navigation();

@@ -4,7 +4,7 @@ import { createClient, SupabaseClient } from "@supabase/supabase-js";
 let url = "";
 let anonKey = "";
 
-class SupaBase {
+class Supabase {
   sbClient = new SupabaseClient(url, anonKey);
   constructor() {
     if (!this.sbClient) {
@@ -17,11 +17,22 @@ class SupaBase {
       .select("*")
       .then((response) => console.log(response.data));
   };
-  insertToTable = (table, payload) => {
-    SupabaseGateway.sbClient
-      .from(table)
-      .insert(payload)
-      .then((response) => console.log(response));
+  getUserData = (match) => {
+    this.sbClient
+      .from("users")
+      .select("*")
+      .match(match)
+      .then((response) => console.log(response.data));
+  };
+  insertToTable = async (table, payload) => {
+    return await SupabaseGateway.sbClient.from(table).insert(payload);
+    // .then((response) => console.log(response));
+  };
+  updateTable = (table, payload, match) => {
+    SupabaseGateway.sbClient.from(table).update(payload).match(match);
+  };
+  deleteFromTable = (table, match) => {
+    SupabaseGateway.sbClient.from(table).delete().match(match);
   };
 }
-export const SupabaseGateway = new SupaBase();
+export const SupabaseGateway = new Supabase();

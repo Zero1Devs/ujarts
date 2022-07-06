@@ -49,6 +49,12 @@
     border: none;
   }
   
+  .title{
+      margin-left: 40px;
+      padding: 5px;
+      border-bottom: solid 2px var(--darkpurple);
+      color: var(--darkpurple);
+  }
   .eventList,.venuesList{
     display:flex;
     align-items:center;
@@ -192,6 +198,27 @@
     /*background: linear-gradient(180deg,#0b0d0f36,rgba(11, 13, 15, 0.205) 50%,#0b0d0f11);*/
     background: linear-gradient(139deg, rgba(0, 0, 0, 0.596) 33%, rgba(0, 0, 0, 0.596) 59%) no-repeat;
   }
+  .bookingForm{
+    border:solid 0px #ff4102;
+    padding:30px 40px;
+    margin-left: 30px;
+    height:30%;
+    width:50%; 
+    filter:drop-shadow(2px 2px 4px #45116d);
+    background:white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .bookingForm input, .bookingForm select{
+    filter:drop-shadow(2px 2px 2px #45116d);
+    display: block;
+  }
+  .bookingForm label{
+    align-self: flex-start;
+    margin-left: 25px;
+  }
 /* ------------------------------------------------------------------------------------------------*/
 /* FOOTER-----------------------------------------------------------------------------------------*/
   footer{
@@ -257,6 +284,7 @@
     display: flex;
     width: 200px;
     margin: 5px;
+    flex-wrap: wrap;
   }
   #social{
   display: flex;

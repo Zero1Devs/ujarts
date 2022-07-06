@@ -1,20 +1,41 @@
 .textInput{
-    width: 90%;
+    width: 95%;
     height: 40px;
     margin:10px 0px;
     border-radius: 6px;
-    padding: 0px 10px;
+    padding-left: 10px;
     border: none;
   }
 .loginForm{
-  border:solid 0px #ff4102;
+  
   padding:30px 40px;
   margin-left: 30px;
   height:30%;
   filter:drop-shadow(2px 2px 4px #45116d);
   background:white;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  
 }
 .loginForm input{
   filter:drop-shadow(2px 2px 2px #45116d);
+}
+.group{
+  display: block;
+  flex: 1;
+  padding-right: 0;
+  border: solid blue;
+  margin: 4px;
+}
+.navLink{
+  color: white;
+  padding: 5px 16px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  margin: 4px 0px;
 }

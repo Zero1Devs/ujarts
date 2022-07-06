@@ -1,20 +1,23 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable } from "mobx";
 
-class uiStore{
-    
-    event=[{summary:false},{summary:false},{summary:false},{summary:false},{summary:false}]
-    constructor(){
-        makeAutoObservable(this);
+class uiStore {
+  event = [
+    { summary: false },
+    { summary: false },
+    { summary: false },
+    { summary: false },
+    { summary: false },
+  ];
+  constructor() {
+    makeAutoObservable(this);
+  }
+  setFormValue = (id) => {
+    for (var i = 0; i < this.event.length; i++) {
+      if (i !== id) {
+        this.event[i].summary = false;
+      }
     }
-    setValue=(id)=>{
-        for(var i=0;i<this.event.length;i++){
-            if(i!=id){
-                this.event[i].summary=false;
-            }
-        }
-        this.event[id].summary=!this.event[id].summary;
-    }
-
-
+    this.event[id].summary = !this.event[id].summary;
+  };
 }
-export const UiStore= new uiStore;
+export const UiStore = new uiStore();
