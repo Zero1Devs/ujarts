@@ -25,5 +25,3 @@ const AddVenue = observer(() => {
   );
 });
 export default AddVenue;
-
-const Div = styled.div``;
