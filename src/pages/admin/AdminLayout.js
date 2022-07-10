@@ -3,39 +3,16 @@ import ujlogo from "../../assets/ujLogo.jpg";
 import "../../styles/index";
 import * as Icon from "react-feather";
 import { NavLink } from "react-router-dom";
-
+import { useAdminPresenter } from "./presenter";
+import styled from "styled-components";
+//941015
 const AdminLayout = (props) => {
+  const { logout } = useAdminPresenter;
   return (
-    <div
-      style={{
-        display: "flex",
-        margin: "0px",
-      }}
-    >
-      <div
-        style={{
-          height: "100vh",
-          width: "200px",
-          border: "solid 0px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          background: "var(--darkerpurple)",
-          padding: "10px 0px",
-          color: "white",
-        }}
-      >
-        <img
-          src={ujlogo}
-          width="70%"
-          alt="UJ logo"
-          height="20%"
-          style={{
-            borderBottom: "solid 1px",
-            padding: "10px",
-          }}
-        />
-      
+    <AdminWrapper>
+      <VerticalNavBar>
+        <Img src={ujlogo} alt="UJ logo" />
+
         <NavLink
           className="navLink"
           style={({ isActive }) => {
@@ -46,7 +23,7 @@ const AdminLayout = (props) => {
           to="/admin/events"
         >
           <Icon.Calendar color="white" width={17} />
-          <span style={{ marginLeft: "4px" }}>Events</span>
+          <Span>Events</Span>
         </NavLink>
         <NavLink
           className="navLink"
@@ -58,16 +35,59 @@ const AdminLayout = (props) => {
           to="/admin/venues"
         >
           <Icon.Calendar color="white" width={17} />
-          <span style={{ marginLeft: "4px" }}>Venues</span>
+          <Span>Venues</Span>
         </NavLink>
-        <NavLink className="navLink" to="/admin/venues">
+
+        <div onClick={() => logout()} className="navLink">
           <Icon.LogOut color="white" width={17} />
-          <span style={{ marginLeft: "4px" }}>Logout</span>
-        </NavLink>
-      </div>
-      <div style={{ flex: 2, padding: "20px" }}>{props.children}</div>
-    </div>
+          <Span>Logout</Span>
+        </div>
+      </VerticalNavBar>
+      <Div>{props.children}</Div>
+    </AdminWrapper>
   );
 };
 
 export default AdminLayout;
+
+const AdminWrapper = styled.div`
+  display: flex;
+`;
+const Div = styled.div`
+  flex: 1;
+  padding: 20px;
+`;
+const VerticalNavBar = styled.div`
+  height: 100vh;
+  width: 200px;
+  max-width: 200px;
+  border: solid 0px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--darkerpurple);
+  padding: 10px 0px;
+  color: white;
+`;
+const Img = styled.img`
+  border-bottom: solid 1px;
+  padding: 10px;
+  width: 70%;
+  height: 20%;
+`;
+const Span = styled.span`
+  margin-left: 4px;
+`;
+/*
+const LinkWrapper = styled.div`
+  color: white;
+  padding: 5px 16px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  margin: 4px 0px;
+`;
+*/

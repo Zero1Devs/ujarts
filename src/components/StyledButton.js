@@ -6,20 +6,20 @@ const Button = (props) => {
 };
 export default Button;
 
-export const StyledButton = styled.button`
+const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   width: ${({ width }) => width || "50%"};
-  height: ${({ height }) => height || "40px"};
+  height: 35px;
   margin: 3px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  color: ${({ color }) => color || "white"};
+  color: white;
   text-decoration: none;
-  background: ${({ background }) => background || "none"};
+  background: ${({ background }) => background};
   :hover {
-    background: ${({ hover }) => hover};
+    background: ${({ backgroundHover }) => backgroundHover};
   }
 `;

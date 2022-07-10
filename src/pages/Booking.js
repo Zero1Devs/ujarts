@@ -5,25 +5,16 @@ import Input from "../components/Input";
 import "../styles/index";
 import Button from "../components/Button";
 import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 
 const Booking = () => {
   let navigate = useNavigate();
   let params = useParams();
   return (
     <CustomerLayout>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          placeItems: "center",
-        }}
-      >
+      <Div>
         <h1>Book your tickets for event {params.event}</h1>
-        <p
-          style={{
-            width: "50%",
-          }}
-        >
+        <Paragraph>
           Terms & Conditions
           <ul>
             <li>
@@ -36,7 +27,7 @@ const Booking = () => {
               arrive early to allow additional time for screening.
             </li>
           </ul>
-        </p>
+        </Paragraph>
 
         <form className="bookingForm">
           <Input type="text" placeholder="Name" className="textInput" />
@@ -62,19 +53,32 @@ const Booking = () => {
           />
 
           <Button
-            text="Cancel"
             onClick={() => navigate("/events")}
-            className="btnBookNow"
-            style={{ width: "93%", marginTop: "50px", marginBottom: "20px" }}
-          />
+            background="var(--orange)"
+            width={"97%"}
+            hover="var(--darkorange)"
+          >
+            Cancel
+          </Button>
           <Button
-            className="btnFullDetails"
-            style={{ width: "93%" }}
-            text="Proceed with Payment"
-          />
+            background="var(--darkpurple)"
+            width={"97%"}
+            hover="var(--darkerpurple)"
+          >
+            Proceed with Payment
+          </Button>
         </form>
-      </div>
+      </Div>
     </CustomerLayout>
   );
 };
 export default Booking;
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+`;
+const Paragraph = styled.p`
+  width: 50%;
+`;

@@ -4,17 +4,19 @@ import Button from "../../../components/Button";
 import { useVenuePresenter } from "./presenter";
 import { observer } from "mobx-react";
 import VenueForm from "../../../components/Forms/VenueForm";
-const CreateVenue = observer(() => {
+import AdminLayout from "../AdminLayout";
+import styled from "styled-components";
+const AddVenue = observer(() => {
   return (
-    <div>
+    <AdminLayout>
       <h1
         className="title"
         style={{
-          width: "250px",
+          width: "180px",
           textAlign: "center",
         }}
       >
-        Create Venue
+        Add Venue
       </h1>
       <div
         className="container"
@@ -22,7 +24,9 @@ const CreateVenue = observer(() => {
       >
         <VenueForm />
       </div>
-    </div>
+    </AdminLayout>
   );
 });
-export default CreateVenue;
+export default AddVenue;
+
+const Div = styled.div``;

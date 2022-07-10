@@ -1,59 +1,97 @@
-import React from "react";
-import DataTable, { ExpanderComponentProps } from "react-data-table-component";
+import React, { useEffect } from "react";
+import DataTable from "react-data-table-component";
 import "../../../styles/index";
 import * as Icon from "react-feather";
 import AdminLayout from "../AdminLayout";
+import { useVenuePresenter } from "./presenter";
+import { observer } from "mobx-react";
+import { Link } from "react-router-dom";
+import Button from "../../../components/Button";
+import styled from "styled-components";
 
 const columns = [
   {
-    name: "Title",
-    selector: (row) => row.title,
+    name: "Name",
+    selector: (row) => row.name,
     sortable: true,
   },
   {
-    name: "Year",
-    selector: (row) => row.year,
+    name: "Address",
+    selector: (row) => row.address,
     sortable: true,
   },
   {
-    name: "Edit",
-    cell: () => <Icon.Edit color="black" width={25}/>,
+    name: "Seats",
+    selector: (row) => row.seats,
+    sortable: true,
+    width: "100px",
+  },
+  {
+    button: true,
+    cell: (row) => <EditButton row={row} />,
+  },
+  {
+    button: true,
+    cell: (row) => <DeleteButton id={row.id} />,
   },
 ];
 
-const data = [
-  {
-    id: 1,
-    title: "Beetlejuice",
-    year: "1988",
-  },
-  {
-    id: 2,
-    title: "Ghostbusters",
-    year: "1984",
-  },
-];
-
-const Venues = () => {
+const EditButton = ({ row }) => {
+  const { setVenue } = useVenuePresenter;
   return (
-    <AdminLayout>
-      <div
-        className="btnFullDetails"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "170px",
-          cursor: "pointer",
-        }}
-        onClick={() => alert("Hey")}
-      >
-        <Icon.Plus size={20} />
-        <span>Add Venue</span>
-      </div>
-
-      <DataTable columns={columns} data={data} />
-    </AdminLayout>
+    <Link onClick={() => setVenue(row)} to={"update"}>
+      <Icon.Edit color="black" width={25} />
+    </Link>
   );
 };
-export default Venues;
+const DeleteButton = (id) => {
+  const { deleteVenue } = useVenuePresenter;
+  return (
+    <Icon.Trash2
+      style={{ cursor: "pointer" }}
+      onClick={() => deleteVenue(id)}
+      color="red"
+      width={25}
+    />
+  );
+};
+
+const ListVenues = observer(() => {
+  const { getVenues, venues } = useVenuePresenter;
+  useEffect(() => {
+    getVenues();
+    // eslint-disable-next-line
+  }, []);
+  return (
+    <AdminLayout>
+      <Header>
+        <h1 className="title">Venues</h1>
+        <Link to="/admin/venues/add">
+          <Button
+            width={"170px"}
+            background="var(--darkpurple)"
+            hover="var(--darkerpurple)"
+          >
+            <Icon.Plus size={20} />
+            <span>Add Venue</span>
+          </Button>
+        </Link>
+      </Header>
+      <Table>
+        <DataTable columns={columns} data={venues} fixedHeader />
+      </Table>
+    </AdminLayout>
+  );
+});
+export default ListVenues;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border: solid 0px;
+  align-items: center;
+};
+`;
+const Table = styled.div`
+  max-width: 80vw;
+`;

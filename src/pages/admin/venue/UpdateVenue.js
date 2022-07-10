@@ -1,17 +1,27 @@
-import React from "react";
-import Input from "../../../components/Input";
-import Button from "../../../components/Button";
+import React, { useEffect } from "react";
 import { useVenuePresenter } from "./presenter";
 import { observer } from "mobx-react";
 import VenueForm from "../../../components/Forms/VenueForm";
+import { NavigationStore } from "../../../stores/navigationStore";
+import AdminLayout from "../AdminLayout";
+
 const UpdateVenue = observer(() => {
-  const { setFormValue, updateVenue, venue } = useVenuePresenter;
+  const { updateVenue, venue } = useVenuePresenter;
+  const navigation = NavigationStore;
+  useEffect(() => {
+    if (venue.id === 0) {
+      alert("No venue selected");
+      navigation.push("/admin/venues");
+      console.log(venue);
+    }
+    // eslint-disable-next-line
+  }, []);
   return (
-    <div>
+    <AdminLayout>
       <h1
         className="title"
         style={{
-          width: "250px",
+          width: "230px",
           textAlign: "center",
         }}
       >
@@ -23,7 +33,7 @@ const UpdateVenue = observer(() => {
       >
         <VenueForm venue={venue} onClick={updateVenue} />
       </div>
-    </div>
+    </AdminLayout>
   );
 });
 export default UpdateVenue;

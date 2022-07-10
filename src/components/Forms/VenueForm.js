@@ -3,12 +3,14 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { observer } from "mobx-react";
 import { useVenuePresenter } from "../../pages/admin/venue/presenter";
+import styled from "styled-components";
 
 const VenueForm = observer(({ venue }) => {
   const { setFormValue, createVenue, updateVenue } = useVenuePresenter;
 
   return (
-    <div className="loginForm" style={{ width: "50%" }}>
+    <StyledForm>
+      <label>Name</label>
       <Input
         className="textInput"
         type="text"
@@ -17,6 +19,7 @@ const VenueForm = observer(({ venue }) => {
         defaultValue={venue?.name}
         onChange={(e) => setFormValue(e)}
       />
+      <label>Address</label>
       <Input
         className="textInput"
         type="text"
@@ -34,14 +37,32 @@ const VenueForm = observer(({ venue }) => {
         placeholder="Number of seats"
         name="seats"
         onChange={(e) => setFormValue(e)}
+        width="20%"
       />
       <Button
-        text={venue ? "Update Venue" : "Create Venue"}
         className="btnBookNow"
-        style={{ width: "97%", marginTop: "10px" }}
+        style={{ marginTop: "10px" }}
+        background="var(--orange)"
+        width={"100%"}
+        hover="var(--darkorange)"
         onClick={venue ? () => updateVenue() : () => createVenue()}
-      />
-    </div>
+      >
+        {venue ? "Update Venue" : "Add Venue"}
+      </Button>
+    </StyledForm>
   );
 });
 export default VenueForm;
+
+const StyledForm = styled.div`
+  padding: 30px 40px;
+  margin-left: 30px;
+  height: 30%;
+  filter: drop-shadow(2px 2px 4px #45116d);
+  background:white;
+  display: flex;
+  flex-direction: column;
+
+  width: 70%;
+  border-radius: 5px;
+`;

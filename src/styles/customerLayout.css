@@ -1,6 +1,7 @@
   :root{
     --orange:#f25622;
     --darkorange:#ff4102;
+    --lightgray:#EEEDED;
     --gray:#646464;
     --purple:#643E77;
     --darkpurple:#45116d;
@@ -8,34 +9,10 @@
   }
   a, Link{
     text-decoration: none;
-    text-transform: none;
+    text-transform: none; 
   }
 /* NAVBAR-----------------------------------------------------------------------------------------*/
-  #menu{
-    background-color: #270c3b;
-    color: white;
-    display: flex;
-    align-items: center;
-    padding: 40px;
-    height: 10px;
-  }
-  #menu h1{
-    flex: 2;
-  }
-  .nav{
-  flex: 2;
-  border: solid 1px;
-  display: flex;
-  justify-content: right;
-  }
-  .nav a{
-    margin: 10px;
-    text-transform: uppercase;
-    color: white;
-  }
-  .nav a:hover{
-    color: var(--darkorange);
-  }
+
 /* -----------------------------------------------------------------------------------------*/
   #select{
     width: 120px;
@@ -50,7 +27,6 @@
   }
   
   .title{
-      margin-left: 40px;
       padding: 5px;
       border-bottom: solid 2px var(--darkpurple);
       color: var(--darkpurple);
@@ -220,7 +196,7 @@
     margin-left: 25px;
   }
 /* ------------------------------------------------------------------------------------------------*/
-/* FOOTER-----------------------------------------------------------------------------------------*/
+/* FOOTER-----------------------------------------------------------------------------------------
   footer{
     color: white;
     background-color: #282c34;
@@ -312,7 +288,7 @@
   }
   #ujLogo img{
     margin: 3px;
-  }
+  }*/
   .container ul{
     list-style: none;
   }

@@ -17,8 +17,9 @@ import Register from "./pages/admin/Register";
 import Index from "./pages/admin";
 import { NavigationStore } from "./stores/navigationStore";
 import { observer } from "mobx-react-lite";
-import CreateVenue from "./pages/admin/venue/CreateVenue";
+import AddVenue from "./pages/admin/venue/AddVenue";
 import ListVenues from "./pages/admin/venue/index";
+import UpdateVenue from "./pages/admin/venue/UpdateVenue";
 
 const App = observer(() => {
   const { history } = NavigationStore;
@@ -37,13 +38,13 @@ const App = observer(() => {
         <Route path="admin/login" element={<Login />} />
         <Route path="admin/register" element={<Register />} />
         <Route path="admin/index" element={<Index />} />
-        <Route path="admin/create-venue" element={<CreateVenue />} />
+        <Route path="admin/venues/add" element={<AddVenue />} />
+        <Route path="admin/venues/update" element={<UpdateVenue />} />
         <Route path="admin/venues" element={<ListVenues />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HistoryRouter>
   );
 });
-
 
 export default App;

@@ -4,7 +4,6 @@ import { SupabaseGateway } from "../gateways/SupaBaseGateway";
 class VenueStore {
   supabaseGateway = SupabaseGateway;
   venue = { name: String(), address: String(), seats: new Int32Array() };
-
   constructor() {
     makeAutoObservable(this);
   }
@@ -19,6 +18,18 @@ class VenueStore {
     } catch (error) {
       console.log(error.message);
       alert(error.message);
+    }
+  };
+  /**/ getVenues = async () => {
+    try {
+      const { error, data } = await this.supabaseGateway.selectFromTable(
+        "venues"
+      );
+
+      if (error) throw new Error(error.message);
+      return data;
+    } catch (error) {
+      console.log(error.message);
     }
   };
   updateVenue = async (id) => {
@@ -36,9 +47,9 @@ class VenueStore {
       console.log(error.message);
     }
   };
-  deleteVenue = async (table, id) => {
+  deleteVenue = async (id) => {
     try {
-      const { error } = await this.supabaseGateway.deleteFromTable(table, {
+      const { error } = await this.supabaseGateway.deleteFromTable("venues", {
         id: id,
       });
       if (error) throw new Error(error.message);
