@@ -5,11 +5,9 @@ import ujlogo from "../../assets/ujLogo.jpg";
 import "../../styles/index.css";
 import "../../styles/adminLayout.css";
 import { observer } from "mobx-react";
-import { UserStore } from "../../stores/userStore";
 import { useAdminPresenter } from "./presenter";
 
 const Register = observer(() => {
-  //const {setFormValue}=UserStore;
   const { signUp, setFormValue } = useAdminPresenter;
   return (
     <div
@@ -32,7 +30,7 @@ const Register = observer(() => {
         />
         <Input
           type="text"
-          name="last_name"//surname
+          name="last_name" //surname
           onChange={(e) => setFormValue(e)}
           placeholder="Surname"
           className="textInput"

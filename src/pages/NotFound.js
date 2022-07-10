@@ -1,9 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { NavigationStore } from "../stores/navigationStore";
 const NotFound = () => {
-  const navigation = NavigationStore;
   return (
     <Div>
       <div>
