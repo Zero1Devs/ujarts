@@ -13,7 +13,7 @@
   }
   .container{
     display:flex;
-    border:solid red;
+    border:solid 0px red;
     flex-direction:column;
     flex-wrap:wrap;
     color:#22092F ;

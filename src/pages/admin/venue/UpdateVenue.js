@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import VenueForm from "../../../components/Forms/VenueForm";
 import { NavigationStore } from "../../../stores/navigationStore";
 import AdminLayout from "../AdminLayout";
+import Title from "../../../components/Title";
 
 const UpdateVenue = observer(() => {
   const { updateVenue, venue } = useVenuePresenter;
@@ -18,15 +19,7 @@ const UpdateVenue = observer(() => {
   }, []);
   return (
     <AdminLayout>
-      <h1
-        className="title"
-        style={{
-          width: "230px",
-          textAlign: "center",
-        }}
-      >
-        Update Venue
-      </h1>
+      <Title width="230px">Update Venue</Title>
       <div
         className="container"
         style={{ alignItems: "center", border: "none" }}

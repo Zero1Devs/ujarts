@@ -37,6 +37,18 @@ const AdminLayout = (props) => {
           <Icon.Calendar color="white" width={17} />
           <Span>Venues</Span>
         </NavLink>
+        <NavLink
+          className="navLink"
+          style={({ isActive }) => {
+            return {
+              background: isActive ? "var(--darkpurple)" : "",
+            };
+          }}
+          to="/admin/"
+        >
+          <Icon.Percent color="white" width={17} />
+          <Span>Promo</Span>
+        </NavLink>
 
         <div onClick={() => logout()} className="navLink">
           <Icon.LogOut color="white" width={17} />

@@ -89,7 +89,7 @@ const StyledEventSummary = styled.div`
   border-radius: 20px;
   margin: 0px 33px;
   overflow: hidden;
-  background-image: ${({ background }) => background};
+  background-image:url(${({ background }) => background});
   background-size: 100%;
   background-repeat: no-repeat;
   color: white;

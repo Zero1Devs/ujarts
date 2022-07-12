@@ -30,7 +30,7 @@ class VenuePresenter {
   };
   deleteVenue = async ({ id }) => {
     console.log(id);
-    let confirm = window.confirm();
+    let confirm = window.confirm("Do you want to deletes this event?");
     if (confirm) {
       try {
         await this.venueStore.deleteVenue(id);

@@ -64,7 +64,7 @@ const NavWrapper = styled.div`
 `;
 const Nav = styled.nav`
   flex: 2;
-  border: solid 1px;
+  border: solid 0px;
   display: flex;
   justify-content: right;
 
@@ -75,6 +75,15 @@ const Nav = styled.nav`
   }
   a:hover {
     color: var(--darkorange);
+    animation: scale 1s;
+  }
+  @keyframes scale {
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 `;
 export default Navbar;

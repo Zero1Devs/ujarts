@@ -5,19 +5,14 @@ import Event from "../components/Event";
 import CustomerLayout from "../CustomerLayout";
 import { observer } from "mobx-react";
 import event from "./data";
+import styled from "styled-components";
+import Title from "../components/Title";
 const Events = observer(() => {
   return (
     <CustomerLayout>
       <div className="container">
-        <h2
-          className="title"
-          style={{
-            width: "140px",
-          }}
-        >
-          What's On?
-        </h2>
-        <div style={{ alignSelf: "center" }}>
+        <Title width="190px" marginLeft="30px">What's On?</Title>
+        <Div>
           <label>Filter by:</label>
           <select name="" id="select">
             <option disabled selected>
@@ -31,15 +26,27 @@ const Events = observer(() => {
             <option value={""}>Music</option>
             <option value={""}>Theatre</option>
           </select>
-        </div>
+        </Div>
 
-        <div className="eventList">
+        <EventList className="eventList">
           {event.map((data, id) => (
             <Event key={id} id={id} data={data} />
           ))}
-        </div>
+        </EventList>
       </div>
     </CustomerLayout>
   );
 });
 export default Events;
+
+export const EventList = styled.div`
+  display: flex;
+  align-items: center;
+  border: solid 0px black;
+  flex-wrap: wrap;
+  padding-left: 25px;
+`;
+
+export const Div = styled.div`
+  align-self: center;
+`;
