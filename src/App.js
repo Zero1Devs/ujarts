@@ -46,5 +46,4 @@ const App = observer(() => {
     </HistoryRouter>
   );
 });
-
 export default App;

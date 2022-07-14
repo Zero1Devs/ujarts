@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/index.css";
 import "../styles/customerLayout.css";
 import thumbnail from "../assets/thumbnail.jpg";
-import { Calendar, MapPin, Users } from "react-feather";
+import { Calendar, Clock, MapPin, Users } from "react-feather";
 import { observer } from "mobx-react";
 import { UiStore } from "../stores/uiStore";
 import EventSummary from "./EventSummary";
@@ -26,19 +26,24 @@ const Event = observer(({ id, data }) => {
             Urban Soundscapes- Crafting Spaces of Belonging
           </EventName>
 
-          <label title="Venue">
-            <MapPin size="23" color="#f25622" />
-            <span>Kingsway Campus A1</span>
-          </label>
-
           <label title="Date">
-            <Calendar size="23" color="#f25622" />
+            <Calendar size="23" color="var(--darkerpurple)" />
             <span>11/06/2022 to 30/08/2022</span>
           </label>
 
+          <label title="Venue">
+            <MapPin size="23" color="var(--darkerpurple)" />
+            <span>Kingsway Campus A1</span>
+          </label>
+
           <label title="Presented by">
-            <Users size="23" color="#f25622" />
+            <Users size="23" color="var(--darkerpurple)" />
             <span>UJ Arts Gallery</span>
+          </label>
+
+          <label title="Duration">
+            <Clock size="23" color="var(--darkerpurple)" />
+            <span>N/A</span>
           </label>
         </EventInfo>
       </EventCard>
@@ -52,7 +57,7 @@ export default Event;
 const EventCard = styled.div`
   border: solid 0px;
   height: auto;
-  height: 454px;
+  height: 554px;
   width: 361px;
   border-radius: 5px;
   background-color: #eeeded;
@@ -80,6 +85,9 @@ const EventCard = styled.div`
     text-align: left;
     margin: 5px;
     padding: 4px;
+    span {
+      margin-left: 10px;
+    }
   }
 `;
 const EventName = styled.label`

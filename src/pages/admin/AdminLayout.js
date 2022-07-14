@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ujlogo from "../../assets/ujLogo.jpg";
 import "../../styles/index";
 import * as Icon from "react-feather";
 import { NavLink } from "react-router-dom";
 import { useAdminPresenter } from "./presenter";
 import styled from "styled-components";
+import { UserStore } from "../../stores/userStore";
+import { NavigationStore } from "../../stores/navigationStore";
+
 //941015
 const AdminLayout = (props) => {
   const { logout } = useAdminPresenter;
+  const { isLoggedIn } = UserStore;
+  const { replace } = NavigationStore;
+  useEffect(() => {
+    if (!isLoggedIn) replace("/admin");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <AdminWrapper>
       <VerticalNavBar>
@@ -18,41 +27,46 @@ const AdminLayout = (props) => {
           style={({ isActive }) => {
             return {
               background: isActive ? "var(--darkpurple)" : "",
+              borderLeft: isActive ? "solid 5px white" : "",
+              borderTopLeftRadius: "2px",
+              borderBottomLeftRadius: "2px",
             };
           }}
           to="/admin/events"
         >
-          <Icon.Calendar color="white" width={17} />
-          <Span>Events</Span>
+          <Icon.Calendar color="white" width={30} />
         </NavLink>
         <NavLink
           className="navLink"
           style={({ isActive }) => {
             return {
               background: isActive ? "var(--darkpurple)" : "",
+              borderLeft: isActive ? "solid 5px white" : "",
+              borderTopLeftRadius: "2px",
+              borderBottomLeftRadius: "2px",
             };
           }}
           to="/admin/venues"
         >
-          <Icon.Calendar color="white" width={17} />
-          <Span>Venues</Span>
+          <Icon.Tv color="white" width={30} />
         </NavLink>
         <NavLink
           className="navLink"
           style={({ isActive }) => {
             return {
               background: isActive ? "var(--darkpurple)" : "",
+              borderLeft: isActive ? "solid 5px white" : "",
+              borderTopLeftRadius: "2px",
+              borderBottomLeftRadius: "2px",
             };
           }}
           to="/admin/"
         >
-          <Icon.Percent color="white" width={17} />
-          <Span>Promo</Span>
+          <Icon.Percent color="white" width={30} />
         </NavLink>
 
         <div onClick={() => logout()} className="navLink">
-          <Icon.LogOut color="white" width={17} />
-          <Span>Logout</Span>
+          <Icon.LogOut color="white" width={30} />
         </div>
       </VerticalNavBar>
       <Div>{props.children}</Div>
@@ -79,17 +93,14 @@ const VerticalNavBar = styled.div`
   flex-direction: column;
   align-items: center;
   background: var(--darkerpurple);
-  padding: 10px 0px;
+  padding: 0px 0px;
   color: white;
 `;
 const Img = styled.img`
   border-bottom: solid 1px;
   padding: 10px;
-  width: 70%;
-  height: 20%;
-`;
-const Span = styled.span`
-  margin-left: 4px;
+  width: 50%;
+  height: 15%;
 `;
 /*
 const LinkWrapper = styled.div`

@@ -10,6 +10,8 @@ class AdminPresenter {
   surname = "";
   email = "";
   password = "";
+  confirm_password = "";
+  error = false;
   navigation = NavigationStore;
   constructor() {
     makeAutoObservable(this);
@@ -25,6 +27,12 @@ class AdminPresenter {
 
   signUp = () => {
     try {
+      if (this.password !== this.confirm_password) {
+        this.error = true;
+        return;
+      }
+      this.error = false;
+
       const { user, error } = this.auth.signUp({
         email: this.email,
         password: this.password,
@@ -53,7 +61,8 @@ class AdminPresenter {
   };
   logout = async () => {
     try {
-      await this.userStore.logout();
+      let confirm = window.confirm("Do you want to logout?");
+      if (confirm) await this.userStore.logout();
     } catch (error) {
       console.log(error.message);
     }

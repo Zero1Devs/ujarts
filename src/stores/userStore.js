@@ -61,9 +61,9 @@ class userStore {
       });
       if (error) throw new Error(error.message);
       console.log(user);
-      this.navigation.push("/admin/index");
+      this.navigation.push("/admin/venues");
       this.setIsLoggedIn();
-      this.supabaseGateway.getUserData({uuid:user.id});
+      this.supabaseGateway.getUserData({ uuid: user.id });
       this.user = user;
     } catch (error) {
       console.log(error.message);

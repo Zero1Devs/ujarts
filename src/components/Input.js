@@ -5,7 +5,7 @@ const Input = (props) => {
   return <StyledInput {...props} />;
 };
 export default Input;
-const StyledInput = styled.input`
+export const StyledInput = styled.input`
   width: ${({ width }) => width || "100%"};
   height: 40px;
   margin: 10px 0px;

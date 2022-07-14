@@ -32,10 +32,10 @@
 .navLink{
   color: white;
   padding: 5px 16px;
-  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 110px;
+  width: 162px;
   margin: 4px 0px;
+  cursor:pointer;
 }

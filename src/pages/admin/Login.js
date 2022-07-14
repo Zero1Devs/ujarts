@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import Button from "../../components/Button";
-import Input from "../../components/Input";
-import ujlogo from "../../assets/ujLogo.jpg";
-import "../../styles/index.css";
-import "../../styles/adminLayout.css";
 import { observer } from "mobx-react";
 import { useAdminPresenter } from "./presenter";
 import { UserStore } from "../../stores/userStore";
 import { NavigationStore } from "../../stores/navigationStore";
+import AuthForm, { Input } from "../../components/Forms/AuthForm";
 
 const LoginForm = observer(() => {
   const { login, setFormValue } = useAdminPresenter;
@@ -18,41 +15,32 @@ const LoginForm = observer(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div
-      style={{
-        display: "flex",
-        border: "",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        flexWrap: "wrap",
-      }}
-    >
-      <img src={ujlogo} width="20%" alt="UJ logo" height="40%" />
-      <div className="loginForm">
-        <Input
-          type="text"
-          name="email"
-          onChange={(e) => setFormValue(e)}
-          placeholder="Email/Username"
-          className="textInput"
-        />
-        <Input
-          type="password"
-          name="password"
-          onChange={(e) => setFormValue(e)}
-          placeholder="Password"
-          className="textInput"
-        />
-        <Button
-          text="Login"
-          className="btnBookNow"
-          type="submit"
-          style={{ width: "100%", marginTop: "20px", height: "40px" }}
-          onClick={login}
-        />
-      </div>
-    </div>
+    <AuthForm>
+      <h3>Login</h3>
+      <Input
+        type="text"
+        name="email"
+        onChange={(e) => setFormValue(e)}
+        placeholder="Email/Username"
+        className="textInput"
+      />
+      <Input
+        type="password"
+        name="password"
+        onChange={(e) => setFormValue(e)}
+        placeholder="Password"
+        className="textInput"
+      />
+      <Button
+        style={{ marginTop: "10px" }}
+        background="var(--orange)"
+        width={"103%"}
+        hover="var(--darkorange)"
+        onClick={login}
+      >
+        Login
+      </Button>
+    </AuthForm>
   );
 });
 export default LoginForm;
