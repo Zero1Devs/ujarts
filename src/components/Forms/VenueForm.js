@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { observer } from "mobx-react";
 import { useVenuePresenter } from "../../pages/admin/venue/presenter";
 import styled from "styled-components";
+import Select from "../Select";
 
 const VenueForm = observer(({ venue }) => {
-  const { setFormValue, createVenue, updateVenue } = useVenuePresenter;
-
+  const { setFormValue, createVenue, updateVenue, campuses, getCampuses } =
+    useVenuePresenter;
+  useEffect(() => {
+    getCampuses();
+    // eslint-disable-next-line
+  }, []);
   return (
     <StyledForm>
       <label>Name</label>
@@ -19,14 +24,13 @@ const VenueForm = observer(({ venue }) => {
         defaultValue={venue?.name}
         onChange={(e) => setFormValue(e)}
       />
-      <label>Address</label>
-      <Input
-        className="textInput"
-        type="text"
-        placeholder="Address"
-        name="address"
-        defaultValue={venue?.address}
+
+      <label>Campus</label>
+      <Select
+        value={venue?.campus.id}
+        name="campus"
         onChange={(e) => setFormValue(e)}
+        options={campuses}
       />
       <label>Number of seats</label>
       <Input
@@ -59,7 +63,7 @@ const StyledForm = styled.div`
   margin-left: 30px;
   height: 30%;
   filter: drop-shadow(2px 2px 4px #45116d);
-  background:white;
+  background: white;
   display: flex;
   flex-direction: column;
 

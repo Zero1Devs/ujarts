@@ -1,8 +1,10 @@
 import { makeAutoObservable } from "mobx";
 import { SupabaseGateway } from "../gateways/SupaBaseGateway";
+import { NavigationStore } from "./navigationStore";
 
 class VenueStore {
   supabaseGateway = SupabaseGateway;
+  navigation = NavigationStore;
   venue = { name: String(), address: String(), seats: new Int32Array() };
   constructor() {
     makeAutoObservable(this);
@@ -15,6 +17,7 @@ class VenueStore {
       );
       if (error) throw new Error(error.message);
       alert("Venue created!");
+      this.navigation.push("/admin/venues");
     } catch (error) {
       console.log(error.message);
       alert(error.message);
@@ -22,9 +25,11 @@ class VenueStore {
   };
   /**/ getVenues = async () => {
     try {
-      const { error, data } = await this.supabaseGateway.selectFromTable(
-        "venues"
-      );
+      const { error, data } =
+        await this.supabaseGateway.selectFromTableWithForeignKey(
+          "venues",
+          " campuses(id,abbreviation)"
+        );
 
       if (error) throw new Error(error.message);
       return data;
@@ -32,17 +37,19 @@ class VenueStore {
       console.log(error.message);
     }
   };
-  updateVenue = async (id) => {
+  updateVenue = async (venue) => {
     try {
-      const { error } = await this.supabaseGateway.updateTable(
+      const { error, data } = await this.supabaseGateway.updateTable(
         "venues",
-        this.venue,
+        venue,
         {
-          id: id,
+          id: venue.id,
         }
       );
       if (error) throw new Error(error.message);
       alert("Venue updated!");
+      this.navigation.push("/admin/venues");
+      console.log(data);
     } catch (error) {
       console.log(error.message);
     }
@@ -53,6 +60,17 @@ class VenueStore {
         id: id,
       });
       if (error) throw new Error(error.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getCampuses = async () => {
+    try {
+      const { data, error } = await this.supabaseGateway.selectFromTable(
+        "campuses"
+      );
+      if (error) throw new Error(error.message);
+      return data;
     } catch (error) {
       console.log(error.message);
     }

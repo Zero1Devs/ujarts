@@ -5,11 +5,12 @@ class VenuePresenter {
   venue = {
     id: new Int32Array(),
     name: String(),
-    address: String(),
+    campus: new Int32Array(),
     seats: new Int32Array(),
   };
   venueStore = useVenueStore;
   venues = [];
+  campuses = [];
   constructor() {
     makeAutoObservable(this);
   }
@@ -25,8 +26,14 @@ class VenuePresenter {
       console.log(error.message);
     }
   };
-  updateVenue = () => {
-    alert("hey");
+  updateVenue = async () => {
+    try {
+      const { id, name, campus, seats } = this.venue;
+      let venue = { id, name, campus_id: campus, seats };
+      await this.venueStore.updateVenue(venue);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   deleteVenue = async ({ id }) => {
     console.log(id);
@@ -48,11 +55,27 @@ class VenuePresenter {
       const data = await this.venueStore.getVenues();
 
       runInAction(() => {
-        this.venues = data.map(({ id, name, address, seats }) => ({
+        this.venues = data.map(({ id, name, campuses, seats }) => ({
           id: id,
           name: name,
-          address: address,
+          campus: campuses,
           seats: seats,
+        }));
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getCampuses = async () => {
+    try {
+      const data = await this.venueStore.getCampuses();
+
+      runInAction(() => {
+        this.campuses = data.map(({ id, name, abbreviation }) => ({
+          id: id,
+          name: name,
+          abbreviation: abbreviation,
         }));
       });
       console.log(data);

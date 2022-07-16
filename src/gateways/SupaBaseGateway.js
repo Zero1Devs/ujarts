@@ -16,6 +16,10 @@ class Supabase {
     return await this.sbClient.from(table).select("*");
     //.then((response) => console.log(response.data));
   };
+  selectFromTableWithForeignKey = async (table, select) => {
+    return await this.sbClient.from(table).select("*," + select);
+    //.then((response) => console.log(response.data));
+  };
   getUserData = (match) => {
     this.sbClient
       .from("users")
@@ -27,8 +31,11 @@ class Supabase {
     return await SupabaseGateway.sbClient.from(table).insert(payload);
     // .then((response) => console.log(response));
   };
-  updateTable = (table, payload, match) => {
-    SupabaseGateway.sbClient.from(table).update(payload).match(match);
+  updateTable = async (table, payload, match) => {
+    return await SupabaseGateway.sbClient
+      .from(table)
+      .update(payload)
+      .match(match);
   };
   deleteFromTable = (table, match) => {
     SupabaseGateway.sbClient.from(table).delete().match(match);

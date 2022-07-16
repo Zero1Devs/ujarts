@@ -14,17 +14,17 @@ const columns = [
     name: "Name",
     selector: (row) => row.name,
     sortable: true,
+    width: "50%",
   },
   {
-    name: "Address",
-    selector: (row) => row.address,
+    name: "Campus",
+    selector: (row) => row.campus.abbreviation,
     sortable: true,
   },
   {
     name: "Seats",
     selector: (row) => row.seats,
     sortable: true,
-    width: "100px",
   },
   {
     button: true,
@@ -65,7 +65,8 @@ const ListVenues = observer(() => {
   return (
     <AdminLayout>
       <Header>
-        <h1 className="title">Venues</h1>
+        <h1 className="title">Venues List</h1>
+
         <Link to="/admin/venues/add">
           <Button
             width={"170px"}
