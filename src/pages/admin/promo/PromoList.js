@@ -80,9 +80,7 @@ const data = [
 
 const EditButton = ({ row }) => {
   return (
-    <Link onClick={() => alert("updated")} to={"update"}>
-      <Icon.Edit color="black" width={25} />
-    </Link>
+    <Icon.Edit color="black" width={25} onClick={() => alert("updated")} />
   );
 };
 const DeleteButton = (id) => {
