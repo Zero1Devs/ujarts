@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledSelect = styled.select`
-  width: 100%;
+  width: ${({ width }) => width || "100%"};
   height: 42px;
   border-radius: 5px;
   margin: 5px 0px;

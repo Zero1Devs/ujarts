@@ -50,6 +50,7 @@ const AdminLayout = (props) => {
         >
           <Icon.Tv color="white" width={30} />
         </NavLink>
+
         <NavLink
           className="navLink"
           style={({ isActive }) => {
@@ -60,7 +61,7 @@ const AdminLayout = (props) => {
               borderBottomLeftRadius: "2px",
             };
           }}
-          to="/admin/"
+          to="/admin/promo"
         >
           <Icon.Percent color="white" width={30} />
         </NavLink>
