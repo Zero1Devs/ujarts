@@ -86,13 +86,13 @@ const ListVenues = observer(() => {
 });
 export default ListVenues;
 
-const Header = styled.div`
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   border: solid 0px;
   align-items: center;
 };
 `;
-const Table = styled.div`
+export const Table = styled.div`
   max-width: 80vw;
 `;

@@ -20,6 +20,8 @@ import { observer } from "mobx-react-lite";
 import AddVenue from "./pages/admin/venue/AddVenue";
 import ListVenues from "./pages/admin/venue/index";
 import UpdateVenue from "./pages/admin/venue/UpdateVenue";
+import AddPromo from "./pages/admin/promo/AddPromo";
+import PromoList from "./pages/admin/promo/PromoList";
 
 const App = observer(() => {
   const { history } = NavigationStore;
@@ -41,6 +43,8 @@ const App = observer(() => {
         <Route path="admin/venues/add" element={<AddVenue />} />
         <Route path="admin/venues/update" element={<UpdateVenue />} />
         <Route path="admin/venues" element={<ListVenues />} />
+        <Route path="admin/promo/add" element={<AddPromo />} />
+        <Route path="admin/promo" element={<PromoList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HistoryRouter>

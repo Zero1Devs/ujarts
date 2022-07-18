@@ -12,8 +12,8 @@ export const StyledButton = styled.button`
   justify-content: center;
   width: ${({ width }) => width || "50%"};
   height: ${({ height }) => height || "40px"};
+  border: ${({ border }) => border || "none"};
   margin: 3px;
-  border: none;
   cursor: pointer;
   border-radius: 5px;
   color: ${({ color }) => color || "white"};
@@ -21,5 +21,6 @@ export const StyledButton = styled.button`
   background: ${({ background }) => background || "none"};
   :hover {
     background: ${({ hover }) => hover};
+    color: white;
   }
 `;
