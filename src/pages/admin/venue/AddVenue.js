@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import VenueForm from "../../../components/Forms/VenueForm";
-import AdminLayout from "../AdminLayout";
+import AdminLayout from "../../../layouts/AdminLayout";
 import { StyledH2 } from "../../../components/Title";
 import styled from "styled-components";
 const AddVenue = observer(() => {

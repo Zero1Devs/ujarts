@@ -1,9 +1,8 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 // Create a single supabase client for interacting with your database
-let url = "https://rejvaycjmxvuyulhrizp.supabase.co";
-let anonKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlanZheWNqbXh2dXl1bGhyaXpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTU4MDI0NTgsImV4cCI6MTk3MTM3ODQ1OH0.cobJwV0rCJI6lvw0IcyEIJcshT1Crx7WC7v9qNfETpc";
+let url = "";
+let anonKey = "";
 
 class Supabase {
   sbClient = new SupabaseClient(url, anonKey);
@@ -20,12 +19,8 @@ class Supabase {
     return await this.sbClient.from(table).select("*," + select);
     //.then((response) => console.log(response.data));
   };
-  getUserData = (match) => {
-    this.sbClient
-      .from("users")
-      .select("*")
-      .match(match)
-      .then((response) => console.log(response.data));
+  getUserData = async (match) => {
+    return await this.sbClient.from("users").select("*").match(match);
   };
   insertToTable = async (table, payload) => {
     return await SupabaseGateway.sbClient.from(table).insert(payload);

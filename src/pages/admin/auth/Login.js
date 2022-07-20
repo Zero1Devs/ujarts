@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
-import Button from "../../components/Button";
+import Button from "../../../components/Button";
 import { observer } from "mobx-react";
 import { useAdminPresenter } from "./presenter";
-import { UserStore } from "../../stores/userStore";
-import { NavigationStore } from "../../stores/navigationStore";
-import AuthForm, { Input } from "../../components/Forms/AuthForm";
+import { UserStore } from "../../../stores/userStore";
+import { NavigationStore } from "../../../stores/navigationStore";
+import AuthForm, { Input } from "../../../components/Forms/AuthForm";
+import { Link } from "react-router-dom";
 
 const LoginForm = observer(() => {
-  const { login, setFormValue } = useAdminPresenter;
+  const { login, setFormValue, loading } = useAdminPresenter;
   const { isLoggedIn } = UserStore;
   const navigation = NavigationStore;
   useEffect(() => {
-    if (isLoggedIn) navigation.replace("/admin/index");
+    if (isLoggedIn) navigation.replace("/admin/venues");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -31,12 +32,16 @@ const LoginForm = observer(() => {
         placeholder="Password"
         className="textInput"
       />
+      <Link style={{alignSelf:"flex-end"}} to="/admin/forgot-password">
+        Forgot Password
+      </Link>
       <Button
         style={{ marginTop: "10px" }}
         background="var(--orange)"
         width={"103%"}
         hover="var(--darkorange)"
         onClick={login}
+        loading={loading}
       >
         Login
       </Button>

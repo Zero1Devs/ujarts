@@ -3,7 +3,7 @@ import { useVenuePresenter } from "./presenter";
 import { observer } from "mobx-react";
 import VenueForm from "../../../components/Forms/VenueForm";
 import { NavigationStore } from "../../../stores/navigationStore";
-import AdminLayout from "../AdminLayout";
+import AdminLayout from "../../../layouts/AdminLayout";
 import Title from "../../../components/Title";
 
 const UpdateVenue = observer(() => {

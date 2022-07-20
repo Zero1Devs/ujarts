@@ -1,5 +1,5 @@
 import React from "react";
-import AdminLayout from "../AdminLayout";
+import AdminLayout from "../../../layouts/AdminLayout";
 import Title from "../../../components/Title";
 import styled from "styled-components";
 import Input from "../../../components/Input";

@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { makePersistable } from "mobx-persist-store";
 import { SupabaseGateway } from "../gateways/SupaBaseGateway";
 import { NavigationStore } from "./navigationStore";
@@ -47,12 +47,19 @@ class userStore {
   };
   saveProfileData = async (user) => {
     try {
-      const { error } = await this.supabaseGateway.insertToTable("users", user);
+      const { error, data } = await this.supabaseGateway.insertToTable(
+        "users",
+        user
+      );
       if (error) throw new Error(error.message);
+      runInAction(() => {
+        this.user = { ...this.user, ...data };
+      });
     } catch (error) {
       console.log(error.message);
     }
   };
+
   login = async (email, password) => {
     try {
       const { user, error } = await this.auth.signIn({
@@ -60,11 +67,13 @@ class userStore {
         password,
       });
       if (error) throw new Error(error.message);
-      console.log(user);
       this.navigation.push("/admin/venues");
       this.setIsLoggedIn();
-      this.supabaseGateway.getUserData({ uuid: user.id });
-      this.user = user;
+      const { data } = this.supabaseGateway.getUserData({ uuid: user.id });
+      runInAction(() => {
+        this.user = { ...user, ...data };
+      });
+      console.log(this.user);
     } catch (error) {
       console.log(error.message);
       alert(error.message);

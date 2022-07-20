@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/index.css";
 import weArtBanner from "../assets/We_ART_Web_banner.width-500.png";
-import CustomerLayout from "../CustomerLayout";
+import CustomerLayout from "../layouts/CustomerLayout";
 const About = () => {
   return (
     <CustomerLayout>

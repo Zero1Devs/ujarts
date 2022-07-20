@@ -1,13 +1,13 @@
 import React from "react";
-import Button from "../../components/Button";
+import Button from "../../../components/Button";
 import { observer } from "mobx-react";
 import { useAdminPresenter } from "./presenter";
-import AuthForm, { Input } from "../../components/Forms/AuthForm";
+import AuthForm, { Input } from "../../../components/Forms/AuthForm";
 import styled from "styled-components";
 import * as Icon from "react-feather";
 
 const Register = observer(() => {
-  const { signUp, setFormValue, error } = useAdminPresenter;
+  const { signUp, setFormValue, error, loading } = useAdminPresenter;
   return (
     <AuthForm>
       <h3>Register</h3>
@@ -19,7 +19,7 @@ const Register = observer(() => {
       />
       <Input
         type="text"
-        name="last_name" //surname
+        name="surname"
         onChange={(e) => setFormValue(e)}
         placeholder="Surname"
       />
@@ -42,7 +42,7 @@ const Register = observer(() => {
         onChange={(e) => setFormValue(e)}
         placeholder="Confirm Password"
       />
-      <Error display={error}>
+      <Error display={error.toString()}>
         <Icon.Info color="red" width={17} />
         <span>Your passwords don't match!</span>
       </Error>
@@ -52,6 +52,7 @@ const Register = observer(() => {
         width={"103%"}
         hover="var(--darkorange)"
         onClick={signUp}
+        loading={loading}
       >
         Register
       </Button>
@@ -59,9 +60,9 @@ const Register = observer(() => {
   );
 });
 export default Register;
-const Error = styled.label`
+export const Error = styled.label`
   color: red;
-  display: ${({ display }) => (display ? "flex" : "none")};
+  display: ${({ display }) => (display === "true" ? "flex" : "none")};
   text-align: center;
   span {
     margin-left: 5px;

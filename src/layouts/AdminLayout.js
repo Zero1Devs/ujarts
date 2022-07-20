@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import ujlogo from "../../assets/ujLogo.jpg";
-import "../../styles/index";
+import ujlogo from "../assets/ujLogo.jpg";
+import "../styles/index";
 import * as Icon from "react-feather";
 import { NavLink } from "react-router-dom";
-import { useAdminPresenter } from "./presenter";
+import { useAdminPresenter } from "../pages/admin/auth/presenter";
 import styled from "styled-components";
-import { UserStore } from "../../stores/userStore";
-import { NavigationStore } from "../../stores/navigationStore";
+import { UserStore } from "../stores/userStore";
+import { NavigationStore } from "../stores/navigationStore";
 
 //941015
 const AdminLayout = (props) => {

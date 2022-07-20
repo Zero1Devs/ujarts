@@ -1,5 +1,5 @@
 import React from "react";
-import CustomerLayout from "../CustomerLayout";
+import CustomerLayout from "../layouts/CustomerLayout";
 import Input from "../components/Input";
 //import "../styles/adminLayout.css";
 import "../styles/index";

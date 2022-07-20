@@ -1,17 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/index.css";
 import "../styles/customerLayout.css";
 import Event from "../components/Event";
-import CustomerLayout from "../CustomerLayout";
+import CustomerLayout from "../layouts/CustomerLayout";
 import { observer } from "mobx-react";
 import event from "./data";
 import styled from "styled-components";
 import Title from "../components/Title";
+import { useLocation } from "react-router-dom";
+import { NavigationStore } from "../stores/navigationStore";
+
 const Events = observer(() => {
+  let location = useLocation();
+  const navigation = NavigationStore;
+
+  useEffect(() => {
+    const hash = location.hash.split("&");
+    if (hash[4] === "type=recovery")
+      navigation.replace("/admin/reset-password");
+    else if (hash[4] === "type=signup") navigation.replace("/admin/login");
+
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <CustomerLayout>
       <div className="container">
-        <Title width="190px" marginLeft="30px">What's On?</Title>
+        <Title width="190px" marginLeft="30px">
+          What's On?
+        </Title>
+
         <Div>
           <label>Filter by:</label>
           <select name="" id="select">

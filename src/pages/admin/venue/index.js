@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import DataTable from "react-data-table-component";
 import "../../../styles/index";
 import * as Icon from "react-feather";
-import AdminLayout from "../AdminLayout";
+import AdminLayout from "../../../layouts/AdminLayout";
 import { useVenuePresenter } from "./presenter";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";

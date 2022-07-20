@@ -1,8 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import loader from "../assets/loading.json";
+import Lootie from "lottie-react";
 
 const Button = (props) => {
-  return <StyledButton {...props}>{props.children}</StyledButton>;
+  return (
+    <StyledButton {...props}>
+      {!props?.loading ? (
+        props.children
+      ) : (
+        <Lootie animationData={loader} style={{ height: "100%" }} />
+      )}
+    </StyledButton>
+  );
 };
 export default Button;
 

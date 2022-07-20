@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/index.css";
 import "../styles/customerLayout.css";
-import CustomerLayout from "../CustomerLayout";
+import CustomerLayout from "../layouts/CustomerLayout";
 import styled from "styled-components";
 import { EventList } from "./Events";
 import Title from "../components/Title";

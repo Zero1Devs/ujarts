@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import thumbnail from '../assets/thumbnail.jpg';
-import CustomerLayout from "../CustomerLayout";
+import CustomerLayout from "../layouts/CustomerLayout";
 
 const EventDetails=()=>{
     let params = useParams();
