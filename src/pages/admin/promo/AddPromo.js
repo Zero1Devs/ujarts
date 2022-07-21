@@ -1,5 +1,4 @@
 import React from "react";
-import AdminLayout from "../../../layouts/AdminLayout";
 import Title from "../../../components/Title";
 import styled from "styled-components";
 import Input from "../../../components/Input";
@@ -8,7 +7,7 @@ import Button from "../../../components/Button";
 
 const AddPromo = () => {
   return (
-    <AdminLayout>
+    <>
       <Title width="300px">New Promo Code</Title>
 
       <Div className="container">
@@ -65,7 +64,7 @@ const AddPromo = () => {
           </Button>
         </InputGroup>
       </Div>
-    </AdminLayout>
+    </>
   );
 };
 
@@ -82,7 +81,7 @@ const InputGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin:10px;
-  margin-top:${({ marginTop }) => marginTop || "10px"};
+  margin: 10px;
+  margin-top: ${({ marginTop }) => marginTop || "10px"};
   width: ${({ width }) => width || "320px"};
 `;

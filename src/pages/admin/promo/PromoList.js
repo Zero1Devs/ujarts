@@ -1,5 +1,4 @@
 import React from "react";
-import AdminLayout from "../../../layouts/AdminLayout";
 import Title from "../../../components/Title";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
@@ -10,7 +9,7 @@ import { Link } from "react-router-dom";
 import { Table } from "../venue";
 const PromoList = () => {
   return (
-    <AdminLayout>
+    <>
       <Title width="300px">Promo Codes List</Title>
       <Header>
         <Input
@@ -34,7 +33,7 @@ const PromoList = () => {
       <Table>
         <DataTable columns={columns} data={data} fixedHeader />
       </Table>
-    </AdminLayout>
+    </>
   );
 };
 export default PromoList;
