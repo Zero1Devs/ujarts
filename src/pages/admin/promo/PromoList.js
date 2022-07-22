@@ -1,16 +1,15 @@
 import React from "react";
-import AdminLayout from "../../../layouts/AdminLayout";
 import Title from "../../../components/Title";
-import Button from "../../../components/Button";
-import Input from "../../../components/Input";
+import { StyledInput } from "../../../components/Input";
 import * as Icon from "react-feather";
 import { Header } from "../venue";
 import DataTable from "react-data-table-component";
-import { Link } from "react-router-dom";
 import { Table } from "../venue";
+import styled from "styled-components";
+import search from "../../../assets/search.svg";
 const PromoList = () => {
   return (
-    <AdminLayout>
+    <>
       <Title width="300px">Promo Codes List</Title>
       <Header>
         <Input
@@ -18,23 +17,14 @@ const PromoList = () => {
           type="search"
           name="search"
           placeholder="Search Here"
+          background={search}
           onChange={() => alert()}
         />
-        <Link to="/admin/promo/add">
-          <Button
-            width={"170px"}
-            background="var(--darkpurple)"
-            hover="var(--darkerpurple)"
-          >
-            <Icon.Plus size={20} />
-            <span>Create Promo Code</span>
-          </Button>
-        </Link>
       </Header>
       <Table>
         <DataTable columns={columns} data={data} fixedHeader />
       </Table>
-    </AdminLayout>
+    </>
   );
 };
 export default PromoList;
@@ -93,3 +83,26 @@ const DeleteButton = (id) => {
     />
   );
 };
+const Input = styled(StyledInput)`
+  background: white url(${({ background }) => background}) no-repeat scroll 7px
+    7px;
+  padding-left: 35px;
+  :focus {
+    outline: none !important;
+    border: 2px solid var(--darkpurple);
+  }
+`;
+
+/*
+Add New Promo Code
+ <Link to="/admin/promo/add">
+          <Button
+            width={"170px"}
+            background="var(--darkpurple)"
+            hover="var(--darkerpurple)"
+          >
+            <Icon.Plus size={20} />
+            <span>Create Promo Code</span>
+          </Button>
+        </Link>
+ */

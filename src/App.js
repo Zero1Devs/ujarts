@@ -19,8 +19,7 @@ import { observer } from "mobx-react-lite";
 import AddVenue from "./pages/admin/venue/AddVenue";
 import ListVenues from "./pages/admin/venue/index";
 import UpdateVenue from "./pages/admin/venue/UpdateVenue";
-import AddPromo from "./pages/admin/promo/AddPromo";
-import PromoList from "./pages/admin/promo/PromoList";
+import Promo from "./pages/admin/promo/Promo";
 import { UserStore } from "./stores/userStore";
 import ResetPassword from "./pages/admin/auth/ResetPassword";
 import ForgotPassword from "./pages/admin/auth/ForgotPassword";
@@ -52,8 +51,7 @@ const App = observer(() => {
         <Route path="admin/venues" element={<ListVenues />} />
         <Route path="admin/venues/add" element={<AddVenue />} />
         <Route path="admin/venues/update" element={<UpdateVenue />} />
-        <Route path="admin/promo" element={<PromoList />} />
-        <Route path="admin/promo/add" element={<AddPromo />} />
+        <Route path="admin/promo" element={<Promo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HistoryRouter>

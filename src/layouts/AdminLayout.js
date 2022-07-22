@@ -83,6 +83,7 @@ const AdminWrapper = styled.div`
 const Div = styled.div`
   flex: 1;
   padding: 20px;
+  background: white;
 `;
 const VerticalNavBar = styled.div`
   height: 100vh;
@@ -98,10 +99,10 @@ const VerticalNavBar = styled.div`
   color: white;
 `;
 const Img = styled.img`
-  border-bottom: solid 1px;
   padding: 10px;
   width: 50%;
   height: 15%;
+  margin-bottom: 20px;
 `;
 /*
 const LinkWrapper = styled.div`

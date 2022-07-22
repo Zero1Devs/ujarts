@@ -9,7 +9,9 @@ import Title from "../components/Title";
 const Venues = () => {
   return (
     <CustomerLayout>
-      <Title width="190px" marginLeft="30px">Our Venues</Title>
+      <Title width="190px" border={true} marginLeft="30px">
+        Our Venues
+      </Title>
       <VenuesList>
         <div className="eventCard"></div>
         <div className="eventCard"></div>

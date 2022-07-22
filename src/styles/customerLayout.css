@@ -1,8 +1,8 @@
   :root{
     --orange:#ff6515;
     --darkorange:#ff4102;
-    --lightgray:#EEEDED;
-    --gray:#646464;
+    --lightgrey:#EEEDED;
+    --grey:#646464;
     --purple:#643E77;
     --darkpurple:#45116d;
     --darkerpurple:#22092F;
@@ -47,7 +47,7 @@
   border-radius: 5px;
   background-color: #EEEDED;
   color: var(--darkerpurple);
-  filter: drop-shadow(2px 2px 4px var(--gray));
+  filter: drop-shadow(2px 2px 4px var(--grey));
   padding: 10px;
   padding-top: 40px;
   cursor: pointer;
@@ -85,7 +85,7 @@
     flex-direction: column;
     border: solid 0px;
     width:325px;
-    filter: drop-shadow(2px 2px 4px var(--gray));
+    filter: drop-shadow(2px 2px 4px var(--grey));
     margin: auto;
   }
   .thumbnail img{

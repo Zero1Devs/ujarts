@@ -1,14 +1,16 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
-
 // Create a single supabase client for interacting with your database
-let url = "";
-let anonKey = "";
-
 class Supabase {
-  sbClient = new SupabaseClient(url, anonKey);
+  sbClient = new SupabaseClient(
+    process.env.REACT_APP_SUPABASE_URL,
+    process.env.REACT_APP_SUPABASE_PUBLIC_ANON_KEY
+  );
   constructor() {
     if (!this.sbClient) {
-      this.sbClient = createClient(url, anonKey);
+      this.sbClient = createClient(
+        process.env.REACT_APP_SUPABASE_URL,
+        process.env.REACT_APP_SUPABASE_PUBLIC_ANON_KEY
+      );
     }
   }
   selectFromTable = async (table) => {
