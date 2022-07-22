@@ -26,7 +26,7 @@ const Events = observer(() => {
   return (
     <CustomerLayout>
       <div className="container">
-        <Title width="190px" marginLeft="30px">
+        <Title width="190px" border={true} marginLeft="30px">
           What's On?
         </Title>
 

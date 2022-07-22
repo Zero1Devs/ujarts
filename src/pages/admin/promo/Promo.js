@@ -9,7 +9,7 @@ const Promo = () => {
   return (
     <AdminLayout>
       <TogglePromo onClick={(e) => setScreen(e)} value={screen} />
-      {screen ? <AddPromo /> : <PromoList />}
+      {screen ? <AddPromo onClick={(e) => setScreen(e)} /> : <PromoList />}
     </AdminLayout>
   );
 };

@@ -62,7 +62,7 @@ const EventCard = styled.div`
   border-radius: 5px;
   background-color: #eeeded;
   color: var(--darkerpurple);
-  filter: drop-shadow(2px 2px 4px var(--gray));
+  filter: drop-shadow(2px 2px 4px var(--grey));
   padding: 10px;
   padding-top: 40px;
   cursor: pointer;
@@ -100,7 +100,7 @@ const Thumbnail = styled.div`
   flex-direction: column;
   border: solid 0px;
   width: 325px;
-  filter: drop-shadow(2px 2px 4px var(--gray));
+  filter: drop-shadow(2px 2px 4px var(--grey));
   margin: auto;
   img {
     border-radius: 10px;

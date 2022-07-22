@@ -55,7 +55,7 @@ const Form = styled.div`
   width: 40%;
 `;
 export const Input = styled(StyledInput)`
-  background: var(--lightgray);
+  background: var(--lightgrey);
   ::placeholder {
     color: black;
   }

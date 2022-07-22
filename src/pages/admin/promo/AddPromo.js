@@ -5,7 +5,7 @@ import Input from "../../../components/Input";
 import Select from "../../../components/Select";
 import Button from "../../../components/Button";
 
-const AddPromo = () => {
+const AddPromo = (props) => {
   return (
     <>
       <Title width="300px">New Promo Code</Title>
@@ -49,7 +49,7 @@ const AddPromo = () => {
             color="var(--orange)"
             hover="var(--darkorange)"
             border="solid 1px var(--darkorange)"
-            onClick={() => alert("canceled")}
+            onClick={(e) => props.onClick((e = false))}
           >
             Cancel
           </Button>

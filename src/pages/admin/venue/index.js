@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import DataTable from "react-data-table-component";
 import "../../../styles/index";
+import Title from "../../../components/Title";
 import * as Icon from "react-feather";
 import AdminLayout from "../../../layouts/AdminLayout";
 import { useVenuePresenter } from "./presenter";
@@ -65,7 +66,7 @@ const ListVenues = observer(() => {
   return (
     <AdminLayout>
       <Header>
-        <h1 className="title">Venues List</h1>
+        <Title width="200px">Venues List</Title>
 
         <Link to="/admin/venues/add">
           <Button
@@ -95,4 +96,7 @@ export const Header = styled.div`
 `;
 export const Table = styled.div`
   max-width: 80vw;
+
+  border-radius: 5px;
+  filter: drop-shadow(2px 2px 2px var(--grey));
 `;

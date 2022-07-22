@@ -6,7 +6,8 @@ const Title = (props) => {
 export default Title;
 export const StyledH2 = styled.h1`
   padding: 5px;
-  border-bottom: solid 2px var(--darkpurple);
+  border-bottom: ${({ border }) =>
+    border ? "solid 2px var(--darkpurple)" : "none"};
   color: var(--darkpurple);
   width: ${({ width }) => width || "140px"};
   margin-left: ${({ marginLeft }) => marginLeft || ""};

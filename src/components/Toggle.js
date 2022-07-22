@@ -25,7 +25,7 @@ const StyledToggle = styled.div`
   width: 300px;
   height: 40px;
   border-radius: 30px;
-  border: solid 1px var(--gray);
+  border: solid 1px var(--grey);
   display: flex;
   background: white;
   cursor: pointer;
