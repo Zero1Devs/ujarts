@@ -23,7 +23,6 @@ import Promo from "./pages/admin/promo/Promo";
 import { UserStore } from "./stores/userStore";
 import ResetPassword from "./pages/admin/auth/ResetPassword";
 import ForgotPassword from "./pages/admin/auth/ForgotPassword";
-import LoadingModal from "./components/Modals/LoadingModal";
 import Announcement from "./pages/admin/announcement/Announcements";
 
 const App = observer(() => {
@@ -46,7 +45,6 @@ const App = observer(() => {
         <Route path="venues" element={<Venues />} />
         <Route path="about" element={<About />} />
         <Route path="admin" element={<Login />} />
-        <Route path="modal" element={<LoadingModal />} />
         <Route path="admin/register" element={<Register />} />
         <Route path="admin/login" element={<Login />} />
         <Route path="admin/forgot-password" element={<ForgotPassword />} />
