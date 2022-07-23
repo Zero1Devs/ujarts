@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import DataTable from "react-data-table-component";
 import "../../../styles/index";
 import Title from "../../../components/Title";
-import * as Icon from "react-feather";
-import AdminLayout from "../../../layouts/AdminLayout";
+import * as Icon from "react-icons/fi";
 import { useVenuePresenter } from "./presenter";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
@@ -41,30 +40,30 @@ const EditButton = ({ row }) => {
   const { setVenue } = useVenuePresenter;
   return (
     <Link onClick={() => setVenue(row)} to={"update"}>
-      <Icon.Edit color="black" width={25} />
+      <Icon.FiEdit color="black" size={25} />
     </Link>
   );
 };
 const DeleteButton = (id) => {
   const { deleteVenue } = useVenuePresenter;
   return (
-    <Icon.Trash2
+    <Icon.FiTrash2
       style={{ cursor: "pointer" }}
       onClick={() => deleteVenue(id)}
       color="red"
-      width={25}
+      size={25}
     />
   );
 };
 
-const ListVenues = observer(() => {
+const VenuesList = observer(() => {
   const { getVenues, venues } = useVenuePresenter;
   useEffect(() => {
     getVenues();
     // eslint-disable-next-line
   }, []);
   return (
-    <AdminLayout>
+    <>
       <Header>
         <Title width="200px">Venues List</Title>
 
@@ -74,7 +73,7 @@ const ListVenues = observer(() => {
             background="var(--darkpurple)"
             hover="var(--darkerpurple)"
           >
-            <Icon.Plus size={20} />
+            <Icon.FiPlus size={20} />
             <span>Add Venue</span>
           </Button>
         </Link>
@@ -82,10 +81,10 @@ const ListVenues = observer(() => {
       <Table>
         <DataTable columns={columns} data={venues} fixedHeader />
       </Table>
-    </AdminLayout>
+    </>
   );
 });
-export default ListVenues;
+export default VenuesList;
 
 export const Header = styled.div`
   display: flex;

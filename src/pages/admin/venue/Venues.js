@@ -1,21 +1,21 @@
 import React, { useState } from "react";
+import "../../../styles/index";
 import AdminLayout from "../../../layouts/AdminLayout";
-import AddPromo from "./AddPromo";
-import PromoList from "./PromoList";
+import VenuesList from "./VenuesList";
+import AddVenue from "./AddVenue";
 import Toggle from "../../../components/Toggle";
-const Promo = () => {
+const Venues = () => {
   const [screen, setScreen] = useState(false);
   return (
     <AdminLayout>
       <Toggle
         OnClick={(e) => setScreen(e)}
         value={screen}
+        options={["Venues List", "New Venue"]}
         width="400px"
-        options={["Promo Code List", "New Promo Code"]}
       />
-      {screen ? <AddPromo onClick={(e) => setScreen(e)} /> : <PromoList />}
+      {screen ? <AddVenue onClick={(e) => setScreen(e)} /> : <VenuesList />}
     </AdminLayout>
   );
 };
-
-export default Promo;
+export default Venues;

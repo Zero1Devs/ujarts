@@ -1,15 +1,15 @@
 import React from "react";
 import { StyledButton } from "./Button";
 import {
-  Facebook,
-  Instagram,
-  Twitter,
-  Youtube,
-  MapPin,
-  Clock,
-  Phone,
-  AtSign,
-} from "react-feather";
+  FiFacebook,
+  FiInstagram,
+  FiTwitter,
+  FiYoutube,
+  FiMapPin,
+  FiClock,
+  FiPhone,
+  FiAtSign,
+} from "react-icons/fi";
 import ujlogo from "../assets/ujLogo.jpg";
 import thefuturereimagined from "../assets/thefuturereimagined.png";
 import styled from "styled-components";
@@ -49,13 +49,13 @@ const Footer = () => {
 
           <a href="callto:0115594674" rel="noopener">
             <span>
-              <Phone size="23" />
+              <FiPhone size="23" />
             </span>
             011 559 4674
           </a>
           <a href="mailto:ujarts@uj.ac.za" rel="noopener">
             <span>
-              <AtSign size="23" />
+              <FiAtSign size="23" />
             </span>
             ujarts@uj.ac.za
           </a>
@@ -66,7 +66,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <span>
-              <MapPin size="23" />
+              <FiMapPin size="23" />
             </span>
             UJ Kingsway Campus Corner of Kingsway Ave and University Rd,
             Auckland Park
@@ -77,13 +77,13 @@ const Footer = () => {
           <h2>UJ ARTS GALLERY</h2>
           <a href="callto:0115594674" rel="noopener">
             <span>
-              <Phone size="23" />
+              <FiPhone size="23" />
             </span>
             011 559 4674
           </a>
           <a href="mailto:gallery@uj.ac.za" rel="noopener">
             <span>
-              <AtSign size="23" />
+              <FiAtSign size="23" />
             </span>
             gallery@uj.ac.za
           </a>
@@ -93,14 +93,14 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <span>
-              <MapPin size="23" />
+              <FiMapPin size="23" />
             </span>
             UJ Kingsway Campus Corner of Kingsway Ave and University Rd,
             Auckland Park
           </a>
           <label>
             <span>
-              <Clock size="23" />
+              <FiClock size="23" />
             </span>
             Weekdays @ 9:00 - 15:30 <br />
             Closed weekends and public holidays
@@ -115,7 +115,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <span>
-              <Facebook size="23" />
+              <FiFacebook size="23" />
             </span>
             Facebook
           </a>
@@ -125,7 +125,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <span>
-              <Youtube size="23" />
+              <FiYoutube size="23" />
             </span>
             Youtube
           </a>
@@ -135,7 +135,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <span>
-              <Twitter size="23" />
+              <FiTwitter size="23" />
             </span>
             Twitter
           </a>
@@ -145,7 +145,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <span>
-              <Instagram size="23" />
+              <FiInstagram size="23" />
             </span>
             Instagram
           </a>

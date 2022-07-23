@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/index.css";
 import "../styles/customerLayout.css";
 import thumbnail from "../assets/thumbnail.jpg";
-import { Calendar, Clock, MapPin, Users } from "react-feather";
+import { FiCalendar, FiClock, FiMapPin, FiUsers } from "react-icons/fi";
 import { observer } from "mobx-react";
 import { UiStore } from "../stores/uiStore";
 import EventSummary from "./EventSummary";
@@ -27,22 +27,22 @@ const Event = observer(({ id, data }) => {
           </EventName>
 
           <label title="Date">
-            <Calendar size="23" color="var(--darkerpurple)" />
+            <FiCalendar size="23" color="var(--darkerpurple)" />
             <span>11/06/2022 to 30/08/2022</span>
           </label>
 
           <label title="Venue">
-            <MapPin size="23" color="var(--darkerpurple)" />
+            <FiMapPin size="23" color="var(--darkerpurple)" />
             <span>Kingsway Campus A1</span>
           </label>
 
           <label title="Presented by">
-            <Users size="23" color="var(--darkerpurple)" />
+            <FiUsers size="23" color="var(--darkerpurple)" />
             <span>UJ Arts Gallery</span>
           </label>
 
           <label title="Duration">
-            <Clock size="23" color="var(--darkerpurple)" />
+            <FiClock size="23" color="var(--darkerpurple)" />
             <span>N/A</span>
           </label>
         </EventInfo>

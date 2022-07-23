@@ -6,16 +6,16 @@ import "../../../styles/adminLayout.css";
 import { observer } from "mobx-react";
 import { useAdminPresenter } from "./presenter";
 import { Error } from "./Register";
-import * as Icon from "react-feather";
+import * as Icon from "react-icons/fi";
 import AuthForm from "../../../components/Forms/AuthForm";
 
 const ResetPassword = observer(() => {
   const { resetPassword, setFormValue, error, loading } = useAdminPresenter;
-  
+
   return (
     <AuthForm>
       <h2>Reset your password</h2>
-     
+
       <Input
         type="password"
         name="password"
@@ -30,7 +30,7 @@ const ResetPassword = observer(() => {
         placeholder="Confirm Password"
       />
       <Error display={error.toString()}>
-        <Icon.Info color="red" width={17} />
+        <Icon.FiInfo color="red" width={17} />
         <span>Your passwords don't match!</span>
       </Error>
 

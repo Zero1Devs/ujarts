@@ -1,20 +1,19 @@
 import React from "react";
 import { observer } from "mobx-react";
 import VenueForm from "../../../components/Forms/VenueForm";
-import AdminLayout from "../../../layouts/AdminLayout";
 import { StyledH2 } from "../../../components/Title";
 import styled from "styled-components";
 const AddVenue = observer(() => {
   return (
-    <AdminLayout>
-      <Title>Add Venue</Title>
+    <>
+      <Title>New Venue</Title>
       <div
         className="container"
         style={{ alignItems: "center", border: "none" }}
       >
         <VenueForm />
       </div>
-    </AdminLayout>
+    </>
   );
 });
 export default AddVenue;
