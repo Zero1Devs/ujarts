@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import AdminLayout from "../../../layouts/AdminLayout";
-import AddPromo from "./AddPromo";
-import PromoList from "./PromoList";
+import NewAnnouncement from "./NewAnnouncement";
+import AnnouncementList from "./AnnouncementList";
 import Toggle from "../../../components/Toggle";
-const Promo = () => {
+const Announcement = () => {
   const [screen, setScreen] = useState(false);
   return (
     <AdminLayout>
       <Toggle
         OnClick={(e) => setScreen(e)}
         value={screen}
+        options={["Announcement List", "New Announcement"]}
         width="400px"
-        options={["Promo Code List", "New Promo Code"]}
       />
-      {screen ? <AddPromo onClick={(e) => setScreen(e)} /> : <PromoList />}
+      {screen ? (
+        <NewAnnouncement onClick={(e) => setScreen(e)} />
+      ) : (
+        <AnnouncementList />
+      )}
     </AdminLayout>
   );
 };
 
-export default Promo;
+export default Announcement;

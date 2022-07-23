@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import ujlogo from "../assets/ujLogo.jpg";
 import "../styles/index";
-import * as Icon from "react-feather";
+import * as Icon from "react-icons/fi";
+import { BsFillMegaphoneFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { useAdminPresenter } from "../pages/admin/auth/presenter";
 import styled from "styled-components";
@@ -27,28 +28,32 @@ const AdminLayout = (props) => {
           style={({ isActive }) => {
             return {
               background: isActive ? "var(--darkpurple)" : "",
-              borderLeft: isActive ? "solid 5px white" : "",
+              borderLeft: isActive
+                ? "solid 5px white"
+                : "solid 5px transparent",
               borderTopLeftRadius: "2px",
               borderBottomLeftRadius: "2px",
             };
           }}
           to="/admin/events"
         >
-          <Icon.Calendar color="white" width={30} />
+          <Icon.FiCalendar color="white" size={25} />
         </NavLink>
         <NavLink
           className="navLink"
           style={({ isActive }) => {
             return {
               background: isActive ? "var(--darkpurple)" : "",
-              borderLeft: isActive ? "solid 5px white" : "",
+              borderLeft: isActive
+                ? "solid 5px white"
+                : "solid 5px transparent",
               borderTopLeftRadius: "2px",
               borderBottomLeftRadius: "2px",
             };
           }}
           to="/admin/venues"
         >
-          <Icon.Tv color="white" width={30} />
+          <Icon.FiTv color="white" size={25} />
         </NavLink>
 
         <NavLink
@@ -56,18 +61,37 @@ const AdminLayout = (props) => {
           style={({ isActive }) => {
             return {
               background: isActive ? "var(--darkpurple)" : "",
-              borderLeft: isActive ? "solid 5px white" : "",
+              borderLeft: isActive
+                ? "solid 5px white"
+                : "solid 5px transparent",
               borderTopLeftRadius: "2px",
               borderBottomLeftRadius: "2px",
             };
           }}
           to="/admin/promo"
         >
-          <Icon.Percent color="white" width={30} />
+          <Icon.FiPercent color="white" size={25} />
+        </NavLink>
+
+        <NavLink
+          className="navLink"
+          style={({ isActive }) => {
+            return {
+              background: isActive ? "var(--darkpurple)" : "",
+              borderLeft: isActive
+                ? "solid 5px white"
+                : "solid 5px transparent",
+              borderTopLeftRadius: "2px",
+              borderBottomLeftRadius: "2px",
+            };
+          }}
+          to="/admin/announcements"
+        >
+          <BsFillMegaphoneFill color="white" size={25} />
         </NavLink>
 
         <div onClick={() => logout()} className="navLink">
-          <Icon.LogOut color="white" width={30} />
+          <Icon.FiLogOut color="white" size={25} />
         </div>
       </VerticalNavBar>
       <Div>{props.children}</Div>
@@ -87,7 +111,7 @@ const Div = styled.div`
 `;
 const VerticalNavBar = styled.div`
   height: 100vh;
-  width: 200px;
+  width: 180px;
   max-width: 200px;
   border: solid 0px;
   flex: 1;

@@ -2,14 +2,15 @@ import React from "react";
 import Title from "../../../components/Title";
 import { StyledInput } from "../../../components/Input";
 import * as Icon from "react-icons/fi";
-import { Header, Table } from "../venue/VenuesList";
+import { Header } from "../venue/VenuesList";
 import DataTable from "react-data-table-component";
+import { Table } from "../venue/VenuesList";
 import styled from "styled-components";
 import search from "../../../assets/search.svg";
-const PromoList = () => {
+const AnnouncementList = () => {
   return (
     <>
-      <Title width="300px">Promo Codes List</Title>
+      <Title width="290px">Announcement List</Title>
       <Header>
         <Input
           width="300px"
@@ -17,7 +18,7 @@ const PromoList = () => {
           name="search"
           placeholder="Search Here"
           background={search}
-          onChange={() => alert()}
+          onChange={(e) => console.log(e.target.value)}
         />
       </Header>
       <Table>
@@ -26,16 +27,16 @@ const PromoList = () => {
     </>
   );
 };
-export default PromoList;
+export default AnnouncementList;
 
 const columns = [
   {
-    name: "Promo ID",
+    name: "Announcement ID",
     selector: (row) => row.id,
     sortable: true,
   },
   {
-    name: "Promo Code",
+    name: "Announcement Code",
     selector: (row) => row.year,
     sortable: true,
   },
@@ -44,10 +45,6 @@ const columns = [
     selector: (row) => row.title,
     sortable: true,
     width: "50%",
-  },
-  {
-    button: true,
-    cell: (row) => <EditButton row={row} />,
   },
   {
     button: true,
@@ -67,11 +64,6 @@ const data = [
   },
 ];
 
-const EditButton = ({ row }) => {
-  return (
-    <Icon.FiEdit color="black" size={25} onClick={() => alert("updated")} />
-  );
-};
 const DeleteButton = (id) => {
   return (
     <Icon.FiTrash2
@@ -91,17 +83,3 @@ const Input = styled(StyledInput)`
     border: 2px solid var(--darkpurple);
   }
 `;
-
-/*
-Add New Promo Code
- <Link to="/admin/promo/add">
-          <Button
-            width={"170px"}
-            background="var(--darkpurple)"
-            hover="var(--darkerpurple)"
-          >
-            <Icon.Plus size={20} />
-            <span>Create Promo Code</span>
-          </Button>
-        </Link>
- */

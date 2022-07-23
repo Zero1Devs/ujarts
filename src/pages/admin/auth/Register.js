@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import { useAdminPresenter } from "./presenter";
 import AuthForm, { Input } from "../../../components/Forms/AuthForm";
 import styled from "styled-components";
-import * as Icon from "react-feather";
+import * as Icon from "react-icons/fi";
 
 const Register = observer(() => {
   const { signUp, setFormValue, error, loading } = useAdminPresenter;
@@ -43,7 +43,7 @@ const Register = observer(() => {
         placeholder="Confirm Password"
       />
       <Error display={error.toString()}>
-        <Icon.Info color="red" width={17} />
+        <Icon.FiInfo color="red" width={17} />
         <span>Your passwords don't match!</span>
       </Error>
       <Button

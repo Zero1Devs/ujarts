@@ -1,40 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const Toggle = () => {
-  const [screen, setScreen] = useState(true);
+const Toggle = (props) => {
   return (
-    <StyledToggle>
+    <StyledToggle {...props}>
       <Option
-        background={screen ? "var(--darkpurple)" : "none"}
-        onClick={() => setScreen(true)}
+        background={props.value ? "none" : "var(--darkpurple)"}
+        color={props.value ? "black" : "white"}
+        onClick={(e) => props.OnClick((e = false))}
       >
-        Venue List
+        {props.options[0]}
       </Option>
       <Option
-        background={screen ? "none" : "var(--darkpurple)"}
-        onClick={() => setScreen(false)}
+        background={props.value ? "var(--darkpurple)" : "none"}
+        color={props.value ? "white" : "black"}
+        onClick={(e) => props.OnClick((e = true))}
       >
-        Add Venue
+        {props.options[1]}
       </Option>
     </StyledToggle>
   );
 };
-
-const StyledToggle = styled.div`
-  width: 300px;
+export default Toggle;
+export const StyledToggle = styled.div`
+  width: ${({ width }) => width || "300px"};
   height: 40px;
   border-radius: 30px;
-  border: solid 1px var(--grey);
+  border: none;
   display: flex;
-  background: white;
+  background: #d9d9d9;
   cursor: pointer;
+  margin: 0 auto;
+  margin-top: 20px;
 `;
-const Option = styled.div`
+export const Option = styled.div`
   background: ${({ background }) => background};
   height: 40px;
-  width: 150px;
+  width: 50%;
   border-radius: 30px;
-  color: white;
-  text-align: center;
+  color: ${({ color }) => color};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
