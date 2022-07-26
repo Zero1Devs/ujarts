@@ -54,10 +54,9 @@ const Event = observer(({ id, data }) => {
 export default Event;
 
 //style
-const EventCard = styled.div`
+export const EventCard = styled.div`
   border: solid 0px;
   height: auto;
-  height: 554px;
   width: 361px;
   border-radius: 5px;
   background-color: #eeeded;
@@ -66,7 +65,6 @@ const EventCard = styled.div`
   padding: 10px;
   padding-top: 40px;
   cursor: pointer;
-
   margin: 20px;
   text-align: center;
   :hover {
@@ -81,21 +79,25 @@ const EventCard = styled.div`
     }
   }
   label {
+    cursor: pointer;
+
     display: flex;
     text-align: left;
     margin: 5px;
     padding: 4px;
     span {
       margin-left: 10px;
+      cursor: pointer;
     }
   }
 `;
-const EventName = styled.label`
+export const EventName = styled.label`
   font-size: 20px;
   font-weight: bold;
+  cursor: pointer;
   font-family: "Poppins";
 `;
-const Thumbnail = styled.div`
+export const Thumbnail = styled.div`
   display: flex;
   flex-direction: column;
   border: solid 0px;
@@ -110,7 +112,7 @@ const Thumbnail = styled.div`
     height: 233px;
   }
 `;
-const EventType = styled.span`
+export const EventType = styled.span`
   background: var(--orange);
   color: white;
   border-top-right-radius: 6px;
@@ -120,6 +122,7 @@ const EventType = styled.span`
   text-align: center;
   margin-top: -40px;
 `;
-const EventInfo = styled.div`
+export const EventInfo = styled.div`
+  cursor: pointer;
   margin: 10px;
 `;

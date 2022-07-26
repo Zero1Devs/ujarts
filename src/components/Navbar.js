@@ -17,9 +17,9 @@ const Navbar = () => {
               color: isActive ? "#ff4102" : "",
             };
           }}
-          to="/events"
+          to="/"
         >
-          Events
+          Home
         </NavLink>
 
         <NavLink
@@ -59,12 +59,12 @@ const NavWrapper = styled.div`
   height: 10px;
 
   h1 {
-    flex: 2;
+    flex: 1;
   }
 `;
 const Nav = styled.nav`
-  flex: 2;
-  border: solid 0px;
+  flex: 3;
+  border: solid 00px;
   display: flex;
   justify-content: right;
 

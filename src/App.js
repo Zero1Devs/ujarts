@@ -12,7 +12,6 @@ import Booking from "./pages/Booking";
 import About from "./pages/About";
 import Login from "./pages/admin/auth/Login";
 import NotFound from "./pages/NotFound";
-import SupaTest from "./SupaTest";
 import Register from "./pages/admin/auth/Register";
 import { NavigationStore } from "./stores/navigationStore";
 import { observer } from "mobx-react-lite";
@@ -38,8 +37,6 @@ const App = observer(() => {
     <HistoryRouter history={history}>
       <Routes>
         <Route path="/" element={<Events />} />
-        <Route path="supatest" element={<SupaTest />} />
-        <Route path="events" element={<Events />} />
         <Route path="events/:event" element={<EventDetails />} />
         <Route path="booking/:event" element={<Booking />} />
         <Route path="venues" element={<Venues />} />
