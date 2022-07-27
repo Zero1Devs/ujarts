@@ -1,6 +1,7 @@
 import React from "react";
 import Title from "../../../components/Title";
 import SearchInput from "../../../components/SearchInput";
+import EventListComp from "../../../components/EventListComp";
 
 const EventList = () => {
   return (
@@ -13,6 +14,7 @@ const EventList = () => {
         placeholder="Search Here"
         onChange={(e) => console.log(e.target.value)}
       />
+      <EventListComp />
     </>
   );
 };
