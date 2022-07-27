@@ -1,10 +1,10 @@
 import React from "react";
 import Title from "../../../components/Title";
 import styled from "styled-components";
-import Input from "../../../components/Input";
+import Input, { StyledInput } from "../../../components/Input";
 import Select from "../../../components/Select";
 import Button from "../../../components/Button";
-
+import percent from "../../../assets/percent.svg";
 const AddPromo = (props) => {
   return (
     <>
@@ -17,17 +17,17 @@ const AddPromo = (props) => {
             width="200px"
             type="text"
             name="promo_code"
-            onChange={() => alert()}
+            onChange={(e) => console.log(e.target.value)}
           />
         </InputGroup>
 
         <InputGroup>
           <label>Discount</label>
-          <Input
+          <PromoInput
             width="200px"
             type="text"
             name="discount"
-            onChange={() => alert()}
+            onChange={(e) => console.log(e.target.value)}
           />
         </InputGroup>
         <InputGroup>
@@ -35,7 +35,7 @@ const AddPromo = (props) => {
           <Select
             width="210px"
             name="event"
-            onChange={() => alert()}
+            onChange={(e) => console.log(e.target.value)}
             options={[
               { id: "1", name: "Event 1" },
               { id: "2", name: "Event 2" },
@@ -84,4 +84,12 @@ const InputGroup = styled.div`
   margin: 10px;
   margin-top: ${({ marginTop }) => marginTop || "10px"};
   width: ${({ width }) => width || "320px"};
+`;
+const PromoInput = styled(StyledInput)`
+  background: white url(${percent}) no-repeat scroll 98% 9px;
+
+  :focus {
+    outline: none !important;
+    border: 2px solid var(--darkpurple);
+  }
 `;

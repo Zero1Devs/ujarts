@@ -6,7 +6,6 @@ import * as Icon from "react-icons/fi";
 import { useVenuePresenter } from "./presenter";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
-import Button from "../../../components/Button";
 import styled from "styled-components";
 
 const columns = [
@@ -65,18 +64,7 @@ const VenuesList = observer(() => {
   return (
     <>
       <Header>
-        <Title width="200px">Venues List</Title>
-
-        <Link to="/admin/venues/add">
-          <Button
-            width={"170px"}
-            background="var(--darkpurple)"
-            hover="var(--darkerpurple)"
-          >
-            <Icon.FiPlus size={20} />
-            <span>Add Venue</span>
-          </Button>
-        </Link>
+        <Title>Venues List</Title>
       </Header>
       <Table>
         <DataTable columns={columns} data={venues} fixedHeader />
@@ -94,8 +82,9 @@ export const Header = styled.div`
 };
 `;
 export const Table = styled.div`
-  max-width: 80vw;
-
+  max-width: 100%;
   border-radius: 5px;
+  margin-top: 20px;
   filter: drop-shadow(2px 2px 2px var(--grey));
+  align-self: center;
 `;
