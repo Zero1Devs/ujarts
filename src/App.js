@@ -24,6 +24,7 @@ import { UserStore } from "./stores/userStore";
 import ResetPassword from "./pages/admin/auth/ResetPassword";
 import ForgotPassword from "./pages/admin/auth/ForgotPassword";
 import Announcement from "./pages/admin/announcement/Announcements";
+import UploadDownload from "./pages/UploadDownload";
 const App = observer(() => {
   const { history } = NavigationStore;
   const { init } = UserStore;
@@ -50,6 +51,7 @@ const App = observer(() => {
         <Route path="admin/events" element={<AdminEvents />} />
         <Route path="admin/venues/add" element={<AddVenue />} />
         <Route path="admin/venues/update" element={<UpdateVenue />} />
+        <Route path="upload" element={<UploadDownload />} />
         <Route path="admin/promo" element={<Promo />} />
         <Route path="admin/announcements" element={<Announcement />} />
         <Route path="*" element={<NotFound />} />
