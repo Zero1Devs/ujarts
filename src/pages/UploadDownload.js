@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { SupabaseGateway } from "../gateways/SupaBaseGateway";
 
 const UploadDownload = () => {
-  const [uploading, setUploading] = useState(false);
   const [url, setUrl] = useState("");
   const download = async () => {
     // Use the JS library to create a bucket.
@@ -20,8 +19,6 @@ const UploadDownload = () => {
   };
   const uploadAvatar = async (event) => {
     try {
-      setUploading(true);
-
       if (!event.target.files || event.target.files.length === 0) {
         throw new Error("You must select an image to upload.");
       }
@@ -43,8 +40,6 @@ const UploadDownload = () => {
       //onUpload(filePath);
     } catch (error) {
       alert(error.message);
-    } finally {
-      setUploading(false);
     }
   };
 
@@ -55,6 +50,7 @@ const UploadDownload = () => {
         src={url ? url : `https://place-hold.it/180x200`}
         width="180"
         height={"200"}
+        alt="IMG"
       />
       <button onClick={() => download()}>Read</button>
     </div>
