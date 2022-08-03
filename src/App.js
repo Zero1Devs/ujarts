@@ -23,6 +23,12 @@ import { UserStore } from "./stores/userStore";
 import ResetPassword from "./pages/admin/auth/ResetPassword";
 import ForgotPassword from "./pages/admin/auth/ForgotPassword";
 import Announcement from "./pages/admin/announcement/Announcements";
+// Front of house screen
+import Foh from "./pages/admin/FrontOfHouse/FrontOfHouse";
+import Scan_Qr_Code from "./pages/admin/FrontOfHouse/Scan-QR-Code";
+import CashBooking from "./pages/admin/FrontOfHouse/CashBooking";
+import GuestListSeach from "./pages/admin/FrontOfHouse/GuestListSearch";
+import ConfirmCashBooking from "./pages/admin/FrontOfHouse/ConfirmCashPayment";
 
 const App = observer(() => {
   const { history } = NavigationStore;
@@ -37,6 +43,22 @@ const App = observer(() => {
     <HistoryRouter history={history}>
       <Routes>
         <Route path="/" element={<Events />} />
+        {/*FOH Screen*/}
+        <Route path="admin/:foh-main" element={<Foh />} />
+        <Route
+          path="admin/foh-main/guest-list-search-qr-code"
+          element={<Scan_Qr_Code />}
+        />
+        <Route
+          path="admin/foh-main/guest-list-search-searchbar"
+          element={<GuestListSeach />}
+        />
+        <Route path="admin/:cash_booking" element={<CashBooking />} />
+        <Route
+          path="admin/cash_booking/confirm-cash-booking"
+          element={<ConfirmCashBooking />}
+        />
+
         <Route path="events/:event" element={<EventDetails />} />
         <Route path="booking/:event" element={<Booking />} />
         <Route path="venues" element={<Venues />} />
