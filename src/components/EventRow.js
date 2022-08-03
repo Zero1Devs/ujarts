@@ -194,6 +194,7 @@ const TagsWrapper = styled.div`
   justify-content: space-between;
   height: 78%;
   width: auto;
+  flex-grow:2;
 `;
 const MakeAnnoncement = styled.div`
   display: flex;

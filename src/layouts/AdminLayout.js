@@ -109,6 +109,10 @@ const AdminWrapper = styled.div`
 const Div = styled.div`
   flex: 2;
   padding: 20px;
+  heigth:auto;
+  min-height: 93vh;
+  max-height: 100vh;
+  border: solid 2px;
 `;
 const VerticalNavBar = styled.div`
   height: 100vh;

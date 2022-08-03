@@ -4,7 +4,7 @@ import EventRow from "../../../components/EventRow";
 import SearchInput from "../../../components/SearchInput";
 const AllEvents = () => {
   return (
-    <>
+    <div>
       <SearchInput
         width="300px"
         type="search"
@@ -13,7 +13,7 @@ const AllEvents = () => {
         onChange={(e) => console.log(e.target.value)}
       />
       <EventRow />
-    </>
+    </div>
   );
 };
 

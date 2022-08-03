@@ -4,6 +4,7 @@ import { StyledToggle as Toggle, Option } from "../../../components/Toggle";
 import { observer } from "mobx-react-lite";
 import BookingList from "./BookingList";
 import EventList from "./EventList";
+import CreateEvent from "./CreateEvent";
 
 const Events = observer(() => {
   const [screen, setScreen] = useState("event");
@@ -42,7 +43,7 @@ const Events = observer(() => {
       ) : screen === "booking" ? (
         <BookingList />
       ) : (
-        <h2>NEW</h2>
+       <CreateEvent/>
       )}
     </AdminLayout>
   );
