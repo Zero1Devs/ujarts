@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { observer } from "mobx-react";
-const EventForm = observer(({event}) => {
+const EventForm = observer(({ event }) => {
   return (
     <form className="loginForm" style={{ width: "60%", marginLeft: 0 }}>
       <Input className="textInput" type="text" placeholder="Name" />
@@ -54,16 +54,7 @@ const EventForm = observer(({event}) => {
       <label style={{ alignSelf: "self-start", marginLeft: "15px" }}>
         Date
       </label>
-      <Input
-        type="datetime-local"
-        style={{
-          width: "96%",
-          margin: "10px",
-          height: "40px",
-          border: "none",
-          borderRadius: "5px",
-        }}
-      />
+      <Input type="datetime-local" />
       <div
         style={{
           display: "flex",

@@ -155,6 +155,7 @@ const EventTitle = styled.div`
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://arts.uj.ac.za/media/images/FUTURESandBEYOND_ONLINE-IMAGE_004.2e16d0ba.fill-420x300.png");
   background-size: cover;
+  flex-grow: 1;
   padding: 10px;
 `;
 const Status = styled.div`
@@ -164,6 +165,7 @@ const Status = styled.div`
   margin: 5px;
   margin-left: 20px;
   padding: 10px;
+  border: solid 01px red;
   border-radius: 10px;
   align-self: center;
 `;
@@ -172,9 +174,11 @@ const Attendence = styled.div`
   background: white;
   color: black;
   margin: 0px 05px;
-  width: 200px;
+  width: auto;
+  min-width: 200px;
   padding: 20px 5px;
   font-size: 15px;
+  border: solid 01px red;
 `;
 const Label = styled.label`
   display: flex;
@@ -186,6 +190,7 @@ const TagsGroup = styled.div`
   display: flex;
   justify-content: space-evenly;
   width: 620px;
+  border: solid 0px black;
 `;
 const TagsWrapper = styled.div`
   display: flex;
@@ -193,8 +198,10 @@ const TagsWrapper = styled.div`
   text-align: center;
   justify-content: space-between;
   height: 78%;
+  align-items: center;
   width: auto;
-  flex-grow:2;
+  border: solid 0px black;
+  flex-grow: 2;
 `;
 const MakeAnnoncement = styled.div`
   display: flex;
