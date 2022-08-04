@@ -40,15 +40,15 @@ const EventRow = () => {
         </div>
       </EventTitle>
       <Status>
-        <span Style="font-size: 12px">Event Status</span>
-        <h3 Style="margin-left: 20px">
+        <span>Event Status</span>
+        <h3>
           <span style={{ marginRight: "5px" }}>
             <GiPlainCircle color="#00c800" size={10} />
           </span>
           In Progress
         </h3>
-        <span Style="font-size: 12px">Event Duration</span>
-        <h3 Style="margin-left: 20px">9 hrs</h3>
+        <span>Event Duration</span>
+        <h3>9 hrs</h3>
       </Status>
       <TagsWrapper>
         <TagsGroup>
@@ -155,7 +155,7 @@ const EventTitle = styled.div`
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://arts.uj.ac.za/media/images/FUTURESandBEYOND_ONLINE-IMAGE_004.2e16d0ba.fill-420x300.png");
   background-size: cover;
-  flex-grow: 1;
+  flex-grow: 0;
   padding: 10px;
 `;
 const Status = styled.div`
@@ -165,7 +165,7 @@ const Status = styled.div`
   margin: 5px;
   margin-left: 20px;
   padding: 10px;
-  border: solid 01px red;
+  border: solid 0px red;
   border-radius: 10px;
   align-self: center;
 `;
@@ -174,11 +174,16 @@ const Attendence = styled.div`
   background: white;
   color: black;
   margin: 0px 05px;
-  width: auto;
-  min-width: 200px;
+  width: 150px;
   padding: 20px 5px;
   font-size: 15px;
-  border: solid 01px red;
+  border: solid 0px red;
+  span {
+    font-size: 12px;
+  }
+  h3 {
+    margin-left: 20px;
+  }
 `;
 const Label = styled.label`
   display: flex;
@@ -201,7 +206,6 @@ const TagsWrapper = styled.div`
   align-items: center;
   width: auto;
   border: solid 0px black;
-  flex-grow: 2;
 `;
 const MakeAnnoncement = styled.div`
   display: flex;

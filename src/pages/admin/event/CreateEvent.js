@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "../../../components/Button";
-import EventForm from "../../../components/Forms/EventForm";
 import { GrImage } from "react-icons/gr";
 import Input from "../../../components/Input";
 import Select from "../../../components/Select";
 import Title from "../../../components/Title";
+import image from "../../../assets/image.svg";
 const CreateEvent = () => {
   return (
     <div>
@@ -14,16 +13,18 @@ const CreateEvent = () => {
       <Wrapper>
         <Imagewrapper>
           <label>Upload an Image</label>
-          <FileInput>
-            <GrImage color="var(--grey)" size={80} />
-            <label>Drag and drop, or browse</label>
-            <input
+          <FileWrapper>
+            <Label>
+              <GrImage color="var(--grey)" size={80} />
+              <label>Drag and drop, or browse</label>
+            </Label>
+            <File
               type="file"
               id="single"
               accept="image/*"
-              onChange={(e) => console.log(e.target)}
+              onChange={(e) => console.log(e.target.files)}
             />
-          </FileInput>
+          </FileWrapper>
         </Imagewrapper>
         <FormWrapper>
           <label>Name</label>
@@ -89,8 +90,6 @@ export default CreateEvent;
 
 const Wrapper = styled.div`
   display: flex;
-  border: solid 0px black;
-  height: 90%;
   padding: 10px;
   column-gap: 100px;
 `;
@@ -131,7 +130,7 @@ const TimeWrapper = styled.div`
   column-gap: 30px;
 `;
 
-const FileInput = styled.div`
+const FileWrapper = styled.div`
   flex: 1;
   border: dashed 02px black;
   height: 80%;
@@ -142,4 +141,30 @@ const FileInput = styled.div`
 
   align-items: center;
   justify-content: center;
+  /*::before {
+    content: url(${image});
+    display: grid;
+    place-items: center;
+    text-align: center;
+    border: solid 1px;
+    height: 100%;
+    width: 100%;
+  }*/
+`;
+const File = styled.input`
+  border: solid 0px;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  ::-webkit-file-upload-button {
+    display: none;
+  }
+
+  z-index: 1;
+`;
+const Label = styled.div`
+  display: grid;
+  place-items: center;
+  position: absolute;
 `;
