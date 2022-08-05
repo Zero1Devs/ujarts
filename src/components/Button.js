@@ -25,7 +25,7 @@ export const StyledButton = styled.button`
   border: ${({ border }) => border || "none"};
   margin: 3px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 15px;
   color: ${({ color }) => color || "white"};
   text-decoration: none;
   background: ${({ background }) => background || "none"};
