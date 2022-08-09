@@ -8,7 +8,7 @@ import image from "../../../assets/image.svg";
 import Button from "../../../components/Button";
 
 const CreateEvent = (props) => {
-  const [page, setPage] = useState(false);
+  const [page, setPage] = useState(true);
   // const [vip, SetVip] = useState(false);
   // const [genera, SetGeneral] = useState(false);
   return (
