@@ -43,7 +43,7 @@ const Events = observer(() => {
       ) : screen === "booking" ? (
         <BookingList />
       ) : (
-       <CreateEvent/>
+       <CreateEvent onClick={() => setScreen("event")}/>
       )}
     </AdminLayout>
   );

@@ -7,9 +7,10 @@ import Title from "../../../components/Title";
 import image from "../../../assets/image.svg";
 import Button from "../../../components/Button";
 
-const CreateEvent = () => {
-  const [page, setPage] = useState("false");
-
+const CreateEvent = (props) => {
+  const [page, setPage] = useState(false);
+  // const [vip, SetVip] = useState(false);
+  // const [genera, SetGeneral] = useState(false);
   return (
     <div>
       <Title width="auto">Create New Event</Title>
@@ -63,9 +64,9 @@ const CreateEvent = () => {
                     name="type"
                     onChange={(e) => console.log(e.target.value)}
                     options={[
-                      { id: "1", name: "Event 1" },
-                      { id: "2", name: "Event 2" },
-                      { id: "3", name: "Event 3" },
+                      { id: "1", name: "Type 1" },
+                      { id: "2", name: "Type 2" },
+                      { id: "3", name: "Type 3" },
                     ]}
                   />
                 </HostDetails>
@@ -88,24 +89,18 @@ const CreateEvent = () => {
                 </div>
               </DetailsWrapper>
             </FormWrapper>
-            <button
-              style={{ background: "none", border: "none" }}
-              onClick={() => setPage(false)}
-            >
-              <GrFormNext color="var(--purple)" size={40} />{" "}
-            </button>
+            <NextPage onClick={() => setPage(false)}>
+              <GrFormNext color="var(--purple)" size={40} />
+            </NextPage>
           </Wrapper>
         </EventDetails>
       ) : (
         <TicketDetails>
           <h3>2. Ticket Details</h3>
           <TicketWrapper>
-            <button
-              style={{ background: "none", border: "none" }}
-              onClick={() => setPage(true)}
-            >
-              <GrFormPrevious color="var(--purple)" size={40} />{" "}
-            </button>
+            <NextPage onClick={() => setPage(true)}>
+              <GrFormPrevious color="var(--purple)" size={40} />
+            </NextPage>
             <div style={{ width: "100%" }}>
               <InputWrapper>
                 <div>
@@ -141,7 +136,7 @@ const CreateEvent = () => {
                   border="1px solid var(--darkpurple)"
                   hover="var(--darkpurple)"
                   width="115px"
-                  onClick={() => alert("cancel")}
+                  onClick={() => props.onClick()}
                 >
                   Cancel
                 </Button>
@@ -267,4 +262,9 @@ const ButtonsWrapper = styled.div`
   justify-content: center;
   height: 250px;
   align-items: center;
+`;
+const NextPage = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
 `;
