@@ -32,7 +32,7 @@ const LoginForm = observer(() => {
         placeholder="Password"
         className="textInput"
       />
-      <Link style={{alignSelf:"flex-end"}} to="/admin/forgot-password">
+      <Link style={{ alignSelf: "flex-end" }} to="/admin/forgot-password">
         Forgot Password
       </Link>
       <Button

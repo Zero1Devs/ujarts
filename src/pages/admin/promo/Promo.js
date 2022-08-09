@@ -3,8 +3,11 @@ import AdminLayout from "../../../layouts/AdminLayout";
 import AddPromo from "./AddPromo";
 import PromoList from "./PromoList";
 import Toggle from "../../../components/Toggle";
-const Promo = () => {
+import { observer } from "mobx-react-lite";
+
+const Promo = observer(() => {
   const [screen, setScreen] = useState(false);
+
   return (
     <AdminLayout>
       <Toggle
@@ -16,6 +19,6 @@ const Promo = () => {
       {screen ? <AddPromo onClick={(e) => setScreen(e)} /> : <PromoList />}
     </AdminLayout>
   );
-};
+});
 
 export default Promo;

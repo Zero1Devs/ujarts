@@ -11,5 +11,5 @@ export const StyledH2 = styled.h2`
   color: var(--darkpurple);
   width: ${({ width }) => width || "140px"};
   margin-left: ${({ marginLeft }) => marginLeft || ""};
-  text-align: center;
+  text-align:  ${({ center }) => center? "center" : "left"};
 `;

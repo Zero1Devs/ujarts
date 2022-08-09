@@ -33,6 +33,9 @@ class AdminPresenter {
     this.password = "";
     this.confirm_password = "";
   };
+  setLoading = () => {
+    this.loading = !this.loading;
+  };
   signUp = async () => {
     try {
       this.loading = true;

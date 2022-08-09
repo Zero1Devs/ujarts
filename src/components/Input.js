@@ -14,4 +14,10 @@ export const StyledInput = styled.input`
   border: none;
   background: white;
   filter: drop-shadow(2px 2px 2px #45116d);
+  border: 2px solid transparent;
+  :focus {
+    outline: none !important;
+    border: 2px solid var(--darkpurple);
+  }
+  
 `;

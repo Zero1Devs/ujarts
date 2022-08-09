@@ -17,7 +17,7 @@ const Venues = observer(() => {
   }, []);
   return (
     <CustomerLayout>
-      <Title width="190px" border={true} marginLeft="30px">
+      <Title border center marginLeft="30px">
         Our Venues
       </Title>
       <VenuesList>
