@@ -24,6 +24,7 @@ import { UserStore } from "./stores/userStore";
 import ResetPassword from "./pages/admin/auth/ResetPassword";
 import ForgotPassword from "./pages/admin/auth/ForgotPassword";
 import Announcement from "./pages/admin/announcement/Announcements";
+import UploadDownload from "./pages/UploadDownload";
 // Front of house screen
 import Foh from "./pages/admin/FrontOfHouse/FrontOfHouse";
 import Scan_Qr_Code from "./pages/admin/FrontOfHouse/Scan-QR-Code";
@@ -31,7 +32,6 @@ import CashBooking from "./pages/admin/FrontOfHouse/CashBooking";
 import GuestListSeach from "./pages/admin/FrontOfHouse/GuestListSearch";
 import ConfirmCashBooking from "./pages/admin/FrontOfHouse/ConfirmCashPayment";
 import TicketConfirmation from "./pages/BookingTicketConfirmation";
-
 const App = observer(() => {
   const { history } = NavigationStore;
   const { init } = UserStore;
