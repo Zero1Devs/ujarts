@@ -29,6 +29,7 @@ import Scan_Qr_Code from "./pages/admin/FrontOfHouse/Scan-QR-Code";
 import CashBooking from "./pages/admin/FrontOfHouse/CashBooking";
 import GuestListSeach from "./pages/admin/FrontOfHouse/GuestListSearch";
 import ConfirmCashBooking from "./pages/admin/FrontOfHouse/ConfirmCashPayment";
+import TicketConfirmation from "./pages/BookingTicketConfirmation";
 
 const App = observer(() => {
   const { history } = NavigationStore;
@@ -58,6 +59,7 @@ const App = observer(() => {
           path="admin/cash_booking/confirm-cash-booking"
           element={<ConfirmCashBooking />}
         />
+        <Route path="ticket-confirmation" element={<TicketConfirmation />} />
 
         <Route path="events/:event" element={<EventDetails />} />
         <Route path="booking/:event" element={<Booking />} />

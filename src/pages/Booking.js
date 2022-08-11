@@ -6,10 +6,20 @@ import "../styles/index";
 import Button from "../components/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import UsingHooks from "../pages/UsingHook";
+import { useState } from "react";
 
 const Booking = () => {
   let navigate = useNavigate();
   let params = useParams();
+  const [nameInput, setNameInput] = useState("");
+  const [surnameInput, setSurnameInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [numberInput, setNumberInput] = useState("");
+  const [dateInput, setDateInput] = useState("");
+  const [ticketQty, setTicketQty] = useState("");
+  const [amountInput, setAmountInput] = useState(150);
+
   return (
     <CustomerLayout>
       <Div>
@@ -30,16 +40,36 @@ const Booking = () => {
         </Paragraph>
 
         <form className="bookingForm">
-          <Input type="text" placeholder="Name" className="textInput" />
-          <Input type="text" placeholder="Surname" className="textInput" />
-          <Input type="text" placeholder="Email" className="textInput" />
+          <Input
+            type="text"
+            placeholder="Name"
+            className="textInput"
+            onChange={(event) => setNameInput(event.target.value)}
+          />
+          <Input
+            type="text"
+            placeholder="Surname"
+            className="textInput"
+            onChange={(event) => setSurnameInput(event.target.value)}
+          />
+          <Input
+            type="text"
+            placeholder="Email"
+            className="textInput"
+            onChange={(event) => setEmailInput(event.target.value)}
+          />
           <Input
             type="text"
             placeholder="Cellphone Number"
             className="textInput"
+            onChange={(event) => setNumberInput(event.target.value)}
           />
           <label>Date</label>
-          <select name="" className="textInput">
+          <select
+            name=""
+            className="textInput"
+            onChange={(event) => setDateInput(event.target.value)}
+          >
             <option value="">Date 1</option>
             <option value="">Date 2</option>
             <option value="">Date 3</option>
@@ -50,6 +80,7 @@ const Booking = () => {
             placeholder="Quantity"
             className="textInput"
             min="1"
+            onChange={(event) => setTicketQty(event.target.value)}
           />
 
           <Button
@@ -69,6 +100,12 @@ const Booking = () => {
           </Button>
         </form>
       </Div>
+      <UsingHooks
+        amount={amountInput * ticketQty}
+        email={emailInput}
+        phonenumber={numberInput}
+        name={nameInput + " " + surnameInput}
+      />
     </CustomerLayout>
   );
 };
