@@ -17,8 +17,8 @@ const Select = (props) => {
     <StyledSelect {...props}>
       {props?.children}
       {props?.options?.map((option) => (
-        <option value={option.id} key={option.id}>
-          {option.name}
+        <option value={option?.id} key={option?.id}>
+          {option?.name}
         </option>
       ))}
     </StyledSelect>
