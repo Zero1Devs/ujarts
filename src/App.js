@@ -16,6 +16,7 @@ import Register from "./pages/admin/auth/Register";
 import { NavigationStore } from "./stores/navigationStore";
 import { observer } from "mobx-react-lite";
 import AddVenue from "./pages/admin/venue/AddVenue";
+import AdminEvents from "./pages/admin/event";
 import AdminVenues from "./pages/admin/venue/Venues";
 import UpdateVenue from "./pages/admin/venue/UpdateVenue";
 import Promo from "./pages/admin/promo/Promo";
@@ -71,8 +72,10 @@ const App = observer(() => {
         <Route path="admin/forgot-password" element={<ForgotPassword />} />
         <Route path="admin/reset-password" element={<ResetPassword />} />
         <Route path="admin/venues" element={<AdminVenues />} />
+        <Route path="admin/events" element={<AdminEvents />} />
         <Route path="admin/venues/add" element={<AddVenue />} />
         <Route path="admin/venues/update" element={<UpdateVenue />} />
+        <Route path="upload" element={<UploadDownload />} />
         <Route path="admin/promo" element={<Promo />} />
         <Route path="admin/announcements" element={<Announcement />} />
         <Route path="*" element={<NotFound />} />
