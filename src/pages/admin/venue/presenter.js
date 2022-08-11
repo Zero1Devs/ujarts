@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction, autorun } from "mobx";
 import { useVenueStore } from "../../../stores/venueStore";
 
 class VenuePresenter {
@@ -13,6 +13,7 @@ class VenuePresenter {
   campuses = [];
   constructor() {
     makeAutoObservable(this);
+    autorun(() => this.getVenues());
   }
 
   setFormValue = (e) => {

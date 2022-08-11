@@ -23,7 +23,7 @@ class VenueStore {
       alert(error.message);
     }
   };
-  /**/ getVenues = async () => {
+  getVenues = async () => {
     try {
       const { error, data } =
         await this.supabaseGateway.selectFromTableWithForeignKey(

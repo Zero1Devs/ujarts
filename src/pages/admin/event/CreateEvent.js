@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { GrImage, GrFormNext, GrFormPrevious } from "react-icons/gr";
 import Input from "../../../components/Input";
@@ -6,11 +6,17 @@ import Select from "../../../components/Select";
 import Title from "../../../components/Title";
 import image from "../../../assets/image.svg";
 import Button from "../../../components/Button";
-
-const CreateEvent = (props) => {
+import { observer } from "mobx-react-lite";
+import { useVenuePresenter } from "../venue/presenter";
+import { useEventPresenter } from "./presenter";
+const CreateEvent = observer((props) => {
   const [page, setPage] = useState(true);
+  const { getVenues, venues } = useVenuePresenter;
+  const { eventTypes } = useEventPresenter;
   // const [vip, SetVip] = useState(false);
   // const [genera, SetGeneral] = useState(false);
+ 
+
   return (
     <div>
       <Title width="auto">Create New Event</Title>
@@ -28,6 +34,7 @@ const CreateEvent = (props) => {
                 <File
                   type="file"
                   id="single"
+                  name="thumbnail"
                   accept="image/*"
                   onChange={(e) => console.log(e.target.files)}
                 />
@@ -35,7 +42,12 @@ const CreateEvent = (props) => {
             </Imagewrapper>
             <FormWrapper>
               <label>Name</label>
-              <Input className="textInput" type="text" width="auto" />
+              <Input
+                name="name"
+                className="textInput"
+                type="text"
+                width="auto"
+              />
               <label>Description</label>
               <textarea
                 style={{
@@ -44,46 +56,45 @@ const CreateEvent = (props) => {
                   margin: "10px 0px",
                   borderRadius: "6px",
                 }}
+                name="description"
               />
               <DetailsWrapper>
                 <HostDetails>
                   <label>Host / Organization </label>
-                  <Input className="textInput" type="text" width="auto" />
+                  <Input
+                    name="host"
+                    className="textInput"
+                    type="text"
+                    width="auto"
+                  />
                   <label>Venue</label>
                   <Select
                     name="venue"
                     onChange={(e) => console.log(e.target.value)}
-                    options={[
-                      { id: "1", name: "Event 1" },
-                      { id: "2", name: "Event 2" },
-                      { id: "3", name: "Event 3" },
-                    ]}
+                    defaultValue={venues[0]?.id}
+                    options={venues}
                   />
                   <label>Type</label>
                   <Select
                     name="type"
                     onChange={(e) => console.log(e.target.value)}
-                    options={[
-                      { id: "1", name: "Type 1" },
-                      { id: "2", name: "Type 2" },
-                      { id: "3", name: "Type 3" },
-                    ]}
+                    options={eventTypes}
                   />
                 </HostDetails>
                 <div>
                   <DateWrapper>
                     <label>Date and Time</label>
                     <label>Select a day</label>
-                    <Input type="date" width="auto" />
+                    <Input name="date" type="date" width="auto" />
                   </DateWrapper>
                   <TimeWrapper>
                     <span>
                       <label>Starts at</label>
-                      <Input type="time" width="auto" />
+                      <Input name="start_time" type="time" width="auto" />
                     </span>
                     <span>
                       <label>Ends at</label>
-                      <Input type="time" width="auto" />
+                      <Input name="ending_time" type="time" width="auto" />
                     </span>
                   </TimeWrapper>
                 </div>
@@ -157,7 +168,7 @@ const CreateEvent = (props) => {
       )}
     </div>
   );
-};
+});
 export default CreateEvent;
 
 const EventDetails = styled.div``;
