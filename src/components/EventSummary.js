@@ -78,7 +78,7 @@ const SummaryWrapper = styled.div`
 `;
 
 //url('../assets/thumbnail.jpg')
-const StyledEventSummary = styled.div`
+export const StyledEventSummary = styled.div`
   background-color: white;
   border: solid 0px;
   height: 400px;

@@ -34,8 +34,8 @@ class Supabase {
       .update(payload)
       .match(match);
   };
-  deleteFromTable = (table, match) => {
-    SupabaseGateway.sbClient.from(table).delete().match(match);
+  deleteFromTable = async (table, match) => {
+    return await SupabaseGateway.sbClient.from(table).delete().match(match);
   };
 }
 export const SupabaseGateway = new Supabase();
