@@ -86,5 +86,6 @@ export const Table = styled.div`
   border-radius: 5px;
   margin-top: 20px;
   filter: drop-shadow(2px 2px 2px var(--grey));
+  background: white;
   align-self: center;
 `;

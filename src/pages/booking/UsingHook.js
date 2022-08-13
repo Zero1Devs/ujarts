@@ -1,7 +1,7 @@
 import React from "react";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
-import Button from "../components/Button";
-import { NavigationStore } from "../stores/navigationStore";
+import Button from "../../components/Button";
+import { NavigationStore } from "../../stores/navigationStore";
 export default function App(props) {
   const config = {
     public_key: "FLWPUBK_TEST-dec0f79285aabb4f1ce728dcf3c05a93-X",
@@ -28,7 +28,7 @@ export default function App(props) {
     <div className="App">
       <Button
         background="var(--darkpurple)"
-        width={"97%"}
+        width="97%"
         hover="var(--darkerpurple)"
         onClick={() => {
           handleFlutterPayment({

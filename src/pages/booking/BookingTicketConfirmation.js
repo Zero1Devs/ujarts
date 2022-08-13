@@ -1,8 +1,7 @@
 import React from "react";
-import Input from "../components/Input";
-//import "../styles/adminLayout.css";
-import "../styles/index";
-import Button from "../components/Button";
+import Input from "../../components/Input";
+import "../../styles/index";
+import Button from "../../components/Button";
 import styled from "styled-components";
 import { useState } from "react";
 import QRCode from "react-qr-code";

@@ -11,18 +11,25 @@ class VenuePresenter {
   venueStore = useVenueStore;
   venues = [];
   campuses = [];
+  screen = false;
   constructor() {
     makeAutoObservable(this);
     autorun(() => this.getVenues());
   }
-
+  setScreen = (value) => {
+    this.screen = value;
+  };
   setFormValue = (e) => {
     this.venue[e.target.name] = e.target.value;
     console.log(this.venue[e.target.name]);
   };
   createVenue = async () => {
     try {
-      await this.venueStore.createVenue(this.venue);
+      const { name, campus, seats } = this.venue;
+      let venue = { name, campus_id: campus, seats };
+      console.log(venue);
+      await this.venueStore.createVenue(venue);
+      this.screen = false;
     } catch (error) {
       console.log(error.message);
     }
@@ -38,10 +45,11 @@ class VenuePresenter {
   };
   deleteVenue = async ({ id }) => {
     console.log(id);
-    let confirm = window.confirm("Do you want to deletes this event?");
+    let confirm = window.confirm("Do you want to delete this event?");
     if (confirm) {
       try {
         await this.venueStore.deleteVenue(id);
+        await this.getVenues();
       } catch (error) {
         console.log(error.message);
       }

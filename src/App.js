@@ -8,7 +8,7 @@ import {
 import Events from "./pages/Events";
 import Venues from "./pages/Venues";
 import EventDetails from "./pages/EventDetails";
-import Booking from "./pages/Booking";
+import Booking from "./pages/booking/Booking";
 import About from "./pages/About";
 import Login from "./pages/admin/auth/Login";
 import NotFound from "./pages/NotFound";
@@ -31,7 +31,7 @@ import Scan_Qr_Code from "./pages/admin/FrontOfHouse/Scan-QR-Code";
 import CashBooking from "./pages/admin/FrontOfHouse/CashBooking";
 import GuestListSeach from "./pages/admin/FrontOfHouse/GuestListSearch";
 import ConfirmCashBooking from "./pages/admin/FrontOfHouse/ConfirmCashPayment";
-import TicketConfirmation from "./pages/BookingTicketConfirmation";
+import TicketConfirmation from "./pages/booking/BookingTicketConfirmation";
 const App = observer(() => {
   const { history } = NavigationStore;
   const { init } = UserStore;

@@ -19,7 +19,7 @@ const CashBooking = (props) => {
             type="text"
             name="name"
             placeholder="Name"
-            onChange={() => alert()}
+            onChange={(e) => console.log(e.target.value)}
           />
         </InputGroup>
         <InputGroup>
@@ -28,7 +28,7 @@ const CashBooking = (props) => {
             type="text"
             name="email"
             placeholder="Enter email address"
-            onChange={() => alert()}
+            onChange={(e) => console.log(e.target.value)}
           />
         </InputGroup>
         <InputGroup>
@@ -37,7 +37,7 @@ const CashBooking = (props) => {
             type="text"
             name="confirm_email"
             placeholder="Confirm email addres"
-            onChange={() => alert()}
+            onChange={(e) => console.log(e.target.value)}
           />
         </InputGroup>
         <InputGroup>
@@ -46,7 +46,7 @@ const CashBooking = (props) => {
             type="text"
             name="cellphone_number"
             placeholder="Cellphone number"
-            onChange={() => alert()}
+            onChange={(e) => console.log(e.target.value)}
           />
         </InputGroup>
         <InputGroup>
@@ -55,7 +55,7 @@ const CashBooking = (props) => {
             type="text"
             name="discount_code"
             placeholder="Discount code"
-            onChange={() => alert()}
+            onChange={(e) => console.log(e.target.value)}
           />
           <Button
             width="100px"

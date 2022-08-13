@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ujlogo from "../assets/ujLogo.jpg";
 import "../styles/index";
 import * as Icon from "react-icons/fi";
-import { BsListTask } from "react-icons/bs";
+import { BsList, BsListTask, BsCashCoin } from "react-icons/bs";
 import { BsFillCameraReelsFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { useAdminPresenter } from "../pages/admin/auth/presenter";
@@ -38,7 +38,7 @@ const AdminLayout = (props) => {
           }}
           to="/admin/foh-main"
         >
-          <BsFillCameraReelsFill color="white" size={25} />
+          <BsListTask color="white" size={25} />
         </NavLink>
 
         <NavLink
@@ -55,7 +55,7 @@ const AdminLayout = (props) => {
           }}
           to="/admin/cash_booking"
         >
-          <BsListTask color="white" size={25} />
+          <BsCashCoin color="white" size={25} />
         </NavLink>
 
         <div onClick={() => logout()} className="navLink">
