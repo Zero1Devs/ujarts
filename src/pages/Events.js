@@ -4,16 +4,16 @@ import "../styles/customerLayout.css";
 import Event from "../components/Event";
 import CustomerLayout from "../layouts/CustomerLayout";
 import { observer } from "mobx-react";
-import event from "./data";
+//import event from "./data";
 import styled from "styled-components";
 import Title from "../components/Title";
 import { useLocation } from "react-router-dom";
 import { NavigationStore } from "../stores/navigationStore";
-
+import { useEventPresenter } from "./admin/event/presenter";
 const Events = observer(() => {
   let location = useLocation();
   const navigation = NavigationStore;
-
+  const { event } = useEventPresenter;
   useEffect(() => {
     const hash = location.hash.split("&");
     if (hash[4] === "type=recovery")
@@ -48,7 +48,7 @@ const Events = observer(() => {
 
         <EventList className="eventList">
           {event.map((data, id) => (
-            <Event key={id} id={id} data={data} />
+            <Event key={id} id={id} event={data} />
           ))}
         </EventList>
       </div>
@@ -63,6 +63,7 @@ export const EventList = styled.div`
   border: solid 0px black;
   flex-wrap: wrap;
   padding-left: 25px;
+  
 `;
 
 export const Div = styled.div`

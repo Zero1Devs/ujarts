@@ -5,22 +5,22 @@ import { UiStore } from "../stores/uiStore";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import thumbnail from "../assets/thumbnail.jpg";
+import { useEventPresenter } from "../pages/admin/event/presenter";
 const EventSummary = observer(({ id }) => {
-  const { setFormValue, event } = UiStore;
+  const { setFormValue } = UiStore;
+  const { event ,setActive} = useEventPresenter;
 
   return (
-    <SummaryWrapper display={event[id]?.summary}>
+    <SummaryWrapper display={event[id]?.active}>
       <ActiveEvent />
       <StyledEventSummary background={thumbnail}>
         <Info>
-          <h1>Urban Soundscapes - Crafting Spaces of Belonging</h1>
-          <span className="eventType">Exhibition</span>
+          <h1>{event[id]?.name}</h1>
+          <span className="eventType">{event[id]?.type}</span>
           <span> - EVENT - </span>
           <span>2h</span>
           <p>
-            UJ Arts & Culture is proud to present Urban Soundscapes - Crafting
-            Spaces of Belonging, a Pat Mautloa solo exhibition curated by UJ Art
-            Gallery curator, Thabo Seshoka.
+            {event[id]?.summary}
             <br />
             More info to follow soon.
           </p>
@@ -47,7 +47,7 @@ const EventSummary = observer(({ id }) => {
               width={"100px"}
               color="var(--orange)"
               onClick={() => {
-                setFormValue(id);
+                setActive(id);
               }}
             >
               CANCEL
@@ -75,6 +75,7 @@ const Info = styled.div`
 `;
 const SummaryWrapper = styled.div`
   display: ${({ display }) => (display ? "block" : "none")};
+  }
 `;
 
 //url('../assets/thumbnail.jpg')
@@ -89,7 +90,7 @@ export const StyledEventSummary = styled.div`
   border-radius: 20px;
   margin: 0px 33px;
   overflow: hidden;
-  background-image:url(${({ background }) => background});
+  background-image: url(${({ background }) => background});
   background-size: 100%;
   background-repeat: no-repeat;
   color: white;

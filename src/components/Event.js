@@ -4,31 +4,28 @@ import "../styles/customerLayout.css";
 import thumbnail from "../assets/thumbnail.jpg";
 import { FiCalendar, FiClock, FiMapPin, FiUsers } from "react-icons/fi";
 import { observer } from "mobx-react";
-import { UiStore } from "../stores/uiStore";
 import EventSummary from "./EventSummary";
 import styled from "styled-components";
-
-const Event = observer(({ id, data }) => {
-  const { setFormValue } = UiStore;
+import { useEventPresenter } from "../pages/admin/event/presenter";
+const Event = observer(({ id, event }) => {
+  const { setActive } = useEventPresenter;
   return (
     <div>
       <EventCard
         onClick={() => {
-          setFormValue(id);
+          setActive(id);
         }}
       >
         <Thumbnail>
           <img alt="Event" src={thumbnail} />
-          <EventType>{data.type}</EventType>
+          <EventType>{event?.type}</EventType>
         </Thumbnail>
         <EventInfo>
-          <EventName title="Event Name">
-            Urban Soundscapes- Crafting Spaces of Belonging
-          </EventName>
+          <EventName title="Event Name">{event?.name}</EventName>
 
           <label title="Date">
             <FiCalendar size="23" color="var(--darkerpurple)" />
-            <span>11/06/2022 to 30/08/2022</span>
+            <span>{event?.dates}</span>
           </label>
 
           <label title="Venue">
@@ -47,7 +44,7 @@ const Event = observer(({ id, data }) => {
           </label>
         </EventInfo>
       </EventCard>
-      <EventSummary id={id} />
+      <EventSummary id={id} event={event} />
     </div>
   );
 });
@@ -56,7 +53,7 @@ export default Event;
 //style
 export const EventCard = styled.div`
   border: solid 0px;
-  height: auto;
+  height: 473px;
   width: 361px;
   border-radius: 5px;
   background-color: #eeeded;
