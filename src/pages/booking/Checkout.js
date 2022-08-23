@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { NavigationStore } from "../../stores/navigationStore";
 import Button from "../../components/Button";
 import styled from "styled-components";
-
+import { BsFillCreditCardFill } from "react-icons/bs";
 const Checkout = observer(() => {
   const [checked, setChecked] = useState("");
   return (
@@ -36,6 +36,7 @@ const Checkout = observer(() => {
           type={"radio"}
         />
       </Radio>
+      {checked === "card" && <PaymentButton />}
     </div>
   );
 });
@@ -75,9 +76,9 @@ const PaymentButton = (props) => {
   const handleFlutterPayment = useFlutterwave(config);
   return (
     <Button
-      background="var(--darkpurple)"
-      width="104%"
-      hover="var(--darkerpurple)"
+      background="var(--orange)"
+      width="100%"
+      hover="var(--darkorange)"
       onClick={() => {
         handleFlutterPayment({
           callback: (response) => {
@@ -88,7 +89,8 @@ const PaymentButton = (props) => {
         });
       }}
     >
-      Proceed with Payment
+      <BsFillCreditCardFill size="20" color="white" />
+      Pay with Credit/Debit card
     </Button>
   );
 };
