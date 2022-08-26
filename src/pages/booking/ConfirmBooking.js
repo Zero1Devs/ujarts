@@ -11,8 +11,11 @@ import {
   Thumbnail,
 } from "../../components/Event";
 import { useEventPresenter } from "../admin/event/presenter";
+import { useBooking } from "./presenter";
 const ConfirmBooking = observer(() => {
   const { event } = useEventPresenter;
+  const { name, email, phonenumber, quantity, getCost } = useBooking;
+
   return (
     <div>
       <h3>Confirm your booking</h3>
@@ -69,7 +72,7 @@ const ConfirmBooking = observer(() => {
             <div style={{ display: "grid", rowGap: "20px" }}>
               <Span>
                 <Heading>Your Tickets</Heading>
-                <SubHeading>2x Full Price Early Bird</SubHeading>
+                <SubHeading>{quantity}x Full Price Early Bird</SubHeading>
               </Span>
               <Span>
                 <Heading>Time</Heading>
@@ -77,7 +80,7 @@ const ConfirmBooking = observer(() => {
               </Span>
               <Span>
                 <Heading>Cost</Heading>
-                <SubHeading>R 240.00</SubHeading>
+                <SubHeading>R {getCost().toFixed(2)}</SubHeading>
               </Span>
             </div>
           </div>
@@ -86,18 +89,18 @@ const ConfirmBooking = observer(() => {
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "grid", rowGap: "20px" }}>
               <Span>
-                <Heading>Ticket Type</Heading>
-                <SubHeading>Lihle</SubHeading>
+                <Heading>Name:</Heading>
+                <SubHeading>{name}</SubHeading>
               </Span>
               <Span>
-                <Heading>Date</Heading>
-                <SubHeading>085 028 8001</SubHeading>
+                <Heading>Number:</Heading>
+                <SubHeading>{phonenumber}</SubHeading>
               </Span>
             </div>
             <div>
               <Span>
                 <Heading>Email Address</Heading>
-                <SubHeading>lihlenqoba06@gmail.com</SubHeading>
+                <SubHeading>{email}</SubHeading>
               </Span>
             </div>
           </div>

@@ -204,7 +204,7 @@ const Booking = observer(() => {
                 width={step === 4 ? "100%" : "50%"}
                 background="var(--orange)"
                 hover="var(--darkorange)"
-                onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
+                onClick={() => setStep((prev) => (prev < 4 ? prev + 1 : 4))}
               >
                 Continue
               </Button>
