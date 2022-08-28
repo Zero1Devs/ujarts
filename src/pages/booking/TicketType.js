@@ -1,17 +1,17 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
+import { useBookingPresenter } from "./presenter";
 const TicketType = observer(() => {
-  const [number, setNumber] = useState(0);
+  const { setFormValue, setQuantity, quantity } = useBookingPresenter;
   return (
     <div
       style={{
         border: "solid 0px",
-        width: "80%",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         placeItems: "center",
@@ -23,15 +23,15 @@ const TicketType = observer(() => {
         <label>R 125,00</label>
         <div style={{ display: "flex" }}>
           <AiOutlineMinusCircle
-            onClick={() => setNumber((prev) => (prev > 0 ? prev - 1 : 0))}
+            onClick={() => setQuantity((quantity > 0 ? quantity - 1 : 0))}
             size="25"
             color="var(--orange)"
             style={{ cursor: "pointer" }}
           />
-          <Counter>{number}</Counter>
+          <Counter>{quantity}</Counter>
 
           <AiOutlinePlusCircle
-            onClick={() => setNumber((prev) => prev + 1)}
+            onClick={() => setQuantity(quantity + 1)}
             size="25"
             color="var(--orange)"
             style={{ cursor: "pointer" }}
@@ -59,7 +59,7 @@ const Wrapper = styled.div`
   border-bottom: solid 1px var(--grey);
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 70%;
   padding: 5px 0px;
   margin: 30px 0px;
 `;

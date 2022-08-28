@@ -8,7 +8,7 @@ import thumbnail from "../assets/thumbnail.jpg";
 import { useEventPresenter } from "../pages/admin/event/presenter";
 const EventSummary = observer(({ id }) => {
   const { setFormValue } = UiStore;
-  const { event ,setActive} = useEventPresenter;
+  const { event, setActive } = useEventPresenter;
 
   return (
     <SummaryWrapper display={event[id]?.active}>
@@ -69,7 +69,7 @@ const ActiveEvent = styled.div`
   margin-left: 29px;
   margin-bottom: 20px;
 `;
-const Info = styled.div`
+export const Info = styled.div`
   z-index: 2;
   position: relative;
 `;

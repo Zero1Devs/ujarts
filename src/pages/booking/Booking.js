@@ -5,18 +5,23 @@ import thumbnail from "../../assets/thumbnail.jpg";
 import Button from "../../components/Button";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { StyledEventSummary } from "../../components/EventSummary";
+import { Info, StyledEventSummary } from "../../components/EventSummary";
 import BookingForm from "./BookingForm";
 import TicketType from "./TicketType";
 import { observer } from "mobx-react-lite";
 import { BsCheck } from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
 import ConfirmBooking from "./ConfirmBooking";
+import { Thumbnail, EventType } from "../../components/Event";
+import { useEventPresenter } from "../admin/event/presenter";
 import Checkout from "./Checkout";
 
 const Booking = observer(() => {
   let params = useParams();
+  let eventId = params.event;
   const [step, setStep] = useState(1);
+  const { event, setActive } = useEventPresenter;
+
   const Switch = () => {
     switch (step) {
       case 1:
@@ -36,179 +41,186 @@ const Booking = observer(() => {
   return (
     <CustomerLayout>
       <Div>
-        <Cover background={thumbnail} />
-        <h1>BOOK TICKETS for - Event#{params.event}</h1>
-        <BookingProcess>
-          <nav></nav>
-          <StepWrapper>
-            <Step
-              onClick={() => setStep(1)}
-              color={step === 1 ? "var(--orange)" : "var(--orange)"}
-            >
-              <StepCircle
-                background={step === 1 ? "white" : "var(--orange)"}
-                borderColor={"var(--orange)"}
-                color={step === 1 && "var(--orange)"}
+        <Cover background={thumbnail}>
+          <Info>
+            <h1>{event[eventId].name}</h1>
+            <EventType>{event[eventId].type}</EventType>
+          </Info>
+        </Cover>
+        <div style={{ width: "76%" }}>
+          <h1>BOOK TICKETS</h1>
+          <BookingProcess>
+            <nav></nav>
+            <StepWrapper>
+              <Step
+                onClick={() => setStep(1)}
+                color={step === 1 ? "var(--orange)" : "var(--orange)"}
               >
-                {step === 1 ? (
-                  "1"
-                ) : (
-                  <BsCheck
-                    size="23"
-                    color="white"
-                    style={{ fontWeight: "bold" }}
-                  />
-                )}
-              </StepCircle>
-              <label>Date & Time</label>
-            </Step>
-            <Step
-              onClick={() => setStep(2)}
-              color={step === 2 ? "var(--orange)" : "var(--orange)"}
-            >
-              <StepCircle
-                background={
-                  step === 2 ? "white" : step > 2 ? "var(--orange)" : ""
-                }
-                borderColor={step >= 2 && "var(--orange)"}
-                color={step === 2 && "var(--orange)"}
+                <StepCircle
+                  background={step === 1 ? "white" : "var(--orange)"}
+                  borderColor={"var(--orange)"}
+                  color={step === 1 && "var(--orange)"}
+                >
+                  {step === 1 ? (
+                    "1"
+                  ) : (
+                    <BsCheck
+                      size="23"
+                      color="white"
+                      style={{ fontWeight: "bold" }}
+                    />
+                  )}
+                </StepCircle>
+                <label>Date & Time</label>
+              </Step>
+              <Step
+                onClick={() => setStep(2)}
+                color={step === 2 ? "var(--orange)" : "var(--orange)"}
               >
-                {step <= 2 ? (
-                  "2"
-                ) : (
-                  <BsCheck
-                    size="23"
-                    color="white"
-                    style={{ fontWeight: "bold" }}
-                  />
-                )}
-              </StepCircle>
-              <label>Ticket Type</label>
-            </Step>
-            <Step
-              onClick={() => setStep(3)}
-              color={step >= 3 && "var(--orange)"}
-            >
-              <StepCircle
-                background={
-                  step === 3 ? "white" : step > 3 ? "var(--orange)" : ""
-                }
-                borderColor={step >= 3 && "var(--orange)"}
-                color={step === 3 && "var(--orange)"}
+                <StepCircle
+                  background={
+                    step === 2 ? "white" : step > 2 ? "var(--orange)" : ""
+                  }
+                  borderColor={step >= 2 && "var(--orange)"}
+                  color={step === 2 && "var(--orange)"}
+                >
+                  {step <= 2 ? (
+                    "2"
+                  ) : (
+                    <BsCheck
+                      size="23"
+                      color="white"
+                      style={{ fontWeight: "bold" }}
+                    />
+                  )}
+                </StepCircle>
+                <label>Ticket Type</label>
+              </Step>
+              <Step
+                onClick={() => setStep(3)}
+                color={step >= 3 && "var(--orange)"}
               >
-                {step <= 3 ? (
-                  "3"
-                ) : (
-                  <BsCheck
-                    size="23"
-                    color="white"
-                    style={{ fontWeight: "bold" }}
-                  />
-                )}
-              </StepCircle>
-              <label>Your details</label>
-            </Step>
-            <Step
-              onClick={() => setStep(4)}
-              color={step >= 4 && "var(--orange)"}
-            >
-              <StepCircle
-                background={
-                  step === 4 ? "white" : step > 4 ? "var(--orange)" : ""
-                }
-                borderColor={step >= 4 && "var(--orange)"}
-                color={step === 4 && "var(--orange)"}
+                <StepCircle
+                  background={
+                    step === 3 ? "white" : step > 3 ? "var(--orange)" : ""
+                  }
+                  borderColor={step >= 3 && "var(--orange)"}
+                  color={step === 3 && "var(--orange)"}
+                >
+                  {step <= 3 ? (
+                    "3"
+                  ) : (
+                    <BsCheck
+                      size="23"
+                      color="white"
+                      style={{ fontWeight: "bold" }}
+                    />
+                  )}
+                </StepCircle>
+                <label>Your details</label>
+              </Step>
+              <Step
+                onClick={() => setStep(4)}
+                color={step >= 4 && "var(--orange)"}
               >
-                {step <= 4 ? (
-                  "4"
-                ) : (
-                  <BsCheck
-                    size="23"
-                    color="white"
-                    style={{ fontWeight: "bold" }}
-                  />
-                )}
-              </StepCircle>
-              <label>Confirm booking</label>
-            </Step>
-            <Step
-              onClick={() => setStep(5)}
-              color={step === 5 && "var(--orange)"}
-            >
-              <StepCircle
-                background={step === 5 && "white"}
-                borderColor={step === 5 && "var(--orange)"}
+                <StepCircle
+                  background={
+                    step === 4 ? "white" : step > 4 ? "var(--orange)" : ""
+                  }
+                  borderColor={step >= 4 && "var(--orange)"}
+                  color={step === 4 && "var(--orange)"}
+                >
+                  {step <= 4 ? (
+                    "4"
+                  ) : (
+                    <BsCheck
+                      size="23"
+                      color="white"
+                      style={{ fontWeight: "bold" }}
+                    />
+                  )}
+                </StepCircle>
+                <label>Confirm booking</label>
+              </Step>
+              <Step
+                onClick={() => setStep(5)}
                 color={step === 5 && "var(--orange)"}
               >
-                {step <= 5 ? (
-                  "5"
-                ) : (
-                  <BsCheck
-                    size="23"
-                    color="white"
+                <StepCircle
+                  background={step === 5 && "white"}
+                  borderColor={step === 5 && "var(--orange)"}
+                  color={step === 5 && "var(--orange)"}
+                >
+                  {step <= 5 ? (
+                    "5"
+                  ) : (
+                    <BsCheck
+                      size="23"
+                      color="white"
+                      style={{ fontWeight: "bold" }}
+                    />
+                  )}
+                </StepCircle>
+                <label>Checkout</label>
+              </Step>
+            </StepWrapper>
+          </BookingProcess>
+          {Switch()}
+          <div
+            style={{
+              width: "100%",
+              marginTop: "15%",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Button
+              width="20%"
+              color="var(--grey)"
+              hover="var(--grey)"
+              onClick={() => setStep((prev) => (prev > 1 ? prev - 1 : 1))}
+            >
+              <u>Back</u>
+            </Button>
+            <div style={{ display: "flex", width: "40%" }}>
+              {step === 4 && (
+                <Button
+                  width="100%"
+                  border="solid 2px var(--darkorange)"
+                  color="var(--orange)"
+                  background="white"
+                  hover="var(--darkorange)"
+                  onClick={() => setStep(1)}
+                >
+                  Edit booking
+                </Button>
+              )}
+              {step === 5 ? (
+                <Button
+                  width={step === 4 ? "100%" : "50%"}
+                  background="var(--lightgrey)"
+                  hover="var(--darkorange)"
+                  color="black"
+                  onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
+                >
+                  <FaLock
+                    size="20"
+                    color="black"
                     style={{ fontWeight: "bold" }}
                   />
-                )}
-              </StepCircle>
-              <label>Checkout</label>
-            </Step>
-          </StepWrapper>
-        </BookingProcess>
-        {Switch()}
-        <div
-          style={{
-            width: "40%",
-            marginTop: "5%",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <Button
-            width="20%"
-            color="var(--grey)"
-            hover="var(--grey)"
-            onClick={() => setStep((prev) => (prev > 1 ? prev - 1 : 1))}
-          >
-            <u>Back</u>
-          </Button>
-          <div style={{ display: "flex", width: "40%" }}>
-            {step === 4 && (
-              <Button
-                width="100%"
-                border="solid 2px var(--darkorange)"
-                color="var(--orange)"
-                background="white"
-                hover="var(--darkorange)"
-                onClick={() => setStep(1)}
-              >
-                Edit booking
-              </Button>
-            )}
-            {step === 5 ? (
-              <Button
-                width={step === 4 ? "100%" : "50%"}
-                background="var(--lightgrey)"
-                hover="var(--darkorange)"
-                color="black"
-                onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
-              >
-                <FaLock
-                  size="20"
-                  color="black"
-                  style={{ fontWeight: "bold" }}
-                />
-                Pay
-              </Button>
-            ) : (
-              <Button
-                width={step === 4 ? "100%" : "50%"}
-                background="var(--orange)"
-                hover="var(--darkorange)"
-                onClick={() => setStep((prev) => (prev < 4 ? prev + 1 : 4))}
-              >
-                Continue
-              </Button>
-            )}
+                  Pay
+                </Button>
+              ) : (
+                <Button
+                  width={step === 4 ? "100%" : "50%"}
+                  background="var(--orange)"
+                  hover="var(--darkorange)"
+                  onClick={() => setStep((prev) => (prev < 4 ? prev + 1 : 4))}
+                >
+                  Continue
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </Div>
@@ -220,7 +232,8 @@ export default Booking;
 const BookingProcess = styled.div`
   width: 90%;
   height: 50px;
-  margin-top: 50px;
+  margin-top: 30px;
+  margin-bottom:10%;
   padding: 10px;
   border: solid 0px;
   text-align: center;
@@ -230,7 +243,7 @@ const BookingProcess = styled.div`
   position: relative;
   nav {
     border: solid 1px var(--grey);
-    width: 45%;
+    width: 60%;
     border-radius: 10px;
     position: absolute;
   }
@@ -242,7 +255,7 @@ const StepWrapper = styled.div`
   justify-content: space-between;
   align-content: center;
   height: 30px;
-  width: 51%;
+  width: 70%;
   border: solid 0px blue;
   font-size: 12px;
 `;
@@ -270,9 +283,15 @@ const Cover = styled(StyledEventSummary)`
   position: relative;
   margin-top: 2%;
   width: 76%;
+  height: 220px;
+  border-radius: 8px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   z-index: 0;
+  div h1 {
+    margin-left: 0;
+    font-weight: bold;
+  }
 `;
 const Div = styled.div`
   display: flex;
@@ -280,8 +299,10 @@ const Div = styled.div`
   justify-content: center;
   align-items: center;
   padding-left: 0%;
+  margin: 0% 8%;
   h1 {
     align-self: start;
-    margin-left: 5%;
+    margin-left: 0%;
   }
+  border: solid 1px;
 `;

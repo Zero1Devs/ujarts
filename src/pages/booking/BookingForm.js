@@ -1,14 +1,12 @@
 import React from "react";
 import Input from "../../components/Input";
 import "../../styles/index";
-import { useState } from "react";
 import { observer } from "mobx-react-lite";
-import {useBooking} from "./presenter";
-import { autorun } from "mobx";
+import { useBookingPresenter } from "./presenter";
 
 const BookingForm = observer(() => {
-  const { setFormValue } = useBooking;
-  let { name, email, confirm_email, phonenumber, quantity } = useBooking;
+  const { name, email, confirm_email, phonenumber, setFormValue } =
+    useBookingPresenter;
 
   return (
     <div style={{ width: "40%" }}>
@@ -54,20 +52,6 @@ const BookingForm = observer(() => {
         value={confirm_email}
         onChange={(event) => setFormValue(event)}
       />
-
-      <label for="quantity">Quantity</label>
-      <Input
-        type="number"
-        name="quantity"
-        id="quantity"
-        defaultValue={1}
-        min={1}
-        max={10}
-        className="textInput"
-        value={quantity}
-        onChange={(event) => setFormValue(event)}
-      />
-
     </div>
   );
 });

@@ -43,7 +43,7 @@ const Checkout = observer(() => {
 export default Checkout;
 const Radio = styled.div`
   height: 40px;
-  width: 200px;
+  width: 30%;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -11,10 +11,10 @@ import {
   Thumbnail,
 } from "../../components/Event";
 import { useEventPresenter } from "../admin/event/presenter";
-import { useBooking } from "./presenter";
+import { useBookingPresenter } from "./presenter";
 const ConfirmBooking = observer(() => {
   const { event } = useEventPresenter;
-  const { name, email, phonenumber, quantity, getCost } = useBooking;
+  const { name, email, phonenumber, quantity, getCost } = useBookingPresenter;
 
   return (
     <div>
