@@ -18,29 +18,29 @@ const Event = observer(({ id, event }) => {
       >
         <Thumbnail>
           <img alt="Event" src={thumbnail} />
-          <EventType>{event?.type}</EventType>
+          <EventType>{event?.event_types?.type}</EventType>
         </Thumbnail>
         <EventInfo>
           <EventName title="Event Name">{event?.name}</EventName>
 
           <label title="Date">
             <FiCalendar size="23" color="var(--darkerpurple)" />
-            <span>{event?.dates}</span>
+            <span>{event?.dates || "N/A"}</span>
           </label>
 
           <label title="Venue">
             <FiMapPin size="23" color="var(--darkerpurple)" />
-            <span>Kingsway Campus A1</span>
+            <span>{event?.venues?.name}</span>
           </label>
 
           <label title="Presented by">
             <FiUsers size="23" color="var(--darkerpurple)" />
-            <span>UJ Arts Gallery</span>
+            <span>{event?.host || "UJ Arts & Culture"}</span>
           </label>
 
           <label title="Duration">
             <FiClock size="23" color="var(--darkerpurple)" />
-            <span>N/A</span>
+            <span>{event?.duration || "N/A"}</span>
           </label>
         </EventInfo>
       </EventCard>
@@ -89,7 +89,7 @@ export const EventCard = styled.div`
   }
 `;
 export const EventName = styled.label`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   cursor: pointer;
   font-family: "Poppins";

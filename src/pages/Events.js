@@ -13,7 +13,7 @@ import { useEventPresenter } from "./admin/event/presenter";
 const Events = observer(() => {
   let location = useLocation();
   const navigation = NavigationStore;
-  const { event } = useEventPresenter;
+  const { event,events } = useEventPresenter;
   useEffect(() => {
     const hash = location.hash.split("&");
     if (hash[4] === "type=recovery")
@@ -47,7 +47,7 @@ const Events = observer(() => {
         </Div>
 
         <EventList className="eventList">
-          {event.map((data, id) => (
+          {events.map((data, id) => (
             <Event key={id} id={id} event={data} />
           ))}
         </EventList>

@@ -28,7 +28,7 @@ class VenueStore {
       const { error, data } =
         await this.supabaseGateway.selectFromTableWithForeignKey(
           "venues",
-          " campuses(id,abbreviation)"
+          "campuses(id,abbreviation)"
         );
 
       if (error) throw new Error(error.message);

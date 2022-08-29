@@ -18,7 +18,7 @@ class Supabase {
     //.then((response) => console.log(response.data));
   };
   selectFromTableWithForeignKey = async (table, select) => {
-    return await this.sbClient.from(table).select("*," + select);
+    return await this.sbClient.from(table).select("*," + select).order("id",{ascending:true});
     //.then((response) => console.log(response.data));
   };
   getUserData = async (match) => {

@@ -48,5 +48,19 @@ class EventStore {
       console.log(error.message);
     }
   };
+  getEvents = async () => {
+    try {
+      const { data, error } =
+        await this.supabaseGateway.selectFromTableWithForeignKey(
+          "events",
+          "event_types(id,type), venues(name)"
+        );
+      if (error) throw new Error(error.message);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 }
 export const useEventStore = new EventStore();

@@ -8,21 +8,19 @@ import thumbnail from "../assets/thumbnail.jpg";
 import { useEventPresenter } from "../pages/admin/event/presenter";
 const EventSummary = observer(({ id }) => {
   const { setFormValue } = UiStore;
-  const { event, setActive } = useEventPresenter;
+  const { event, events, setActive } = useEventPresenter;
 
   return (
-    <SummaryWrapper display={event[id]?.active}>
+    <SummaryWrapper display={events[id]?.active}>
       <ActiveEvent />
       <StyledEventSummary background={thumbnail}>
         <Info>
-          <h1>{event[id]?.name}</h1>
-          <span className="eventType">{event[id]?.type}</span>
-          <span> - EVENT - </span>
-          <span>2h</span>
+          <h1>{events[id]?.name}</h1>
+          <span className="eventType">{events[id]?.event_types.type}</span>
+          <span> - 2h</span>
           <p>
-            {event[id]?.summary}
+            {events[id]?.description}
             <br />
-            More info to follow soon.
           </p>
           <Div style={{ display: "flex" }}>
             <Link to={"/events/" + id}>
@@ -34,15 +32,16 @@ const EventSummary = observer(({ id }) => {
                 Full Details
               </Button>
             </Link>
-            <Link to={"/booking/" + id}>
+            <Link to={"/booking/" + events[id]?.id}>
               <Button
                 background="var(--orange)"
                 width={"100px"}
                 hover="var(--darkorange)"
               >
-                RSPV NOW
+                {events[id]?.state === "upcoming" ? "RSPV NOW" : "BOOK NOW"}
               </Button>
             </Link>
+
             <Button
               width={"100px"}
               color="var(--orange)"

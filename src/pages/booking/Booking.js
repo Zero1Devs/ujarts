@@ -12,7 +12,7 @@ import { observer } from "mobx-react-lite";
 import { BsCheck } from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
 import ConfirmBooking from "./ConfirmBooking";
-import { Thumbnail, EventType } from "../../components/Event";
+import { EventType } from "../../components/Event";
 import { useEventPresenter } from "../admin/event/presenter";
 import Checkout from "./Checkout";
 
@@ -20,7 +20,7 @@ const Booking = observer(() => {
   let params = useParams();
   let eventId = params.event;
   const [step, setStep] = useState(1);
-  const { event, setActive } = useEventPresenter;
+  const { events, setActive } = useEventPresenter;
 
   const Switch = () => {
     switch (step) {
@@ -43,8 +43,8 @@ const Booking = observer(() => {
       <Div>
         <Cover background={thumbnail}>
           <Info>
-            <h1>{event[eventId].name}</h1>
-            <EventType>{event[eventId].type}</EventType>
+            <h1>{events[eventId - 1].name}</h1>
+            <EventType>{events[eventId - 1].event_types?.type}</EventType>
           </Info>
         </Cover>
         <div style={{ width: "76%" }}>
@@ -233,7 +233,7 @@ const BookingProcess = styled.div`
   width: 90%;
   height: 50px;
   margin-top: 30px;
-  margin-bottom:10%;
+  margin-bottom: 10%;
   padding: 10px;
   border: solid 0px;
   text-align: center;

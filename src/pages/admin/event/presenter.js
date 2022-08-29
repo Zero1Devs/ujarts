@@ -1,70 +1,59 @@
-import { makeAutoObservable, autorun } from "mobx";
+import { makeAutoObservable, autorun, runInAction } from "mobx";
 import { useEventStore } from "../../../stores/eventStore";
 
 class EventPresenter {
   eventStore = useEventStore;
   active = 0;
+  events = [];
 
-  event = [
-    {
-      id: 1,
-      name: "Urban Soundscapes- Crafting Spaces of Belonging",
-      type: "Exhibition",
-      summary:
-        "UJ Arts & Culture is proud to present  Urban Soundscapes - Crafting Spaces of Belonging, a Pat Mautloa solo exhibition curated by UJ Art Gallery curator, Thabo Seshoka.\nMore info soon.",
-      dates: "20-8-2022 to 29-8-2022",
-      active: false,
-    },
-    {
-      id: 2,
-      name: "LEARN: an ArtMuch Podcast",
-      type: "Podcast",
-      summary:
-        "Welcome to UJ Arts & Culture’s Educational Podcast Channel: LEARN for high school students. This season features isiZulu and English adaptations of ‘R&J Unplugged’, Robin Malan’s adaptation of Shakespeare’s ‘Romeo and Juliet’. The play was translated and edited by Nkululeko Ndhlovu in partnership with Nomusa Sibiya at UJ’s Multilingual Language Services at UJ.Recorded by UJ Arts Academy students under direction",
-      dates: "20-8-2022 to 29-8-2022",
-      active: false,
-    },
-    {
-      id: 3,
-      name: "Urban Soundscapes- Crafting Spaces of Belonging",
-      type: "Exhibition",
-      summary:
-        "UJ Arts & Culture is proud to present  Urban Soundscapes - Crafting Spaces of Belonging, a Pat Mautloa solo exhibition curated by UJ Art Gallery curator, Thabo Seshoka.\nMore info soon.",
-      dates: "20-8-2022 to 29-8-2022",
-      active: false,
-    },
-    {
-      id: 4,
-      name: "LEARN: an ArtMuch Podcast",
-      type: "Podcast",
-      summary:
-        "Welcome to UJ Arts & Culture’s Educational Podcast Channel: LEARN for high school students. This season features isiZulu and English adaptations of ‘R&J Unplugged’, Robin Malan’s adaptation of Shakespeare’s ‘Romeo and Juliet’. The play was translated and edited by Nkululeko Ndhlovu in partnership with Nomusa Sibiya at UJ’s Multilingual Language Services at UJ.Recorded by UJ Arts Academy students under direction",
-      dates: "20-8-2022 to 29-8-2022",
-      active: false,
-    },
-  ];
   constructor() {
     makeAutoObservable(this);
-    autorun(() => this.getEventTypes());
+    autorun(() => {
+      this.getEvents();
+      this.getEventTypes();
+    });
   }
 
   get eventTypes() {
     return this.eventStore.eventTypes;
   }
   setActive = (id) => {
-    for (var i = 0; i < this.event.length; i++) {
+    for (var i = 0; i < this.events.length; i++) {
       if (i !== id) {
-        this.event[i].active = false;
+        this.events[i].active = false;
       }
     }
     this.active = id;
-    this.event[id].active = !this.event[id].active;
+    this.events[id].active = !this.events[id].active;
   };
   getEventTypes = async () => {
     try {
       const data = await this.eventStore.getEventTypes();
 
       console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getEvents = async () => {
+    try {
+      const data = await this.eventStore.getEvents();
+
+      runInAction(() => {
+        this.events = data.map(
+          ({ id, name, description, state, host, venues, event_types }) => ({
+            id,
+            name,
+            description,
+            state,
+            host,
+            venues,
+            event_types,
+            active: false,
+          })
+        );
+      });
+      console.log(this.events);
     } catch (error) {
       console.log(error.message);
     }
