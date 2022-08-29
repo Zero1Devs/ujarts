@@ -38,9 +38,9 @@ class EventStore {
 
       if (error) throw new Error(error.message);
       runInAction(() => {
-        this.eventTypes = data.map(({ id, description }) => ({
+        this.eventTypes = data.map(({ id, type }) => ({
           id: id,
-          name: description,
+          name: type,
         }));
       });
       return data;

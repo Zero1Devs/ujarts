@@ -10,10 +10,17 @@ import Title from "../components/Title";
 import { useLocation } from "react-router-dom";
 import { NavigationStore } from "../stores/navigationStore";
 import { useEventPresenter } from "./admin/event/presenter";
+import Select from "../components/Select";
+
 const Events = observer(() => {
   let location = useLocation();
   const navigation = NavigationStore;
-  const { event, events } = useEventPresenter;
+  const { event, events, getEventTypes, setFilterValue, eventTypes } =
+    useEventPresenter;
+  useEffect(() => {
+    getEventTypes();
+    // eslint-disable-next-line
+  }, []);
   useEffect(() => {
     const hash = location.hash.split("&");
     if (hash[4] === "type=recovery")
@@ -32,20 +39,12 @@ const Events = observer(() => {
 
         <Div>
           <label>Filter by:</label>
-          <select name="" id="select">
-            <option disabled selected>
-              Event Type
-            </option>
-            <option value={""}>All</option>
-            <option value={"Comedy"}>Comedy</option>
-            <option value={"Dance"}>Dance</option>
-            <option value={"Events"}>Events</option>
-            <option value={"Exhibitions"}>Exhibitions</option>
-            <option value={"Music"}>Music</option>
-            <option value={"Workshop"}>Workshop</option>
-            <option value={"Podcast"}>Podcast</option>
-            <option value={"Theatre"}>Theatre</option>
-          </select>
+          <Select
+            value={event?.type.type}
+            name="Event_Type"
+            onChange={(e) => setFilterValue(e)}
+            options={eventTypes}
+          />
         </Div>
 
         <EventList className="eventList">
