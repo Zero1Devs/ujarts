@@ -13,7 +13,7 @@ import { useEventPresenter } from "./admin/event/presenter";
 const Events = observer(() => {
   let location = useLocation();
   const navigation = NavigationStore;
-  const { event,events } = useEventPresenter;
+  const { event, events } = useEventPresenter;
   useEffect(() => {
     const hash = location.hash.split("&");
     if (hash[4] === "type=recovery")
@@ -37,12 +37,14 @@ const Events = observer(() => {
               Event Type
             </option>
             <option value={""}>All</option>
-            <option value={""}>Comedy</option>
-            <option value={""}>Dance</option>
-            <option value={""}>Events</option>
-            <option value={""}>Exhibitions</option>
-            <option value={""}>Music</option>
-            <option value={""}>Theatre</option>
+            <option value={"Comedy"}>Comedy</option>
+            <option value={"Dance"}>Dance</option>
+            <option value={"Events"}>Events</option>
+            <option value={"Exhibitions"}>Exhibitions</option>
+            <option value={"Music"}>Music</option>
+            <option value={"Workshop"}>Workshop</option>
+            <option value={"Podcast"}>Podcast</option>
+            <option value={"Theatre"}>Theatre</option>
           </select>
         </Div>
 
@@ -63,7 +65,6 @@ export const EventList = styled.div`
   border: solid 0px black;
   flex-wrap: wrap;
   padding-left: 25px;
-  
 `;
 
 export const Div = styled.div`
