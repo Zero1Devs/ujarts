@@ -15,17 +15,34 @@ import ConfirmBooking from "./ConfirmBooking";
 import { EventType } from "../../components/Event";
 import { useEventPresenter } from "../admin/event/presenter";
 import Checkout from "./Checkout";
+import { useBookingPresenter } from "./presenter";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import { BsFillCreditCardFill } from "react-icons/bs";
+import { NavigationStore } from "../../stores/navigationStore";
+import DateTime from "./DateTime";
 
 const Booking = observer(() => {
   let params = useParams();
   let eventId = params.event;
   const [step, setStep] = useState(1);
-  const { events, setActive } = useEventPresenter;
+  /*const [screen, setScreen] = useState(1);*/
+  const {
+    screen,
+    setScreen,
+    GoBack,
+    payment_type,
+    name,
+    surname,
+    phone_number,
+    email,
+    getCost,
+  } = useBookingPresenter;
+  const { events } = useEventPresenter;
 
   const Switch = () => {
-    switch (step) {
+    switch (screen) {
       case 1:
-        return <h1>DATE</h1>;
+        return <DateTime />;
       case 2:
         return <TicketType />;
       case 3:
@@ -38,13 +55,54 @@ const Booking = observer(() => {
         return;
     }
   };
+  const SwitchPaymentButton = () => {
+    if (screen === 5) {
+      switch (payment_type) {
+        case "card":
+          return (
+            <PaymentButton
+              name={name + " " + surname}
+              email={email}
+              phone_number={phone_number}
+              amount={getCost()}
+            />
+          );
+        case "snap":
+          return (
+            <Button
+              width={screen === 4 ? "100%" : "50%"}
+              background="var(--lightgrey)"
+              hover="var(--darkorange)"
+              color="black"
+              onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
+            >
+              <FaLock size="20" color="black" style={{ fontWeight: "bold" }} />
+              Pay
+            </Button>
+          );
+        default:
+          return (
+            <Button
+              width={screen === 4 ? "100%" : "50%"}
+              background="var(--lightgrey)"
+              hover="var(--darkorange)"
+              color="black"
+              onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
+            >
+              <FaLock size="20" color="black" style={{ fontWeight: "bold" }} />
+              Pay
+            </Button>
+          );
+      }
+    }
+  };
   return (
     <CustomerLayout>
       <Div>
         <Cover background={thumbnail}>
           <Info>
-            <h1>{events[eventId - 1].name}</h1>
-            <EventType>{events[eventId - 1].event_types?.type}</EventType>
+            <h1>{events[eventId - 1]?.name}</h1>
+            <EventType>{events[eventId - 1]?.event_types?.type}</EventType>
           </Info>
         </Cover>
         <div style={{ width: "76%" }}>
@@ -53,15 +111,17 @@ const Booking = observer(() => {
             <nav></nav>
             <StepWrapper>
               <Step
-                onClick={() => setStep(1)}
-                color={step === 1 ? "var(--orange)" : "var(--orange)"}
+                onClick={async () => {
+                  await setScreen();
+                }}
+                color={screen === 1 ? "var(--orange)" : "var(--orange)"}
               >
                 <StepCircle
-                  background={step === 1 ? "white" : "var(--orange)"}
+                  background={screen === 1 ? "white" : "var(--orange)"}
                   borderColor={"var(--orange)"}
-                  color={step === 1 && "var(--orange)"}
+                  color={screen === 1 ? "var(--orange)" : undefined}
                 >
-                  {step === 1 ? (
+                  {screen === 1 ? (
                     "1"
                   ) : (
                     <BsCheck
@@ -74,17 +134,19 @@ const Booking = observer(() => {
                 <label>Date & Time</label>
               </Step>
               <Step
-                onClick={() => setStep(2)}
-                color={step === 2 ? "var(--orange)" : "var(--orange)"}
+                onClick={async () => {
+                  await setScreen();
+                }}
+                color={screen >= 2 ? "var(--orange)" : "black"}
               >
                 <StepCircle
                   background={
-                    step === 2 ? "white" : step > 2 ? "var(--orange)" : ""
+                    screen === 2 ? "white" : screen > 2 ? "var(--orange)" : ""
                   }
-                  borderColor={step >= 2 && "var(--orange)"}
-                  color={step === 2 && "var(--orange)"}
+                  borderColor={screen >= 2 ? "var(--orange)" : undefined}
+                  color={screen === 2 ? "var(--orange)" : undefined}
                 >
-                  {step <= 2 ? (
+                  {screen <= 2 ? (
                     "2"
                   ) : (
                     <BsCheck
@@ -97,17 +159,19 @@ const Booking = observer(() => {
                 <label>Ticket Type</label>
               </Step>
               <Step
-                onClick={() => setStep(3)}
-                color={step >= 3 && "var(--orange)"}
+                onClick={async () => {
+                  await setScreen(3);
+                }}
+                color={screen >= 3 ? "var(--orange)" : undefined}
               >
                 <StepCircle
                   background={
-                    step === 3 ? "white" : step > 3 ? "var(--orange)" : ""
+                    screen === 3 ? "white" : screen > 3 ? "var(--orange)" : ""
                   }
-                  borderColor={step >= 3 && "var(--orange)"}
-                  color={step === 3 && "var(--orange)"}
+                  borderColor={screen >= 3 ? "var(--orange)" : undefined}
+                  color={screen === 3 ? "var(--orange)" : undefined}
                 >
-                  {step <= 3 ? (
+                  {screen <= 3 ? (
                     "3"
                   ) : (
                     <BsCheck
@@ -121,16 +185,16 @@ const Booking = observer(() => {
               </Step>
               <Step
                 onClick={() => setStep(4)}
-                color={step >= 4 && "var(--orange)"}
+                color={screen >= 4 ? "var(--orange)" : undefined}
               >
                 <StepCircle
                   background={
-                    step === 4 ? "white" : step > 4 ? "var(--orange)" : ""
+                    screen === 4 ? "white" : screen > 4 ? "var(--orange)" : ""
                   }
-                  borderColor={step >= 4 && "var(--orange)"}
-                  color={step === 4 && "var(--orange)"}
+                  borderColor={screen >= 4 ? "var(--orange)" : undefined}
+                  color={screen === 4 ? "var(--orange)" : undefined}
                 >
-                  {step <= 4 ? (
+                  {screen <= 4 ? (
                     "4"
                   ) : (
                     <BsCheck
@@ -144,14 +208,14 @@ const Booking = observer(() => {
               </Step>
               <Step
                 onClick={() => setStep(5)}
-                color={step === 5 && "var(--orange)"}
+                color={screen === 5 ? "var(--orange)" : undefined}
               >
                 <StepCircle
-                  background={step === 5 && "white"}
-                  borderColor={step === 5 && "var(--orange)"}
-                  color={step === 5 && "var(--orange)"}
+                  background={screen === 5 ? "white" : undefined}
+                  borderColor={screen === 5 ? "var(--orange)" : undefined}
+                  color={screen === 5 ? "var(--orange)" : undefined}
                 >
-                  {step <= 5 ? (
+                  {screen <= 5 ? (
                     "5"
                   ) : (
                     <BsCheck
@@ -178,44 +242,41 @@ const Booking = observer(() => {
               width="20%"
               color="var(--grey)"
               hover="var(--grey)"
-              onClick={() => setStep((prev) => (prev > 1 ? prev - 1 : 1))}
+              onClick={() => {
+                //alert();
+                GoBack(screen - 1);
+              }}
             >
               <u>Back</u>
             </Button>
             <div style={{ display: "flex", width: "40%" }}>
-              {step === 4 && (
+              {screen === 4 && (
                 <Button
                   width="100%"
                   border="solid 2px var(--darkorange)"
                   color="var(--orange)"
                   background="white"
                   hover="var(--darkorange)"
-                  onClick={() => setStep(1)}
+                  onClick={() =>
+                    //alert()
+                    GoBack(1)
+                  }
                 >
                   Edit booking
                 </Button>
               )}
-              {step === 5 ? (
-                <Button
-                  width={step === 4 ? "100%" : "50%"}
-                  background="var(--lightgrey)"
-                  hover="var(--darkorange)"
-                  color="black"
-                  onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
-                >
-                  <FaLock
-                    size="20"
-                    color="black"
-                    style={{ fontWeight: "bold" }}
-                  />
-                  Pay
-                </Button>
+              {screen === 5 ? (
+                SwitchPaymentButton()
               ) : (
+                //<h1>sqi</h1>
                 <Button
-                  width={step === 4 ? "100%" : "50%"}
+                  width={screen === 4 ? "100%" : "50%"}
                   background="var(--orange)"
                   hover="var(--darkorange)"
-                  onClick={() => setStep((prev) => (prev < 4 ? prev + 1 : 4))}
+                  onClick={async () => {
+                    //                    setStep((prev) => (prev < 4 ? prev + 1 : 4));
+                    await setScreen();
+                  }}
                 >
                   Continue
                 </Button>
@@ -229,7 +290,7 @@ const Booking = observer(() => {
 });
 export default Booking;
 
-const BookingProcess = styled.div`
+export const BookingProcess = styled.div`
   width: 90%;
   height: 50px;
   margin-top: 30px;
@@ -248,7 +309,7 @@ const BookingProcess = styled.div`
     position: absolute;
   }
 `;
-const StepWrapper = styled.div`
+export const StepWrapper = styled.div`
   position: absolute;
   z-index: 1;
   display: flex;
@@ -259,14 +320,14 @@ const StepWrapper = styled.div`
   border: solid 0px blue;
   font-size: 12px;
 `;
-const Step = styled.div`
+export const Step = styled.div`
   color: ${({ color }) => color || "black"};
   display: grid;
   place-items: center;
   text-align: center;
   text-transform: uppercase;
 `;
-const StepCircle = styled.div`
+export const StepCircle = styled.div`
   background: ${({ background }) => background || "var(--grey)"};
   color: ${({ color }) => color || "white"};
   border: solid 1px ${({ borderColor }) => borderColor || "var(--grey)"};
@@ -279,7 +340,7 @@ const StepCircle = styled.div`
   width: 30px;
   border-radius: 50%;
 `;
-const Cover = styled(StyledEventSummary)`
+export const Cover = styled(StyledEventSummary)`
   position: relative;
   margin-top: 2%;
   width: 76%;
@@ -293,7 +354,7 @@ const Cover = styled(StyledEventSummary)`
     font-weight: bold;
   }
 `;
-const Div = styled.div`
+export const Div = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -304,5 +365,47 @@ const Div = styled.div`
     align-self: start;
     margin-left: 0%;
   }
-  border: solid 1px;
+  border: solid 0px;
 `;
+
+const PaymentButton = (props) => {
+  const config = {
+    public_key: "FLWPUBK_TEST-dec0f79285aabb4f1ce728dcf3c05a93-X",
+    tx_ref: Date.now(),
+    amount: props.amount,
+    currency: "NGN",
+    redirect_url: window.location.origin + "/ticket-confirmation",
+    payment_options: "card,mobilemoney,ussd",
+    customer: {
+      email: props.email,
+      phonenumber: props.phone_number,
+      name: props.name,
+    },
+    customizations: {
+      title: "UJ Arts",
+      description: "Payment for items in cart",
+      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+    },
+  };
+  const navigation = NavigationStore;
+  const handleFlutterPayment = useFlutterwave(config);
+  return (
+    <Button
+      background="var(--orange)"
+      width="100%"
+      hover="var(--darkorange)"
+      onClick={() => {
+        handleFlutterPayment({
+          callback: (response) => {
+            console.log(response);
+            closePaymentModal(); // this will close the modal programmatically
+          },
+          onClose: () => navigation.push("ticket-confirmation"),
+        });
+      }}
+    >
+      <BsFillCreditCardFill size="20" color="white" />
+      Pay with Credit/Debit card
+    </Button>
+  );
+};

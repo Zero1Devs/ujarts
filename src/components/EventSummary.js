@@ -8,10 +8,9 @@ import thumbnail from "../assets/thumbnail.jpg";
 import { useEventPresenter } from "../pages/admin/event/presenter";
 const EventSummary = observer(({ id }) => {
   const { setFormValue } = UiStore;
-  const { event, events, setActive } = useEventPresenter;
-
+  const { event, active, events, setActive } = useEventPresenter;
   return (
-    <SummaryWrapper display={events[id]?.active}>
+    <SummaryWrapper display={events[id]?.active.toString()} id="summary">
       <ActiveEvent />
       <StyledEventSummary background={thumbnail}>
         <Info>
@@ -73,7 +72,8 @@ export const Info = styled.div`
   position: relative;
 `;
 const SummaryWrapper = styled.div`
-  display: ${({ display }) => (display ? "block" : "none")};
+  visibility: ${({ display }) => (display==="true" ? "visible" : "hidden")};
+  width:86%;
   }
 `;
 

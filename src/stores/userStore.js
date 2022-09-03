@@ -3,7 +3,7 @@ import { makePersistable } from "mobx-persist-store";
 import { SupabaseGateway } from "../gateways/SupaBaseGateway";
 import { NavigationStore } from "./navigationStore";
 
-class userStore {
+class UserStore {
   isLoggedIn = localStorage.getItem("@isLoggedIn") === "true";
   supabaseGateway = SupabaseGateway;
   auth = SupabaseGateway.sbClient.auth;
@@ -73,7 +73,6 @@ class userStore {
       runInAction(() => {
         this.user = { ...user, ...data };
       });
-      console.log(this.user);
     } catch (error) {
       console.log(error.message);
       alert(error.message);
@@ -109,4 +108,4 @@ class userStore {
     }
   };
 }
-export const UserStore = new userStore();
+export const useUserStore = new UserStore();

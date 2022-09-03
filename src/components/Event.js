@@ -54,15 +54,15 @@ export default Event;
 export const EventCard = styled.div`
   border: solid 0px;
   height: 473px;
-  width: 361px;
+  width: 351px;
   border-radius: 5px;
   background-color: #eeeded;
   color: var(--darkerpurple);
   filter: drop-shadow(2px 2px 4px var(--grey));
   padding: 10px;
-  padding-top: 40px;
+  padding-top: 30px;
   cursor: pointer;
-  margin: 20px;
+  margin: 18px;
   text-align: center;
   :hover {
     animation: scale 1s;
@@ -98,15 +98,14 @@ export const Thumbnail = styled.div`
   display: flex;
   flex-direction: column;
   border: solid 0px;
-  width: 325px;
+  width: 320px;
   filter: drop-shadow(2px 2px 4px var(--grey));
   margin: auto;
   img {
     border-radius: 10px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
     width: 100%;
-    height: 233px;
+    height: 210px;
   }
 `;
 export const EventType = styled.span`

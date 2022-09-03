@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import thumbnail from "../../assets/thumbnail.jpg";
 import { FiCalendar, FiClock, FiMapPin, FiUsers } from "react-icons/fi";
@@ -12,37 +12,49 @@ import {
 } from "../../components/Event";
 import { useEventPresenter } from "../admin/event/presenter";
 import { useBookingPresenter } from "./presenter";
+import { useParams } from "react-router-dom";
+import emailjs from "@emailjs/browser";
 const ConfirmBooking = observer(() => {
-  const { event } = useEventPresenter;
-  const { name, email, phonenumber, quantity, getCost } = useBookingPresenter;
-
+  const { events } = useEventPresenter;
+  const {
+    name,
+    surname,
+    email,
+    phone_number,
+    quantity,
+    date,
+    time,
+    getCost,
+    setEventPlace,
+  } = useBookingPresenter;
+  let params = useParams();
+  let eventId = params.event;
+  useEffect(() => {
+    setEventPlace(events[eventId - 1]);
+    // eslint-disable-next-line
+  }, []);
   return (
-    <div>
+    <div id="myhtml">
       <h3>Confirm your booking</h3>
       <BookingWrapper>
         <EventCard style={{ paddingTop: "20px" }}>
           <Thumbnail>
             <img alt="Event thumbnail" src={thumbnail} />
-            <EventType>{event[0]?.type}</EventType>
+            <EventType>{events[eventId - 1]?.event_types?.type}</EventType>
           </Thumbnail>
           <EventInfo>
             <EventName style={{ fontSize: "18px" }} title="Event Name">
-              {event[0]?.name}
+              {events[eventId - 1]?.name}
             </EventName>
-
-            <label title="Date">
-              <FiCalendar size="23" color="var(--darkerpurple)" />
-              <span>{event[0]?.dates}</span>
-            </label>
 
             <label title="Venue">
               <FiMapPin size="23" color="var(--darkerpurple)" />
-              <span>Kingsway Campus A1</span>
+              <span>{events[eventId - 1]?.venues?.name}</span>
             </label>
 
             <label title="Presented by">
               <FiUsers size="23" color="var(--darkerpurple)" />
-              <span>UJ Arts Gallery</span>
+              <span>{events[eventId - 1]?.host}</span>
             </label>
 
             <label title="Duration">
@@ -62,7 +74,7 @@ const ConfirmBooking = observer(() => {
               </Span>
               <Span>
                 <Heading>Date</Heading>
-                <SubHeading>18 August 2022</SubHeading>
+                <SubHeading>{date} 2022</SubHeading>
               </Span>
               <Span>
                 <Heading>Place</Heading>
@@ -76,7 +88,7 @@ const ConfirmBooking = observer(() => {
               </Span>
               <Span>
                 <Heading>Time</Heading>
-                <SubHeading>11:00 am</SubHeading>
+                <SubHeading>{time}</SubHeading>
               </Span>
               <Span>
                 <Heading>Cost</Heading>
@@ -90,11 +102,13 @@ const ConfirmBooking = observer(() => {
             <div style={{ display: "grid", rowGap: "20px" }}>
               <Span>
                 <Heading>Name:</Heading>
-                <SubHeading>{name}</SubHeading>
+                <SubHeading>
+                  {name} {surname}
+                </SubHeading>
               </Span>
               <Span>
                 <Heading>Number:</Heading>
-                <SubHeading>{phonenumber}</SubHeading>
+                <SubHeading>{phone_number}</SubHeading>
               </Span>
             </div>
             <div>
@@ -106,6 +120,34 @@ const ConfirmBooking = observer(() => {
           </div>
         </TicketDetails>
       </BookingWrapper>
+      <button
+        onClick={() => {
+          emailjs
+            .send(
+              "default_service",
+              "template_e1u78gk",
+              {
+                name: name,
+                email: email,
+                from_name: "UJ Arts & Culture",
+                to_name: "Vivaldo",
+                message: "Hello, how are you? Here is your ticket",
+                myhtml: "",
+              },
+              "kH-h4rehfRqCVNXY-"
+            )
+            .then(
+              function (response) {
+                console.log("SUCCESS!", response.status, response.text);
+              },
+              function (error) {
+                console.log("FAILED...", error);
+              }
+            );
+        }}
+      >
+        sEND EMAIL
+      </button>
     </div>
   );
 });
@@ -132,6 +174,7 @@ const BookingWrapper = styled.div`
   background: white;
   border-radius: 10px;
   border: solid 0px;
+  flex-wrap: wrap;
   display: flex;
   filter: drop-shadow(2px 2px 4px var(--grey));
 `;

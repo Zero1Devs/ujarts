@@ -27,7 +27,7 @@ const ForgotPassword = observer(() => {
         width={"103%"}
         hover="var(--darkorange)"
         onClick={sendResetPasswordEmail}
-        loading={loading}
+        loading={loading.toString()}
       >
         Forgot Password
       </Button>

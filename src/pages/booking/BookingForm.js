@@ -5,13 +5,13 @@ import { observer } from "mobx-react-lite";
 import { useBookingPresenter } from "./presenter";
 
 const BookingForm = observer(() => {
-  const { name, email, confirm_email, phonenumber, setFormValue } =
+  const { name, surname, email, confirm_email, phone_number, setFormValue } =
     useBookingPresenter;
 
   return (
     <div style={{ width: "40%" }}>
       <h3>Provide your details</h3>
-      <label for="name">Your Name</label>
+      <label htmlFor="name">Your Name</label>
       <Input
         type="text"
         id="name"
@@ -21,17 +21,27 @@ const BookingForm = observer(() => {
         value={name}
         onChange={(event) => setFormValue(event)}
       />
-      <label for="phonenumber">Cellphone Number</label>
+      <label htmlFor="surname">Surname</label>
+      <Input
+        type="text"
+        id="surname"
+        name="surname"
+        placeholder="Surname"
+        className="textInput"
+        value={surname}
+        onChange={(event) => setFormValue(event)}
+      />
+      <label htmlFor="phonenumber">Cellphone Number</label>
       <Input
         type="cellphone"
         placeholder="Cellphone Number"
-        name="phonenumber"
-        id="phonenumber"
+        name="phone_number"
+        id="phone_number"
         className="textInput"
-        value={phonenumber}
+        value={phone_number}
         onChange={(event) => setFormValue(event)}
       />
-      <label for="email">Email address</label>
+      <label htmlFor="email">Email address</label>
       <Input
         type="email"
         placeholder="Email"
@@ -41,7 +51,7 @@ const BookingForm = observer(() => {
         value={email}
         onChange={(event) => setFormValue(event)}
       />
-      <label for="confirm_email">Confirm your email address</label>
+      <label htmlFor="confirm_email">Confirm your email address</label>
 
       <Input
         type="email"

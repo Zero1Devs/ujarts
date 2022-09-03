@@ -13,9 +13,6 @@ const CreateEvent = observer((props) => {
   const [page, setPage] = useState(true);
   const { getVenues, venues } = useVenuePresenter;
   const { eventTypes } = useEventPresenter;
-  // const [vip, SetVip] = useState(false);
-  // const [genera, SetGeneral] = useState(false);
- 
 
   return (
     <div>

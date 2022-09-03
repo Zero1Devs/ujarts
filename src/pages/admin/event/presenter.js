@@ -2,13 +2,14 @@ import { makeAutoObservable, autorun, runInAction } from "mobx";
 import { useEventStore } from "../../../stores/eventStore";
 
 class EventPresenter {
- 
-  event = {
-    type: String(),
-  };
   eventStore = useEventStore;
   active = 0;
   events = [];
+  eventType = "";
+  eventTypes = {
+    id: new Int32Array(),
+    name: String(),
+  };
   constructor() {
     makeAutoObservable(this);
     autorun(() => {
@@ -17,12 +18,9 @@ class EventPresenter {
     });
   }
   setFilterValue = (e) => {
-    this.type[e.target.name] = e.target.value;
-    console.log(this.venue[e.target.name]);
+    this[e.target.name] = e.target.value;
+    console.log(this[e.target.name]);
   };
-  get eventTypes() {
-    return this.eventStore.eventTypes;
-  }
   setActive = (id) => {
     for (var i = 0; i < this.events.length; i++) {
       if (i !== id) {
@@ -35,7 +33,12 @@ class EventPresenter {
   getEventTypes = async () => {
     try {
       const data = await this.eventStore.getEventTypes();
-      console.log(data);
+      runInAction(() => {
+        this.eventTypes = data.map(({ id, type }) => ({
+          id: id,
+          name: type,
+        }));
+      });
     } catch (error) {
       console.log(error.message);
     }
@@ -58,7 +61,7 @@ class EventPresenter {
           })
         );
       });
-      console.log(this.events);
+      //    console.log(this.events);
     } catch (error) {
       console.log(error.message);
     }

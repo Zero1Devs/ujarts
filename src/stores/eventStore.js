@@ -1,12 +1,9 @@
 import { SupabaseGateway } from "../gateways/SupaBaseGateway";
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction, autorun } from "mobx";
 
 class EventStore {
   supabaseGateway = SupabaseGateway;
 
-  constructor() {
-    makeAutoObservable(this);
-  }
   event = {
     id: new Int32Array(),
     name: String(),
@@ -17,6 +14,12 @@ class EventStore {
     id: new Int32Array(),
     name: String(),
   };
+  constructor() {
+    makeAutoObservable(this);
+    autorun(() => {
+      this.getEventTypes();
+    });
+  }
   createEvent = async (event) => {
     try {
       const { error } = await this.supabaseGateway.insertToTable(
@@ -56,7 +59,7 @@ class EventStore {
           "event_types(id,type), venues(name)"
         );
       if (error) throw new Error(error.message);
-      console.log(data);
+      //  console.log(data);
       return data;
     } catch (error) {
       console.log(error.message);

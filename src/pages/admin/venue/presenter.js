@@ -21,7 +21,7 @@ class VenuePresenter {
   };
   setFormValue = (e) => {
     this.venue[e.target.name] = e.target.value;
-    console.log(this.venue[e.target.name]);
+    // console.log(this.venue[e.target.name]);
   };
   createVenue = async () => {
     try {
@@ -71,7 +71,7 @@ class VenuePresenter {
           seats: seats,
         }));
       });
-      console.log(data);
+      //console.log(data);
     } catch (error) {
       console.log(error.message);
     }
@@ -87,7 +87,7 @@ class VenuePresenter {
           abbreviation: abbreviation,
         }));
       });
-      console.log(data);
+      //  console.log(data);
     } catch (error) {
       console.log(error.message);
     }

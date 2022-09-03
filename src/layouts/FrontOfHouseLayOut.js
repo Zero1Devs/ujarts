@@ -7,13 +7,13 @@ import { BsFillCameraReelsFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { useAdminPresenter } from "../pages/admin/auth/presenter";
 import styled from "styled-components";
-import { UserStore } from "../stores/userStore";
+import { useUserStore } from "../stores/userStore";
 import { NavigationStore } from "../stores/navigationStore";
 
 //941015
 const AdminLayout = (props) => {
   const { logout } = useAdminPresenter;
-  const { isLoggedIn } = UserStore;
+  const { isLoggedIn } = useUserStore;
   const { replace } = NavigationStore;
   useEffect(() => {
     if (!isLoggedIn) replace("/admin");

@@ -40,7 +40,7 @@ const ResetPassword = observer(() => {
         width={"103%"}
         hover="var(--darkorange)"
         onClick={resetPassword}
-        loading={loading}
+        loading={loading.toString()}
       >
         Reset Password
       </Button>

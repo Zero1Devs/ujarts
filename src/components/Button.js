@@ -6,10 +6,14 @@ import Lootie from "lottie-react";
 const Button = (props) => {
   return (
     <StyledButton {...props}>
-      {!props?.loading ? (
-        props.children
+      {props?.loading ? (
+        props?.loading === "false" ? (
+          props.children
+        ) : (
+          <Lootie animationData={loader} style={{ height: "100%" }} />
+        )
       ) : (
-        <Lootie animationData={loader} style={{ height: "100%" }} />
+        props.children
       )}
     </StyledButton>
   );
