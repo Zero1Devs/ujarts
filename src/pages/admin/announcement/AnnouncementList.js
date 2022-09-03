@@ -7,6 +7,7 @@ import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
 import styled from "styled-components";
 import search from "../../../assets/search.svg";
+//import { autoAction } from "mobx/dist/internal";
 const AnnouncementList = () => {
   return (
     <>
@@ -31,20 +32,35 @@ export default AnnouncementList;
 
 const columns = [
   {
-    name: "Announcement ID",
+    name: "Time",
+    selector: (row) => row.time,
+    sortable: true,
+  },
+  {
+    name: "Date",
+    selector: (row) => row.date,
+    sortable: true,
+  },
+  {
+    name: "Form",
+    selector: (row) => row.form,
+    sortable: true,
+  },
+  {
+    name: "Announcement",
+    selector: (row) => row.announcement,
+    sortable: true,
+  },
+  {
+    name: "Event Name",
+    selector: (row) => row.name,
+    sortable: true,
+    width: "30%",
+  },
+  {
+    name: "Event ID",
     selector: (row) => row.id,
     sortable: true,
-  },
-  {
-    name: "Announcement Code",
-    selector: (row) => row.year,
-    sortable: true,
-  },
-  {
-    name: "Event",
-    selector: (row) => row.title,
-    sortable: true,
-    width: "50%",
   },
   {
     button: true,
@@ -53,14 +69,37 @@ const columns = [
 ];
 const data = [
   {
-    id: 1,
-    title: "Beetlejuice",
-    year: "1988",
+    id: "#008",
+    time: "3 mins. ago",
+    date: "09/07/2022 \n14:23",
+    form: "SMS",
+    announcement: "Event Delayed",
+    name: "Futures and Beyond :: Creativity and 4IR Conference 2022",
   },
   {
-    id: 2,
-    title: "Ghostbusters",
-    year: "1984",
+    id: "#003",
+    time: "2 days ago",
+    date: "05/07/2022 \n14:23",
+    form: "Email",
+    announcement: "Event Cancelled",
+    name: "Urban Soundscapes- Crafting Spaces of Belonging",
+  },
+
+  {
+    id: "#011",
+    time: "2 days ago",
+    date: "05/07/2022 10:09",
+    form: "SMS",
+    announcement: "Event Schedule change",
+    name: "UNFATHOMABLE",
+  },
+  {
+    id: "#007",
+    time: "1 week ago",
+    date: "09/07/2022 14:23",
+    form: "SMS",
+    announcement: "Event Cancelled",
+    name: "Nesting Flight",
   },
 ];
 

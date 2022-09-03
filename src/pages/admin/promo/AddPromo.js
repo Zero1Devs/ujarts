@@ -5,7 +5,9 @@ import Input, { StyledInput } from "../../../components/Input";
 import Select from "../../../components/Select";
 import Button from "../../../components/Button";
 import percent from "../../../assets/percent.svg";
+import { useEventPresenter } from "../event/presenter";
 const AddPromo = (props) => {
+  const { events } = useEventPresenter;
   return (
     <>
       <Title width="300px">New Promo Code</Title>
@@ -36,11 +38,7 @@ const AddPromo = (props) => {
             width="210px"
             name="event"
             onChange={(e) => console.log(e.target.value)}
-            options={[
-              { id: "1", name: "Event 1" },
-              { id: "2", name: "Event 2" },
-              { id: "3", name: "Event 3" },
-            ]}
+            options={events}
           />
         </InputGroup>
         <InputGroup width="250px" marginTop="50px">

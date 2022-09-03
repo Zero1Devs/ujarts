@@ -35,14 +35,24 @@ const columns = [
   },
   {
     name: "Promo Code",
-    selector: (row) => row.year,
+    selector: (row) => row.code,
     sortable: true,
   },
   {
-    name: "Event",
-    selector: (row) => row.title,
+    name: "Discount",
+    selector: (row) => row.discount,
+    sortable: true,
+  },
+  {
+    name: "Event Name",
+    selector: (row) => row.eventName,
     sortable: true,
     width: "50%",
+  },
+  {
+    name: "Event ID",
+    selector: (row) => row.eventId,
+    sortable: true,
   },
   {
     button: true,
@@ -55,14 +65,18 @@ const columns = [
 ];
 const data = [
   {
-    id: 1,
-    title: "Beetlejuice",
-    year: "1988",
+    id: "#003",
+    code: "SHOWTIME123",
+    discount: "30%",
+    eventName: "Futures and Beyond :: Creativity and 4IR Conference 2022",
+    eventId: "#008",
   },
   {
-    id: 2,
-    title: "Ghostbusters",
-    year: "1984",
+    id: "#002",
+    code: "ArtStudent",
+    discount: "100%",
+    eventName: "Urban Soundscapes- Crafting Spaces of Belonging",
+    eventId: "#003",
   },
 ];
 
