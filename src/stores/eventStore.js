@@ -65,5 +65,35 @@ class EventStore {
       console.log(error.message);
     }
   };
+  getRunningEvents = async () => {
+    try {
+      const { data, error } =
+        await this.supabaseGateway.selectFromTableWithForeignKeyFilter(
+          "events",
+          "event_types(id,type), venues(name)",
+          { column: "state", value: "running" }
+        );
+      if (error) throw new Error(error.message);
+      //  console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getUpcomingEvents = async () => {
+    try {
+      const { data, error } =
+        await this.supabaseGateway.selectFromTableWithForeignKeyFilter(
+          "events",
+          "event_types(id,type), venues(name)",
+          { column: "state", value: "upcoming" }
+        );
+      if (error) throw new Error(error.message);
+      //  console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 }
 export const useEventStore = new EventStore();

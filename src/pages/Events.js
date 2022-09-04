@@ -18,7 +18,6 @@ const Events = observer(() => {
     useEventPresenter;
 
   useEffect(() => {
-    getEventTypes();
     const hash = location.hash.split("&");
     if (hash[4] === "type=recovery")
       navigation.replace("/admin/reset-password");

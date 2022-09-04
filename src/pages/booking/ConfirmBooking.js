@@ -130,7 +130,7 @@ const ConfirmBooking = observer(() => {
                 name: name,
                 email: email,
                 from_name: "UJ Arts & Culture",
-                to_name: "Vivaldo",
+                to_name: name,
                 message: "Hello, how are you? Here is your ticket",
                 myhtml: "",
               },

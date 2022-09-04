@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 import { UiStore } from "../stores/uiStore";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import thumbnail from "../assets/thumbnail.jpg";
+import { DownloadPhoto } from "../util/DownloadPhoto";
+
 import { useEventPresenter } from "../pages/admin/event/presenter";
 const EventSummary = observer(({ id }) => {
   const { setFormValue } = UiStore;
   const { event, active, events, setActive } = useEventPresenter;
+  const [url, setUrl] = useState("");
+  useEffect(() => {
+    DownloadPhoto(events[id]?.thumbnail).then((response) => {
+      setUrl(response);
+      console.log(response);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <SummaryWrapper display={events[id]?.active.toString()} id="summary">
       <ActiveEvent />
-      <StyledEventSummary background={thumbnail}>
+      <StyledEventSummary background={url}>
         <Info>
           <h1>{events[id]?.name}</h1>
           <span className="eventType">{events[id]?.event_types.type}</span>
@@ -72,7 +82,7 @@ export const Info = styled.div`
   position: relative;
 `;
 const SummaryWrapper = styled.div`
-  visibility: ${({ display }) => (display==="true" ? "visible" : "hidden")};
+  visibility: ${({ display }) => (display === "true" ? "visible" : "hidden")};
   width:86%;
   }
 `;

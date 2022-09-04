@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/index.css";
 import "../styles/customerLayout.css";
 import thumbnail from "../assets/thumbnail.jpg";
@@ -7,8 +7,19 @@ import { observer } from "mobx-react";
 import EventSummary from "./EventSummary";
 import styled from "styled-components";
 import { useEventPresenter } from "../pages/admin/event/presenter";
+import { DownloadPhoto } from "../util/DownloadPhoto";
+import { useEffect } from "react";
 const Event = observer(({ id, event }) => {
   const { setActive } = useEventPresenter;
+  const [url, setUrl] = useState("");
+  useEffect(() => {
+    DownloadPhoto(event?.thumbnail).then((response) => {
+      setUrl(response);
+      console.log(response);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div>
       <EventCard
@@ -17,7 +28,7 @@ const Event = observer(({ id, event }) => {
         }}
       >
         <Thumbnail>
-          <img alt="Event" src={thumbnail} />
+          <img alt="Event" src={url} />
           <EventType>{event?.event_types?.type}</EventType>
         </Thumbnail>
         <EventInfo>

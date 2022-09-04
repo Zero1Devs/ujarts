@@ -1,5 +1,6 @@
-import { autorun, makeAutoObservable } from "mobx";
+import { autorun, makeAutoObservable, runInAction } from "mobx";
 import { makePersistable } from "mobx-persist-store";
+import { SupabaseGateway } from "../../gateways/SupaBaseGateway";
 import { NavigationStore } from "../../stores/navigationStore";
 import {
   BookingStepOne,
@@ -7,7 +8,9 @@ import {
   BookingStepTwo,
   getValidationErrorMessage,
 } from "../../util/validator";
+
 class Booking {
+  supabase = SupabaseGateway;
   name = "";
   surname = "";
   email = "";
@@ -21,6 +24,7 @@ class Booking {
   eventType = "";
   screen = 1;
   payment_type = "";
+  guest = [];
   navigation = NavigationStore;
 
   constructor() {
@@ -80,6 +84,20 @@ class Booking {
     return cost;
   };
   MoveForward = () => {};
+  getGuest = async (reference) => {
+    try {
+      const data = await this.supabase.selectFromTableFilter("booking", {
+        column: "reference",
+        value: reference,
+      });
+      runInAction(() => {
+        this.guest = data.data;
+        console.log(data.data);
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   GoBack = (screen) => {
     this.screen = screen;
     if (this.screen === 0) {

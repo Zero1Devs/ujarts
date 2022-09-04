@@ -10,6 +10,8 @@ class EventPresenter {
     id: new Int32Array(),
     name: String(),
   };
+  runningEvents = [];
+  upcomingEvents = [];
   constructor() {
     makeAutoObservable(this);
     autorun(() => {
@@ -49,15 +51,100 @@ class EventPresenter {
 
       runInAction(() => {
         this.events = data.map(
-          ({ id, name, description, state, host, venues, event_types }) => ({
+          ({
             id,
             name,
             description,
             state,
             host,
+            thumbnail,
+            venues,
+            event_types,
+          }) => ({
+            id,
+            name,
+            description,
+            state,
+            thumbnail,
+            host,
             venues,
             event_types,
             active: false,
+            sold: Math.floor(
+              Math.random() * (Math.floor(100) - Math.ceil(0)) + Math.ceil(0)
+            ),
+          })
+        );
+      });
+      //    console.log(this.events);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getRunningEvents = async () => {
+    try {
+      const data = await this.eventStore.getRunningEvents();
+
+      runInAction(() => {
+        this.runningEvents = data.map(
+          ({
+            id,
+            name,
+            description,
+            state,
+            host,
+            thumbnail,
+            venues,
+            event_types,
+          }) => ({
+            id,
+            name,
+            description,
+            state,
+            thumbnail,
+            host,
+            venues,
+            event_types,
+            active: false,
+            sold: Math.floor(
+              Math.random() * (Math.floor(100) - Math.ceil(0)) + Math.ceil(0)
+            ),
+          })
+        );
+      });
+      //    console.log(this.events);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getUpcomingEvents = async () => {
+    try {
+      const data = await this.eventStore.getUpcomingEvents();
+
+      runInAction(() => {
+        this.upcomingEvents = data.map(
+          ({
+            id,
+            name,
+            description,
+            state,
+            host,
+            thumbnail,
+            venues,
+            event_types,
+          }) => ({
+            id,
+            name,
+            description,
+            state,
+            thumbnail,
+            host,
+            venues,
+            event_types,
+            active: false,
+            sold: Math.floor(
+              Math.random() * (Math.floor(100) - Math.ceil(0)) + Math.ceil(0)
+            ),
           })
         );
       });
