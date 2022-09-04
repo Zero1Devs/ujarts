@@ -9,8 +9,9 @@ import {
 } from "react-icons/hi";
 import { GiPlainCircle, GiTicket } from "react-icons/gi";
 import Button from "./Button";
+import { observer } from "mobx-react";
 
-const EventRow = () => {
+const EventRow = observer(({ event }) => {
   const [actions, setActions] = useState(false);
   return (
     <EventCard
@@ -32,10 +33,11 @@ const EventRow = () => {
           <span>#008</span>
         </div>
         <label style={{ fontSize: "18px" }}>
-          Futures and Beyond :: Creativity and 4IR Conference 2022
+          {event?.name ||
+            "Futures and Beyond :: Creativity and 4IR Conference 2022"}
         </label>
         <div style={{ marginTop: "20px" }}>
-          <span style={{ marginRight: "15px" }}>22 Aug. 2022</span>
+          <span style={{ marginRight: "15px" }}>5 Sept 2022</span>
           <span>12:00</span>
         </div>
       </EventTitle>
@@ -43,12 +45,15 @@ const EventRow = () => {
         <span>Event Status</span>
         <h3>
           <span style={{ marginRight: "5px" }}>
-            <GiPlainCircle color="#00c800" size={10} />
+            <GiPlainCircle
+              color={event?.state === "running" ? "#00c800" : "yellow"}
+              size={10}
+            />
           </span>
-          In Progress
+          {event?.state === "running" ? "Running" : "Upcoming"}
         </h3>
         <span>Event Duration</span>
-        <h3>9 hrs</h3>
+        <h3>2 hrs</h3>
       </Status>
       <TagsWrapper>
         <TagsGroup>
@@ -133,7 +138,7 @@ const EventRow = () => {
       </ActionsButtonWrapper>
     </EventCard>
   );
-};
+});
 
 export default EventRow;
 

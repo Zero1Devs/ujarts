@@ -7,7 +7,6 @@ import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
 import styled from "styled-components";
 import search from "../../../assets/search.svg";
-//import { autoAction } from "mobx/dist/internal";
 const AnnouncementList = () => {
   return (
     <>
@@ -35,6 +34,7 @@ const columns = [
     name: "Time",
     selector: (row) => row.time,
     sortable: true,
+    width:"80px",
   },
   {
     name: "Date",
@@ -50,6 +50,7 @@ const columns = [
     name: "Announcement",
     selector: (row) => row.announcement,
     sortable: true,
+    width:"200px",
   },
   {
     name: "Event Name",
@@ -70,16 +71,16 @@ const columns = [
 const data = [
   {
     id: "#008",
-    time: "3 mins. ago",
-    date: "09/07/2022 \n14:23",
-    form: "SMS",
+    time: "12:10",
+    date: "09/07/2022",
+    form: "Email",
     announcement: "Event Delayed",
     name: "Futures and Beyond :: Creativity and 4IR Conference 2022",
   },
   {
     id: "#003",
-    time: "2 days ago",
-    date: "05/07/2022 \n14:23",
+    time: "14:23",
+    date: "05/07/2022",
     form: "Email",
     announcement: "Event Cancelled",
     name: "Urban Soundscapes- Crafting Spaces of Belonging",
@@ -87,17 +88,17 @@ const data = [
 
   {
     id: "#011",
-    time: "2 days ago",
-    date: "05/07/2022 10:09",
-    form: "SMS",
+    time: "10:09",
+    date: "05/07/2022",
+    form: "Email",
     announcement: "Event Schedule change",
     name: "UNFATHOMABLE",
   },
   {
     id: "#007",
-    time: "1 week ago",
-    date: "09/07/2022 14:23",
-    form: "SMS",
+    time: "14:23",
+    date: "09/07/2022",
+    form: "Email",
     announcement: "Event Cancelled",
     name: "Nesting Flight",
   },

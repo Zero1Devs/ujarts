@@ -32,6 +32,7 @@ const columns = [
     name: "Promo ID",
     selector: (row) => row.id,
     sortable: true,
+    width: "120px",
   },
   {
     name: "Promo Code",
@@ -47,7 +48,7 @@ const columns = [
     name: "Event Name",
     selector: (row) => row.eventName,
     sortable: true,
-    width: "50%",
+    width: "30%",
   },
   {
     name: "Event ID",

@@ -55,7 +55,7 @@ const NewAnnouncement = (props) => {
             background="var(--purple)"
             hover="var(--darkpurple)"
             border="solid 1px var(--darkpurple)"
-            onClick={() => alert("created")}
+            onClick={() => alert("Announcement sent")}
           >
             Create
           </Button>
