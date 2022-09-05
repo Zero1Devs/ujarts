@@ -24,7 +24,7 @@ class Booking {
   eventType = "";
   screen = 1;
   payment_type = "";
-  guest = [];
+  guest = {};
   navigation = NavigationStore;
 
   constructor() {
@@ -92,8 +92,9 @@ class Booking {
       });
       runInAction(() => {
         this.guest = data.data;
-        console.log(data.data);
+        console.log(this.guest);
       });
+      return this.guest;
     } catch (error) {
       console.log(error.message);
     }

@@ -9,10 +9,29 @@ import { useEffect } from "react";
 
 const Scan_Qr_Code = () => {
   const [data, setData] = useState("No result");
-  const { guest, getGuest } = useBookingPresenter;
+  const { getGuest, guest } = useBookingPresenter;
+
   useEffect(() => {
+    console.log("I render when DATA changes");
     getGuest(data);
   }, [data]);
+
+  useEffect(() => {
+    console.log("I render when Guest changes");
+    RenderTable();
+  }, [guest]);
+
+  const RenderTable = () => {
+    return (
+      <>
+        {data !== "No result" && (
+          <Table>
+            <DataTable columns={columns} data={guest} fixedHeader />
+          </Table>
+        )}
+      </>
+    );
+  };
   return (
     <FrontOfHouseLayOut>
       <Title width="300px">Guest List</Title>
@@ -30,11 +49,7 @@ const Scan_Qr_Code = () => {
           }}
         />
       </div>
-      {data !== "No result" && (
-        <Table>
-          <DataTable columns={columns} data={guest} fixedHeader />
-        </Table>
-      )}
+      {RenderTable()}
     </FrontOfHouseLayOut>
   );
 };
