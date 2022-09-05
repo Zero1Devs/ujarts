@@ -10,27 +10,14 @@ import { useBookingPresenter } from "./presenter";
 const DateTime = observer(() => {
   const [checked, setChecked] = useState(false);
   const { date, time, setFormValue, setDate } = useBookingPresenter;
-  useEffect(()=>{setChecked(!checked)},[date])
+  useEffect(() => {
+    setChecked(!checked);
+  }, [date]);
   return (
     <div>
       <h3>Select your date & time</h3>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <DatesWrapper>
-          <Date htmlFor="date1" checked={date === "4 September"} >
-            <Day htmlFor="date1">4</Day>
-            <DayOfWeek htmlFor="date1">Sun</DayOfWeek>
-            <input
-              id="date1"
-              checked={date === "4 September"}
-              value="4 September"
-              onChange={(e) => {
-                setFormValue(e);
-                setDate(e);
-              }}
-              name="date"
-              type={"radio"}
-            />
-          </Date>
           <Date htmlFor="date2" checked={date === "5 September"}>
             <Day htmlFor="date2">5</Day>
             <DayOfWeek htmlFor="date2">Mon</DayOfWeek>
@@ -83,6 +70,21 @@ const DateTime = observer(() => {
               id="date5"
               checked={date === "8 September"}
               value="8 September"
+              onChange={(e) => {
+                setFormValue(e);
+                setDate(e);
+              }}
+              name="date"
+              type={"radio"}
+            />
+          </Date>
+          <Date htmlFor="date1" checked={date === "9 September"}>
+            <Day htmlFor="date1">9</Day>
+            <DayOfWeek htmlFor="date1">Fri</DayOfWeek>
+            <input
+              id="date1"
+              checked={date === "9 September"}
+              value="9 September"
               onChange={(e) => {
                 setFormValue(e);
                 setDate(e);
