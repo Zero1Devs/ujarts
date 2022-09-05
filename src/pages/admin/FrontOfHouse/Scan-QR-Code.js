@@ -18,14 +18,14 @@ const Scan_Qr_Code = () => {
 
   useEffect(() => {
     console.log("I render when Guest changes");
-    RenderTable();
+  //  RenderTable();
   }, [guest]);
 
   const RenderTable = (data) => {
     return (
       <>
         {data !== "No result" && (
-          <Table>
+          <Table style={{marginBottom:"50px"}}>
             <DataTable columns={columns} data={data} fixedHeader />
           </Table>
         )}
