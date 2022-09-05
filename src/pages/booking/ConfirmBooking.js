@@ -120,34 +120,6 @@ const ConfirmBooking = observer(() => {
           </div>
         </TicketDetails>
       </BookingWrapper>
-      <button
-        onClick={() => {
-          emailjs
-            .send(
-              "default_service",
-              "template_e1u78gk",
-              {
-                name: name,
-                email: email,
-                from_name: "UJ Arts & Culture",
-                to_name: name,
-                message: "Hello, how are you? Here is your ticket",
-                myhtml: "",
-              },
-              "kH-h4rehfRqCVNXY-"
-            )
-            .then(
-              function (response) {
-                console.log("SUCCESS!", response.status, response.text);
-              },
-              function (error) {
-                console.log("FAILED...", error);
-              }
-            );
-        }}
-      >
-        sEND EMAIL
-      </button>
     </div>
   );
 });
