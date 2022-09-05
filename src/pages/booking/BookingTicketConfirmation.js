@@ -25,7 +25,7 @@ import thumbnail from "../../assets/thumbnail.jpg";
 import { Info } from "../../components/EventSummary";
 import { EventType } from "../../components/Event";
 import { NavigationStore } from "../../stores/navigationStore";
-
+import { DownloadPhoto } from "../../util/DownloadPhoto";
 const ref = React.createRef();
 const TicketConfirmation = observer(() => {
   const {
@@ -48,6 +48,8 @@ const TicketConfirmation = observer(() => {
   const [refNumber, setRefNumber] = useState("");
   let location = useLocation();
   const search = location.search.split("&");
+  const [url, setUrl] = useState("");
+  const { events } = useEventPresenter;
   useEffect(() => {
     getBooking();
     console.log(search);
@@ -55,13 +57,16 @@ const TicketConfirmation = observer(() => {
       console.log(search[1].split("=")[1]);
       setRefNumber(search[1].split("=")[1]);
     }
-
+    DownloadPhoto(events[0]?.thumbnail).then((response) => {
+      setUrl(response);
+      console.log(response);
+    });
     // eslint-disable-next-line
   }, []);
   return (
     <CustomerLayout>
       <Div>
-        <Cover background={thumbnail}>
+        <Cover background={url}>
           <Info>
             <h1>{event}</h1>
             <EventType>{eventType}</EventType>

@@ -20,7 +20,8 @@ import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { BsFillCreditCardFill } from "react-icons/bs";
 import { NavigationStore } from "../../stores/navigationStore";
 import DateTime from "./DateTime";
-
+import { DownloadPhoto } from "../../util/DownloadPhoto";
+import { useEffect } from "react";
 const Booking = observer(() => {
   let params = useParams();
   let eventId = params.event;
@@ -38,7 +39,15 @@ const Booking = observer(() => {
     getCost,
   } = useBookingPresenter;
   const { events } = useEventPresenter;
+  const [url, setUrl] = useState("");
 
+  useEffect(() => {
+    DownloadPhoto(events[eventId - 1]?.thumbnail).then((response) => {
+      setUrl(response);
+      console.log(response);
+    });
+    // eslint-disable-next-line
+  }, []);
   const Switch = () => {
     switch (screen) {
       case 1:
@@ -99,7 +108,7 @@ const Booking = observer(() => {
   return (
     <CustomerLayout>
       <Div>
-        <Cover background={thumbnail}>
+        <Cover background={url}>
           <Info>
             <h1>{events[eventId - 1]?.name}</h1>
             <EventType>{events[eventId - 1]?.event_types?.type}</EventType>

@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import thumbnail from "../../assets/thumbnail.jpg";
 import { FiCalendar, FiClock, FiMapPin, FiUsers } from "react-icons/fi";
@@ -14,6 +14,7 @@ import { useEventPresenter } from "../admin/event/presenter";
 import { useBookingPresenter } from "./presenter";
 import { useParams } from "react-router-dom";
 import emailjs from "@emailjs/browser";
+import { DownloadPhoto } from "../../util/DownloadPhoto";
 const ConfirmBooking = observer(() => {
   const { events } = useEventPresenter;
   const {
@@ -29,8 +30,14 @@ const ConfirmBooking = observer(() => {
   } = useBookingPresenter;
   let params = useParams();
   let eventId = params.event;
+  const [url, setUrl] = useState("");
+
   useEffect(() => {
     setEventPlace(events[eventId - 1]);
+    DownloadPhoto(events[eventId - 1]?.thumbnail).then((response) => {
+      setUrl(response);
+      console.log(response);
+    });
     // eslint-disable-next-line
   }, []);
   return (
@@ -39,7 +46,7 @@ const ConfirmBooking = observer(() => {
       <BookingWrapper>
         <EventCard style={{ paddingTop: "20px" }}>
           <Thumbnail>
-            <img alt="Event thumbnail" src={thumbnail} />
+            <img alt="Event thumbnail" src={url} />
             <EventType>{events[eventId - 1]?.event_types?.type}</EventType>
           </Thumbnail>
           <EventInfo>
@@ -59,7 +66,7 @@ const ConfirmBooking = observer(() => {
 
             <label title="Duration">
               <FiClock size="23" color="var(--darkerpurple)" />
-              <span>N/A</span>
+              <span>2h</span>
             </label>
           </EventInfo>
         </EventCard>

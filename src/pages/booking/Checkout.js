@@ -13,21 +13,7 @@ const Checkout = observer(() => {
   return (
     <div>
       <h3>Select your payment methods</h3>
-      <Radio>
-        <label htmlFor="snap">SnapScan</label>
-        <input
-          id="snap"
-          name="payment_type"
-          value={"snap"}
-          checked={checked === "snap"}
-          onChange={(e) => {
-            setChecked(e.target.value);
-            setFormValue(e);
-            console.log(e.target.name);
-          }}
-          type={"radio"}
-        />
-      </Radio>
+
       <Radio>
         <label htmlFor="card">Credit/Debit card</label>
         <input
@@ -60,3 +46,19 @@ const Radio = styled.div`
   border-radius: 5px;
   background: var(--lightgrey);
 `;
+/*
+ <Radio>
+        <label htmlFor="snap">SnapScan</label>
+        <input
+          id="snap"
+          name="payment_type"
+          value={"snap"}
+          checked={checked === "snap"}
+          onChange={(e) => {
+            setChecked(e.target.value);
+            setFormValue(e);
+            console.log(e.target.name);
+          }}
+          type={"radio"}
+        />
+      </Radio>*/
