@@ -21,12 +21,12 @@ const Scan_Qr_Code = () => {
     RenderTable();
   }, [guest]);
 
-  const RenderTable = () => {
+  const RenderTable = (data) => {
     return (
       <>
         {data !== "No result" && (
           <Table>
-            <DataTable columns={columns} data={guest} fixedHeader />
+            <DataTable columns={columns} data={data} fixedHeader />
           </Table>
         )}
       </>
@@ -49,7 +49,7 @@ const Scan_Qr_Code = () => {
           }}
         />
       </div>
-      {RenderTable()}
+      {RenderTable(table)}
     </FrontOfHouseLayOut>
   );
 };
@@ -81,5 +81,15 @@ const columns = [
     name: "Ticket Ref",
     selector: (row) => row.reference,
     sortable: true,
+  },
+];
+const table= [
+  {
+    id: "#001",
+    name: "Vivaldo Gaston",
+    event:
+      "Artist Walkabout :: Urban Soundscapes - Crafting Spaces of Belonging",
+    tickets: "2x Early Bird",
+    reference: "1662199160261",
   },
 ];
