@@ -6,36 +6,20 @@ import { useBookingPresenter } from "../../booking/presenter";
 import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
 import { useEffect } from "react";
+import { observer } from "mobx-react-lite";
 
-const Scan_Qr_Code = () => {
+const Scan_Qr_Code = observer(() => {
   const [data, setData] = useState("No result");
   const { getGuest, guest } = useBookingPresenter;
 
   useEffect(() => {
-    console.log("I render when DATA changes");
     getGuest(data);
   }, [data]);
 
-  useEffect(() => {
-    console.log("I render when Guest changes");
-  //  RenderTable();
-  }, [guest]);
-
-  const RenderTable = (data) => {
-    return (
-      <>
-        {data !== "No result" && (
-          <Table style={{marginBottom:"50px"}}>
-            <DataTable columns={columns} data={data} fixedHeader />
-          </Table>
-        )}
-      </>
-    );
-  };
   return (
     <FrontOfHouseLayOut>
       <Title width="300px">Guest List</Title>
-      <h3 border="2px solid blue">{data}</h3>
+      <h3 border="2px solid blue">Reference: {data}</h3>
       <div style={{ width: "50%" }}>
         <QrReader
           onResult={(result, error) => {
@@ -49,10 +33,14 @@ const Scan_Qr_Code = () => {
           }}
         />
       </div>
-      {RenderTable(table)}
+      {data !== "No result" && (
+        <Table style={{ marginBottom: "50px" }}>
+          <DataTable columns={columns} data={guest} fixedHeader />
+        </Table>
+      )}
     </FrontOfHouseLayOut>
   );
-};
+});
 export default Scan_Qr_Code;
 const columns = [
   {
@@ -81,15 +69,5 @@ const columns = [
     name: "Ticket Ref",
     selector: (row) => row.reference,
     sortable: true,
-  },
-];
-const table= [
-  {
-    id: "#001",
-    name: "Vivaldo Gaston",
-    event:
-      "Artist Walkabout :: Urban Soundscapes - Crafting Spaces of Belonging",
-    tickets: "2x Early Bird",
-    reference: "1662199160261",
   },
 ];
