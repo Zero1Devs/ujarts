@@ -18,10 +18,9 @@ const EventRow = observer(({ event }) => {
   useEffect(() => {
     DownloadPhoto(event?.thumbnail).then((response) => {
       setUrl(response);
-      console.log(response);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [url]);
   return (
     <EventCard
       onMouseLeave={() => {

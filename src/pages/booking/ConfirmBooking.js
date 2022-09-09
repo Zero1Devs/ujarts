@@ -1,8 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import thumbnail from "../../assets/thumbnail.jpg";
-import { FiCalendar, FiClock, FiMapPin, FiUsers } from "react-icons/fi";
+import { FiClock, FiMapPin, FiUsers } from "react-icons/fi";
 import {
   EventCard as StyledEventCard,
   EventInfo,
@@ -13,10 +12,9 @@ import {
 import { useEventPresenter } from "../admin/event/presenter";
 import { useBookingPresenter } from "./presenter";
 import { useParams } from "react-router-dom";
-import emailjs from "@emailjs/browser";
 import { DownloadPhoto } from "../../util/DownloadPhoto";
-const ConfirmBooking = observer(() => {
-  const { events } = useEventPresenter;
+const ConfirmBooking = observer(({ id }) => {
+  const { gridEvents } = useEventPresenter;
   const {
     name,
     surname,
@@ -33,13 +31,15 @@ const ConfirmBooking = observer(() => {
   const [url, setUrl] = useState("");
 
   useEffect(() => {
-    setEventPlace(events[eventId - 1]);
-    DownloadPhoto(events[eventId - 1]?.thumbnail).then((response) => {
-      setUrl(response);
-      console.log(response);
-    });
+    setEventPlace(gridEvents[id]);
     // eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    DownloadPhoto(gridEvents[id]?.thumbnail).then((response) => {
+      setUrl(response);
+    });
+    // eslint-disable-next-line
+  }, [url]);
   return (
     <div id="myhtml">
       <h3>Confirm your booking</h3>
@@ -47,21 +47,21 @@ const ConfirmBooking = observer(() => {
         <EventCard style={{ paddingTop: "20px" }}>
           <Thumbnail>
             <img alt="Event thumbnail" src={url} />
-            <EventType>{events[eventId - 1]?.event_types?.type}</EventType>
+            <EventType>{gridEvents[id]?.event_types?.type}</EventType>
           </Thumbnail>
           <EventInfo>
             <EventName style={{ fontSize: "18px" }} title="Event Name">
-              {events[eventId - 1]?.name}
+              {gridEvents[id]?.name}
             </EventName>
 
             <label title="Venue">
               <FiMapPin size="23" color="var(--darkerpurple)" />
-              <span>{events[eventId - 1]?.venues?.name}</span>
+              <span>{gridEvents[id]?.venues?.name}</span>
             </label>
 
             <label title="Presented by">
               <FiUsers size="23" color="var(--darkerpurple)" />
-              <span>{events[eventId - 1]?.host}</span>
+              <span>{gridEvents[id]?.host}</span>
             </label>
 
             <label title="Duration">
@@ -72,12 +72,12 @@ const ConfirmBooking = observer(() => {
         </EventCard>
 
         <TicketDetails>
-          <h3>Ticket Detais</h3>
+          <h3>Ticket Details</h3>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "grid", rowGap: "18px" }}>
               <Span>
                 <Heading>Ticket Type</Heading>
-                <SubHeading>Early Bird</SubHeading>
+                <SubHeading>General Admission</SubHeading>
               </Span>
               <Span>
                 <Heading>Date</Heading>
@@ -91,7 +91,7 @@ const ConfirmBooking = observer(() => {
             <div style={{ display: "grid", rowGap: "20px" }}>
               <Span>
                 <Heading>Your Tickets</Heading>
-                <SubHeading>{quantity}x Full Price Early Bird</SubHeading>
+                <SubHeading>{quantity}x Full Price</SubHeading>
               </Span>
               <Span>
                 <Heading>Time</Heading>
@@ -104,7 +104,7 @@ const ConfirmBooking = observer(() => {
             </div>
           </div>
           <hr style={{ color: "red" }} />
-          <h3>Ticket Detais</h3>
+          <h3>Your Details</h3>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "grid", rowGap: "20px" }}>
               <Span>

@@ -17,6 +17,7 @@ class EventPresenter {
     autorun(() => {
       this.getEvents();
       this.getEventTypes();
+      this.eventStore.getGridEvents();
     });
   }
   setFilterValue = (e) => {
@@ -24,13 +25,20 @@ class EventPresenter {
     console.log(this[e.target.name]);
   };
   setActive = (id) => {
-    for (var i = 0; i < this.events.length; i++) {
+    /* for (var i = 0; i < this.events.length; i++) {
       if (i !== id) {
         this.events[i].active = false;
       }
     }
     this.active = id;
-    this.events[id].active = !this.events[id].active;
+    this.event[id].active = !this.event[id].active;*/
+    for (var i = 0; i < this.gridEvents.length; i++) {
+      if (i !== id) {
+        this.gridEvents[i].active = false;
+      }
+    }
+    this.active = id;
+    this.gridEvents[id].active = !this.gridEvents[id].active;
   };
   getEventTypes = async () => {
     try {
@@ -76,11 +84,16 @@ class EventPresenter {
           })
         );
       });
+
+      console.log(this.eventStore.events);
       //    console.log(this.events);
     } catch (error) {
       console.log(error.message);
     }
   };
+  get gridEvents() {
+    return this.eventStore.gridEvents;
+  }
   getRunningEvents = async () => {
     try {
       const data = await this.eventStore.getRunningEvents();

@@ -10,6 +10,7 @@ class EventStore {
     campus: new Int32Array(),
     seats: new Int32Array(),
   };
+  gridEvents = [];
   eventTypes = {
     id: new Int32Array(),
     name: String(),
@@ -58,8 +59,54 @@ class EventStore {
           "events",
           "event_types(id,type), venues(name)"
         );
+
+      //  console.log(this.events);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getGridEvents = async () => {
+    try {
+      const { data, error } = await this.supabaseGateway.selectGridEvents(
+        "events",
+        "event_types(id,type), venues(name),schedule(event_id,*)"
+      );
+      /*
+         "schedule",
+        "events(*,event_types(id,type), venues(name))"
+       */
       if (error) throw new Error(error.message);
-      //  console.log(data);
+
+      runInAction(() => {
+        this.gridEvents = data
+          .filter((events) => events.schedule.length > 0)
+          .map(
+            ({
+              id,
+              name,
+              description,
+              state,
+              host,
+              thumbnail,
+              venues,
+              event_types,
+              schedule,
+            }) => ({
+              id,
+              name,
+              description,
+              state,
+              thumbnail,
+              host,
+              venues,
+              event_types,
+              schedule,
+              active: false,
+            })
+          );
+      });
+      //  console.log(this.events);
       return data;
     } catch (error) {
       console.log(error.message);

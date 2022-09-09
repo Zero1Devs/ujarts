@@ -1,10 +1,6 @@
-import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
-import { NavigationStore } from "../../stores/navigationStore";
-import Button from "../../components/Button";
 import styled from "styled-components";
-import { BsFillCreditCardFill } from "react-icons/bs";
 import { useBookingPresenter } from "./presenter";
 
 const Checkout = observer(() => {

@@ -1,14 +1,12 @@
 import { observer } from "mobx-react-lite";
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { useEventPresenter } from "../admin/event/presenter";
 import { useBookingPresenter } from "./presenter";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import QRCode from "react-qr-code";
 import Button from "../../components/Button";
 import emailjs from "@emailjs/browser";
 import * as ReactDOMServer from "react-dom/server";
-import { jsPDF } from "jspdf";
 import Pdf from "react-to-pdf";
 import { AiOutlineDownload } from "react-icons/ai";
 import CustomerLayout from "../../layouts/CustomerLayout";
@@ -21,7 +19,6 @@ import {
   Step,
   Cover,
 } from "./Booking";
-import thumbnail from "../../assets/thumbnail.jpg";
 import { Info } from "../../components/EventSummary";
 import { EventType } from "../../components/Event";
 import { NavigationStore } from "../../stores/navigationStore";
@@ -49,7 +46,7 @@ const TicketConfirmation = observer(() => {
   let location = useLocation();
   const search = location.search.split("&");
   const [url, setUrl] = useState("");
-  const { events } = useEventPresenter;
+  const { gridEvents } = useEventPresenter;
   useEffect(() => {
     getBooking();
     console.log(search);
@@ -57,12 +54,14 @@ const TicketConfirmation = observer(() => {
       console.log(search[1].split("=")[1]);
       setRefNumber(search[1].split("=")[1]);
     }
-    DownloadPhoto(events[0]?.thumbnail).then((response) => {
-      setUrl(response);
-      console.log(response);
-    });
     // eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    DownloadPhoto(gridEvents[0]?.thumbnail).then((response) => {
+      setUrl(response);
+    });
+    // eslint-disable-next-line
+  }, [url]);
   return (
     <CustomerLayout>
       <Div>

@@ -19,11 +19,11 @@ const TicketType = observer(() => {
     >
       <h3 style={{ textAlign: "left", alignSelf: "start" }}>Type of Ticket</h3>
       <Wrapper>
-        <label>Early Bird</label>
+        <label>General Admission</label>
         <label>R 125,00</label>
         <div style={{ display: "flex" }}>
           <AiOutlineMinusCircle
-            onClick={() => setQuantity((quantity > 0 ? quantity - 1 : 0))}
+            onClick={() => setQuantity(quantity > 0 ? quantity - 1 : 0)}
             size="25"
             color="var(--orange)"
             style={{ cursor: "pointer" }}
