@@ -3,7 +3,7 @@ import ujlogo from "../assets/ujLogo.jpg";
 import "../styles/index";
 import * as Icon from "react-icons/fi";
 import { BsFillMegaphoneFill } from "react-icons/bs";
-import { FaCashRegister } from "react-icons/fa";
+import { FaCashRegister, FaMoneyCheck } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useAdminPresenter } from "../pages/admin/auth/presenter";
 import styled from "styled-components";
@@ -71,6 +71,23 @@ const AdminLayout = (props) => {
           to="/admin/promo"
         >
           <Icon.FiPercent color="white" size={25} />
+        </NavLink>
+        {/* Finance dept screen */}
+        <NavLink
+          className="navLink"
+          style={({ isActive }) => {
+            return {
+              background: isActive ? "var(--darkpurple)" : "",
+              borderLeft: isActive
+                ? "solid 5px white"
+                : "solid 5px transparent",
+              borderTopLeftRadius: "2px",
+              borderBottomLeftRadius: "2px",
+            };
+          }}
+          to="/admin/finance"
+        >
+          <FaMoneyCheck color="white" size={25} />
         </NavLink>
 
         <NavLink

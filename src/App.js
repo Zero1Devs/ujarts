@@ -32,6 +32,7 @@ import CashBooking from "./pages/admin/FrontOfHouse/CashBooking";
 import GuestListSeach from "./pages/admin/FrontOfHouse/GuestListSearch";
 import ConfirmCashBooking from "./pages/admin/FrontOfHouse/ConfirmCashPayment";
 import TicketConfirmation from "./pages/booking/BookingTicketConfirmation";
+import FinanceDept from "./pages/admin/finance/financeDept";
 const App = observer(() => {
   const { history } = NavigationStore;
   const { init } = useUserStore;
@@ -61,6 +62,9 @@ const App = observer(() => {
           element={<ConfirmCashBooking />}
         />
         <Route path="ticket-confirmation" element={<TicketConfirmation />} />
+
+        {/* Finance Screen */}
+        <Route path="admin/finance" element={<FinanceDept />} />
 
         <Route path="events/:event" element={<EventDetails />} />
         {
