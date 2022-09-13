@@ -7,6 +7,8 @@ import {
 } from "../../../components/Toggle";
 import styled from "styled-components";
 import AllEvents from "./AllEvents";
+import RunningEvents from "./RunningEvents";
+import UpcomingEvents from "./UpcomingEvents";
 const EventList = observer(() => {
   const [screen, setScreen] = useState("all");
 
@@ -41,9 +43,9 @@ const EventList = observer(() => {
       {screen === "all" ? (
         <AllEvents />
       ) : screen === "running" ? (
-        <h2>Running</h2>
+        <RunningEvents/>
       ) : screen === "upcoming" ? (
-        <h2>Upcoming</h2>
+        <UpcomingEvents/>
       ) : (
         <></>
       )}

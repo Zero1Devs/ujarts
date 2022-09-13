@@ -1,11 +1,11 @@
 import { SupabaseGateway } from "../../../gateways/SupaBaseGateway";
 import { makeAutoObservable } from "mobx";
 import { NavigationStore } from "../../../stores/navigationStore";
-import { UserStore } from "../../../stores/userStore";
+import { useUserStore } from "../../../stores/userStore";
 
 class AdminPresenter {
   auth = SupabaseGateway.sbClient.auth;
-  userStore = UserStore;
+  userStore = useUserStore;
   name = "";
   surname = "";
   email = "";
@@ -23,7 +23,7 @@ class AdminPresenter {
   }
   setFormValue = (e) => {
     this[e.target.name] = e.target.value;
-    console.log(this[e.target.name]);
+    //console.log(this[e.target.name]);
   };
 
   clearFields = () => {
@@ -38,7 +38,7 @@ class AdminPresenter {
   };
   signUp = async () => {
     try {
-      this.loading = true;
+      this.setLoading();
       if (this.password !== this.confirm_password) {
         this.error = true;
         return;
@@ -60,7 +60,7 @@ class AdminPresenter {
         user_type: 3,
         is_active: true,
       });
-      console.log(data);
+      //   console.log(data);
 
       alert("Check your mailbox and confirm your email.\nThen you may login");
       this.clearFields();
@@ -68,19 +68,19 @@ class AdminPresenter {
     } catch (error) {
       console.log(error);
     } finally {
-      this.loading = false;
+      this.setLoading();
     }
   };
   login = async () => {
     try {
-      this.loading = true;
+      this.setLoading();
       await this.userStore.login(this.email, this.password);
       this.clearFields();
     } catch (error) {
       console.log(error.message);
       alert(error.message);
     } finally {
-      this.loading = false;
+      this.setLoading();
     }
   };
   saveProfileData = async () => {
@@ -107,19 +107,18 @@ class AdminPresenter {
   };
   sendResetPasswordEmail = () => {
     try {
-      this.loading = true;
-
+      this.setLoading();
       const { error } = this.auth.api.resetPasswordForEmail(this.email);
       if (error) throw new Error(error.message);
     } catch (error) {
       console.log(error.message);
     } finally {
-      this.loading = false;
+      this.setLoading();
     }
   };
   resetPassword = () => {
     try {
-      this.loading = true;
+      this.setLoading();
       if (this.password !== this.confirm_password) {
         this.error = true;
         return;
@@ -136,7 +135,7 @@ class AdminPresenter {
       alert(error.message);
       console.log(error.message);
     } finally {
-      this.loading = false;
+      this.setLoading();
     }
   };
 }

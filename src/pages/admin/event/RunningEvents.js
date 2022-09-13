@@ -3,9 +3,12 @@ import EventRow from "../../../components/EventRow";
 import SearchInput from "../../../components/SearchInput";
 import { useEventPresenter } from "./presenter";
 import { observer } from "mobx-react-lite";
-const AllEvents = observer(() => {
-  const { events } = useEventPresenter;
-
+import { useEffect } from "react";
+const RunningEvents = observer(() => {
+  const { runningEvents,getRunningEvents } = useEventPresenter;
+useEffect(()=>{
+  getRunningEvents();
+},[])
   return (
     <div>
       <SearchInput
@@ -15,11 +18,11 @@ const AllEvents = observer(() => {
         placeholder="Search Here"
         onChange={(e) => console.log(e.target.value)}
       />
-      {events.map((event, id) => (
+      {runningEvents.map((event, id) => (
         <EventRow key={id} event={event} />
       ))}
     </div>
   );
 });
 
-export default AllEvents;
+export default RunningEvents;

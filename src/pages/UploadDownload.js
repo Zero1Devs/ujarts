@@ -1,6 +1,19 @@
 import React, { useState } from "react";
 import { SupabaseGateway } from "../gateways/SupaBaseGateway";
 
+export const DownloadPhoto = async (url) => {
+  try {
+    const { data, error } = await SupabaseGateway.sbClient.storage
+      //.getBucket("test")
+      .from("photos")
+      .download(url);
+    if (error) throw error;
+
+    return URL.createObjectURL(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 const UploadDownload = () => {
   const [url, setUrl] = useState("");
   const download = async () => {
@@ -8,8 +21,8 @@ const UploadDownload = () => {
     try {
       const { data, error } = await SupabaseGateway.sbClient.storage
         //.getBucket("test")
-        .from("test")
-        .download("Studio1.jpg");
+        .from("photos")
+        .download("X0.bmp");
       if (error) throw error;
 
       setUrl(URL.createObjectURL(data));

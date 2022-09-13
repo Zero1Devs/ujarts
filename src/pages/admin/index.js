@@ -2,13 +2,13 @@ import { observer } from "mobx-react";
 import React, { useEffect } from "react";
 import Button from "../../components/Button";
 import { NavigationStore } from "../../stores/navigationStore";
-import { UserStore } from "../../stores/userStore";
+import { useUserStore } from "../../stores/userStore";
 import { useAdminPresenter } from "./presenter";
 
 const Index = observer(() => {
   const { logout, user } = useAdminPresenter;
   const { replace } = NavigationStore;
-  const { isLoggedIn } = UserStore;
+  const { isLoggedIn } = useUserStore;
 
   const Logout = () => {
     let c = window.confirm("Are you sure?");

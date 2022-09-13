@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   HiUsers,
@@ -9,16 +9,25 @@ import {
 } from "react-icons/hi";
 import { GiPlainCircle, GiTicket } from "react-icons/gi";
 import Button from "./Button";
+import { observer } from "mobx-react";
+import { DownloadPhoto } from "../util/DownloadPhoto";
 
-const EventRow = () => {
+const EventRow = observer(({ event }) => {
   const [actions, setActions] = useState(false);
+  const [url, setUrl] = useState("");
+  useEffect(() => {
+    DownloadPhoto(event?.thumbnail).then((response) => {
+      setUrl(response);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url]);
   return (
     <EventCard
       onMouseLeave={() => {
         setActions(false);
       }}
     >
-      <EventTitle>
+      <EventTitle background={url}>
         <div
           style={{
             display: "flex",
@@ -27,15 +36,19 @@ const EventRow = () => {
           }}
         >
           <span>
-            <GiPlainCircle color="#00c800" size={10} />
+            <GiPlainCircle
+              color={event?.state === "running" ? "#00c800" : "yellow"}
+              size={10}
+            />
           </span>
-          <span>#008</span>
+          <span>#{event?.id >= 10 ? "0" + event?.id : "00" + event?.id}</span>
         </div>
         <label style={{ fontSize: "18px" }}>
-          Futures and Beyond :: Creativity and 4IR Conference 2022
+          {event?.name ||
+            "Futures and Beyond :: Creativity and 4IR Conference 2022"}
         </label>
         <div style={{ marginTop: "20px" }}>
-          <span style={{ marginRight: "15px" }}>22 Aug. 2022</span>
+          <span style={{ marginRight: "15px" }}>5 Sept 2022</span>
           <span>12:00</span>
         </div>
       </EventTitle>
@@ -43,12 +56,15 @@ const EventRow = () => {
         <span>Event Status</span>
         <h3>
           <span style={{ marginRight: "5px" }}>
-            <GiPlainCircle color="#00c800" size={10} />
+            <GiPlainCircle
+              color={event?.state === "running" ? "#00c800" : "yellow"}
+              size={10}
+            />
           </span>
-          In Progress
+          {event?.state === "running" ? "Running" : "Upcoming"}
         </h3>
         <span>Event Duration</span>
-        <h3>9 hrs</h3>
+        <h3>2 hrs</h3>
       </Status>
       <TagsWrapper>
         <TagsGroup>
@@ -57,7 +73,7 @@ const EventRow = () => {
               <span>Number of attendees</span>
               <HiUsers color="var(--purple)" size={20} />
             </Label>
-            <label>42</label>
+            <label>{event?.sold}</label>
           </Attendence>
           <Attendence>
             <Label>
@@ -71,7 +87,7 @@ const EventRow = () => {
                 />
               </div>
             </Label>
-            <label>51</label>
+            <label>{event?.sold}</label>
           </Attendence>
           <Attendence>
             <Label>
@@ -85,7 +101,7 @@ const EventRow = () => {
                 />
               </div>
             </Label>
-            <label>3</label>
+            <label>{event?.sold - 10}</label>
           </Attendence>
         </TagsGroup>
         <MakeAnnoncement>
@@ -133,7 +149,7 @@ const EventRow = () => {
       </ActionsButtonWrapper>
     </EventCard>
   );
-};
+});
 
 export default EventRow;
 
@@ -153,7 +169,7 @@ const EventTitle = styled.div`
   height: 200px;
   border-radius: 10px 0 0 10px;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://arts.uj.ac.za/media/images/FUTURESandBEYOND_ONLINE-IMAGE_004.2e16d0ba.fill-420x300.png");
+    url(${({ background }) => background});
   background-size: cover;
   flex-grow: 0;
   padding: 10px;

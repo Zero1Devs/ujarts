@@ -1,53 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/index.css";
 import "../styles/customerLayout.css";
-import thumbnail from "../assets/thumbnail.jpg";
 import { FiCalendar, FiClock, FiMapPin, FiUsers } from "react-icons/fi";
 import { observer } from "mobx-react";
-import { UiStore } from "../stores/uiStore";
 import EventSummary from "./EventSummary";
 import styled from "styled-components";
+import { useEventPresenter } from "../pages/admin/event/presenter";
+import { DownloadPhoto } from "../util/DownloadPhoto";
+import { useEffect } from "react";
+const Event = observer(({ id, event }) => {
+  const { setActive } = useEventPresenter;
+  const [url, setUrl] = useState("");
+  useEffect(() => {
+    DownloadPhoto(event?.thumbnail).then((response) => {
+      setUrl(response);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url]);
 
-const Event = observer(({ id, data }) => {
-  const { setFormValue } = UiStore;
   return (
     <div>
       <EventCard
         onClick={() => {
-          setFormValue(id);
+          setActive(id);
         }}
       >
         <Thumbnail>
-          <img alt="Event" src={thumbnail} />
-          <EventType>{data.type}</EventType>
+          <img alt="Event" src={url} />
+          <EventType>{event?.event_types?.type}</EventType>
         </Thumbnail>
         <EventInfo>
-          <EventName title="Event Name">
-            Urban Soundscapes- Crafting Spaces of Belonging
-          </EventName>
+          <EventName title="Event Name">{event?.name}</EventName>
 
           <label title="Date">
             <FiCalendar size="23" color="var(--darkerpurple)" />
-            <span>11/06/2022 to 30/08/2022</span>
+            <span>{event?.dates || "N/A"}</span>
           </label>
 
           <label title="Venue">
             <FiMapPin size="23" color="var(--darkerpurple)" />
-            <span>Kingsway Campus A1</span>
+            <span>{event?.venues?.name}</span>
           </label>
 
           <label title="Presented by">
             <FiUsers size="23" color="var(--darkerpurple)" />
-            <span>UJ Arts Gallery</span>
+            <span>{event?.host || "UJ Arts & Culture"}</span>
           </label>
 
           <label title="Duration">
             <FiClock size="23" color="var(--darkerpurple)" />
-            <span>N/A</span>
+            <span>{event?.duration || "N/A"}</span>
           </label>
         </EventInfo>
       </EventCard>
-      <EventSummary id={id} />
+      <EventSummary id={id} event={event} />
     </div>
   );
 });
@@ -56,16 +62,16 @@ export default Event;
 //style
 export const EventCard = styled.div`
   border: solid 0px;
-  height: auto;
-  width: 361px;
+  height: 473px;
+  width: 351px;
   border-radius: 5px;
   background-color: #eeeded;
   color: var(--darkerpurple);
   filter: drop-shadow(2px 2px 4px var(--grey));
   padding: 10px;
-  padding-top: 40px;
+  padding-top: 30px;
   cursor: pointer;
-  margin: 20px;
+  margin: 18px;
   text-align: center;
   :hover {
     animation: scale 1s;
@@ -92,7 +98,7 @@ export const EventCard = styled.div`
   }
 `;
 export const EventName = styled.label`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   cursor: pointer;
   font-family: "Poppins";
@@ -101,15 +107,14 @@ export const Thumbnail = styled.div`
   display: flex;
   flex-direction: column;
   border: solid 0px;
-  width: 325px;
+  width: 320px;
   filter: drop-shadow(2px 2px 4px var(--grey));
   margin: auto;
   img {
     border-radius: 10px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
     width: 100%;
-    height: 233px;
+    height: 210px;
   }
 `;
 export const EventType = styled.span`

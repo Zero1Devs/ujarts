@@ -3,6 +3,9 @@
     src: url("../Poppins/Poppins-Regular.ttf");
   
   }
+  html{
+    scroll-behavior: smooth;
+  }
   *{
     font-family: "Poppins";
   }

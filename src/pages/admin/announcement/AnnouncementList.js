@@ -31,20 +31,37 @@ export default AnnouncementList;
 
 const columns = [
   {
-    name: "Announcement ID",
+    name: "Time",
+    selector: (row) => row.time,
+    sortable: true,
+    width:"80px",
+  },
+  {
+    name: "Date",
+    selector: (row) => row.date,
+    sortable: true,
+  },
+  {
+    name: "Form",
+    selector: (row) => row.form,
+    sortable: true,
+  },
+  {
+    name: "Announcement",
+    selector: (row) => row.announcement,
+    sortable: true,
+    width:"200px",
+  },
+  {
+    name: "Event Name",
+    selector: (row) => row.name,
+    sortable: true,
+    width: "30%",
+  },
+  {
+    name: "Event ID",
     selector: (row) => row.id,
     sortable: true,
-  },
-  {
-    name: "Announcement Code",
-    selector: (row) => row.year,
-    sortable: true,
-  },
-  {
-    name: "Event",
-    selector: (row) => row.title,
-    sortable: true,
-    width: "50%",
   },
   {
     button: true,
@@ -53,14 +70,37 @@ const columns = [
 ];
 const data = [
   {
-    id: 1,
-    title: "Beetlejuice",
-    year: "1988",
+    id: "#008",
+    time: "12:10",
+    date: "09/07/2022",
+    form: "Email",
+    announcement: "Event Delayed",
+    name: "Futures and Beyond :: Creativity and 4IR Conference 2022",
   },
   {
-    id: 2,
-    title: "Ghostbusters",
-    year: "1984",
+    id: "#003",
+    time: "14:23",
+    date: "05/07/2022",
+    form: "Email",
+    announcement: "Event Cancelled",
+    name: "Urban Soundscapes- Crafting Spaces of Belonging",
+  },
+
+  {
+    id: "#011",
+    time: "10:09",
+    date: "05/07/2022",
+    form: "Email",
+    announcement: "Event Schedule change",
+    name: "UNFATHOMABLE",
+  },
+  {
+    id: "#007",
+    time: "14:23",
+    date: "09/07/2022",
+    form: "Email",
+    announcement: "Event Cancelled",
+    name: "Nesting Flight",
   },
 ];
 

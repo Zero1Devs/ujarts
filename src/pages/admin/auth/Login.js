@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import Button from "../../../components/Button";
 import { observer } from "mobx-react";
 import { useAdminPresenter } from "./presenter";
-import { UserStore } from "../../../stores/userStore";
+import { useUserStore } from "../../../stores/userStore";
 import { NavigationStore } from "../../../stores/navigationStore";
 import AuthForm, { Input } from "../../../components/Forms/AuthForm";
 import { Link } from "react-router-dom";
 
 const LoginForm = observer(() => {
   const { login, setFormValue, loading } = useAdminPresenter;
-  const { isLoggedIn } = UserStore;
+  const { isLoggedIn } = useUserStore;
   const navigation = NavigationStore;
   useEffect(() => {
     if (isLoggedIn) navigation.replace("/admin/venues");
@@ -41,7 +41,7 @@ const LoginForm = observer(() => {
         width={"103%"}
         hover="var(--darkorange)"
         onClick={login}
-        loading={loading}
+        loading={loading.toString()}
       >
         Login
       </Button>

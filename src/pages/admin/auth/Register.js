@@ -52,7 +52,7 @@ const Register = observer(() => {
         width={"103%"}
         hover="var(--darkorange)"
         onClick={signUp}
-        loading={loading}
+        loading={loading.toString()}
       >
         Register
       </Button>

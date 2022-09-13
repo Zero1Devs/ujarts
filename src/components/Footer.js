@@ -26,12 +26,14 @@ const Footer = () => {
             <br />
             Pick Your Interests:
           </p>
-          <span>+ Theatre</span>
-          <span>+ Music</span>
-          <span>+ Dance</span>
-          <span>+ Exhibitions</span>
-          <span>+ Comedy</span>
-          <span>+ Events</span>
+          <div>
+            <span>+ Theatre</span>
+            <span>+ Music</span>
+            <span>+ Dance</span>
+            <span>+ Exhibitions</span>
+            <span>+ Comedy</span>
+            <span>+ Events</span>
+          </div>
         </Interests>
 
         <Div>
@@ -220,6 +222,10 @@ const SubscribeSection = styled.section`
 `;
 const Interests = styled.div`
   margin-bottom: 30px;
+  div {
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 const SubscribeButton = styled(StyledButton)`
   width: 10vw;

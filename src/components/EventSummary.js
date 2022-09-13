@@ -1,29 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import { Link } from "react-router-dom";
-import { UiStore } from "../stores/uiStore";
 import { observer } from "mobx-react";
 import styled from "styled-components";
-import thumbnail from "../assets/thumbnail.jpg";
-const EventSummary = observer(({ id }) => {
-  const { setFormValue, event } = UiStore;
+import { DownloadPhoto } from "../util/DownloadPhoto";
 
+import { useEventPresenter } from "../pages/admin/event/presenter";
+const EventSummary = observer(({ id, event }) => {
+  const { setActive } = useEventPresenter;
+  const [url, setUrl] = useState("");
+  useEffect(() => {
+    DownloadPhoto(event?.thumbnail).then((response) => {
+      setUrl(response);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <SummaryWrapper display={event[id]?.summary}>
+    <SummaryWrapper display={event?.active.toString()} id="summary">
       <ActiveEvent />
-      <StyledEventSummary background={thumbnail}>
+      <StyledEventSummary background={url}>
         <Info>
-          <h1>Urban Soundscapes - Crafting Spaces of Belonging</h1>
-          <span className="eventType">Exhibition</span>
-          <span> - EVENT - </span>
-          <span>2h</span>
-          <p>
-            UJ Arts & Culture is proud to present Urban Soundscapes - Crafting
-            Spaces of Belonging, a Pat Mautloa solo exhibition curated by UJ Art
-            Gallery curator, Thabo Seshoka.
-            <br />
-            More info to follow soon.
-          </p>
+          <h1>{event?.name}</h1>
+          <span className="eventType">{event?.event_types.type}</span>
+          <span> - 2h</span>
+          <Description>
+            <p>
+              {event?.description}
+              <br />
+            </p>
+          </Description>
           <Div style={{ display: "flex" }}>
             <Link to={"/events/" + id}>
               <Button
@@ -40,14 +45,15 @@ const EventSummary = observer(({ id }) => {
                 width={"100px"}
                 hover="var(--darkorange)"
               >
-                RSPV NOW
+                {event?.state === "upcoming" ? "RSPV NOW" : "BOOK NOW"}
               </Button>
             </Link>
+
             <Button
               width={"100px"}
               color="var(--orange)"
               onClick={() => {
-                setFormValue(id);
+                setActive(id);
               }}
             >
               CANCEL
@@ -69,18 +75,26 @@ const ActiveEvent = styled.div`
   margin-left: 29px;
   margin-bottom: 20px;
 `;
-const Info = styled.div`
+export const Info = styled.div`
   z-index: 2;
   position: relative;
 `;
+const Description = styled.div`
+  height: 46%;
+  overflow: auto;
+  margin: 5px 0px;
+`;
 const SummaryWrapper = styled.div`
-  display: ${({ display }) => (display ? "block" : "none")};
+  visibility: ${({ display }) => (display === "true" ? "visible" : "hidden")};
+  width:86%;
+  }
 `;
 
 //url('../assets/thumbnail.jpg')
 export const StyledEventSummary = styled.div`
   background-color: white;
   border: solid 0px;
+  display: flex;
   height: 400px;
   position: absolute;
   z-index: 1;
@@ -89,7 +103,7 @@ export const StyledEventSummary = styled.div`
   border-radius: 20px;
   margin: 0px 33px;
   overflow: hidden;
-  background-image:url(${({ background }) => background});
+  background-image: url(${({ background }) => background});
   background-size: 100%;
   background-repeat: no-repeat;
   color: white;

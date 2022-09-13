@@ -4,8 +4,11 @@ import styled from "styled-components";
 import { StyledInput } from "../../../components/Input";
 import Select from "../../../components/Select";
 import Button from "../../../components/Button";
+import { useEventPresenter } from "../event/presenter";
 
 const NewAnnouncement = (props) => {
+  const { events } = useEventPresenter;
+
   return (
     <>
       <Title width="350px">New Announcement</Title>
@@ -17,11 +20,7 @@ const NewAnnouncement = (props) => {
             width="210px"
             name="event"
             onChange={(e) => console.log(e.target.value)}
-            options={[
-              { id: "1", name: "Event 1" },
-              { id: "2", name: "Event 2" },
-              { id: "3", name: "Event 3" },
-            ]}
+            options={events}
           />
         </InputGroup>
         <InputGroup>
@@ -56,7 +55,7 @@ const NewAnnouncement = (props) => {
             background="var(--purple)"
             hover="var(--darkpurple)"
             border="solid 1px var(--darkpurple)"
-            onClick={() => alert("created")}
+            onClick={() => alert("Announcement sent")}
           >
             Create
           </Button>
