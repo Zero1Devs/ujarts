@@ -14,7 +14,7 @@ import EventSummary from "../components/EventSummary";
 const Events = observer(() => {
   let location = useLocation();
   const navigation = NavigationStore;
-  const { events, setFilterValue, getEventTypes, eventTypes } =
+  const { events, gridEvents, setFilterValue, getEventTypes, eventTypes } =
     useEventPresenter;
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Events = observer(() => {
 
     // eslint-disable-next-line
   }, [eventTypes]);
-  const [seconds, setSeconds] = useState(4);
+  const [seconds, setSeconds] = useState(5);
 
   useEffect(() => {
     const Timer = () => {
@@ -65,7 +65,7 @@ const Events = observer(() => {
         </Div>
 
         <EventList className="eventList">
-          {events.map((data, id) => (
+          {gridEvents.map((data, id) => (
             <Event key={id} id={id} event={data} />
           ))}
         </EventList>

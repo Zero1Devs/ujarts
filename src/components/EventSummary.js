@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import { Link } from "react-router-dom";
-import { UiStore } from "../stores/uiStore";
 import { observer } from "mobx-react";
 import styled from "styled-components";
-import thumbnail from "../assets/thumbnail.jpg";
 import { DownloadPhoto } from "../util/DownloadPhoto";
 
 import { useEventPresenter } from "../pages/admin/event/presenter";
-const EventSummary = observer(({ id }) => {
-  const { setFormValue } = UiStore;
-  const { event, active, events, setActive } = useEventPresenter;
+const EventSummary = observer(({ id, event }) => {
+  const { setActive } = useEventPresenter;
   const [url, setUrl] = useState("");
   useEffect(() => {
-    DownloadPhoto(events[id]?.thumbnail).then((response) => {
+    DownloadPhoto(event?.thumbnail).then((response) => {
       setUrl(response);
-      console.log(response);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <SummaryWrapper display={events[id]?.active.toString()} id="summary">
+    <SummaryWrapper display={event?.active.toString()} id="summary">
       <ActiveEvent />
       <StyledEventSummary background={url}>
         <Info>
-          <h1>{events[id]?.name}</h1>
-          <span className="eventType">{events[id]?.event_types.type}</span>
+          <h1>{event?.name}</h1>
+          <span className="eventType">{event?.event_types.type}</span>
           <span> - 2h</span>
-          <p>
-            {events[id]?.description}
-            <br />
-          </p>
+          <Description>
+            <p>
+              {event?.description}
+              <br />
+            </p>
+          </Description>
           <Div style={{ display: "flex" }}>
             <Link to={"/events/" + id}>
               <Button
@@ -41,13 +39,13 @@ const EventSummary = observer(({ id }) => {
                 Full Details
               </Button>
             </Link>
-            <Link to={"/booking/" + events[id]?.id}>
+            <Link to={"/booking/" + id}>
               <Button
                 background="var(--orange)"
                 width={"100px"}
                 hover="var(--darkorange)"
               >
-                {events[id]?.state === "upcoming" ? "RSPV NOW" : "BOOK NOW"}
+                {event?.state === "upcoming" ? "RSPV NOW" : "BOOK NOW"}
               </Button>
             </Link>
 
@@ -81,6 +79,11 @@ export const Info = styled.div`
   z-index: 2;
   position: relative;
 `;
+const Description = styled.div`
+  height: 46%;
+  overflow: auto;
+  margin: 5px 0px;
+`;
 const SummaryWrapper = styled.div`
   visibility: ${({ display }) => (display === "true" ? "visible" : "hidden")};
   width:86%;
@@ -91,6 +94,7 @@ const SummaryWrapper = styled.div`
 export const StyledEventSummary = styled.div`
   background-color: white;
   border: solid 0px;
+  display: flex;
   height: 400px;
   position: absolute;
   z-index: 1;

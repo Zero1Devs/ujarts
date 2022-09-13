@@ -24,9 +24,9 @@ class Booking {
   eventType = "";
   screen = 1;
   payment_type = "";
-  guest = [];
+  guest = {};
   navigation = NavigationStore;
-
+  dates = [];
   constructor() {
     makeAutoObservable(this);
     /* makePersistable(this, {
@@ -42,6 +42,7 @@ class Booking {
       this.confirm_email = sessionStorage?.getItem("confirm_email") || "";
       this.phone_number = sessionStorage?.getItem("phone_number") || "";
       this.quantity = parseInt(sessionStorage?.getItem("quantity")) || 0;
+      this.getDates();
     });
   }
 
@@ -92,22 +93,64 @@ class Booking {
       });
       runInAction(() => {
         this.guest = data.data;
-        console.log(data.data);
       });
+      return this.guest;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getDates = async (id) => {
+    try {
+      const { data, error } = await this.supabase.selectDates(id);
+      if (error) throw new Error(error.message);
+      runInAction(() => {
+        this.dates = data.map(
+          ({ id, date, event_id, start_time, end_time }) => ({
+            id,
+            event_id,
+            date:
+              new Date(date).toDateString().split(" ")[2] +
+              " " +
+              new Date(date).toDateString().split(" ")[1],
+            month: new Date(date).toDateString().split(" ")[1],
+            day: new Date(date).toDateString().split(" ")[2],
+            weekday: new Date(date).toDateString().split(" ")[0],
+            start_time: start_time.substring(0, 5),
+            end_time,
+          })
+        );
+      });
+      console.log(this.dates);
     } catch (error) {
       console.log(error.message);
     }
   };
   GoBack = (screen) => {
     this.screen = screen;
+    sessionStorage.setItem("screen", this.screen);
     if (this.screen === 0) {
       let confirm = window.confirm("Are you sure you want to leave?");
       this.screen = 1;
+      sessionStorage.setItem("screen", this.screen);
       if (confirm) {
+        this.event = "";
+        this.place = "";
+        this.eventType = "";
+        this.name = "";
+        this.surname = "";
+        this.email = "";
+        this.confirm_email = "";
+        this.phone_number = "";
+        this.quantity = 0;
+        this.date = "";
+        this.time = "";
         sessionStorage.clear();
         this.navigation.push("/");
       }
     }
+  };
+  changeScreen = (screen) => {
+    this.screen = screen;
   };
   setScreen = async () => {
     try {
@@ -118,15 +161,14 @@ class Booking {
             { date: this.date, time: this.time },
             { abortEarly: false }
           );
-          this.screen = 2;
-
+          this.changeScreen(2);
           break;
         case 2:
           await BookingStepTwo.validate(
             { quantity: this.quantity },
             { abortEarly: false }
           );
-          this.screen = 3;
+          this.changeScreen(3);
           break;
         case 3:
           await BookingStepThree.validate(
@@ -139,16 +181,16 @@ class Booking {
             },
             { abortEarly: false }
           );
-          this.screen = 4;
+          this.changeScreen(4);
           break;
         case 4:
-          this.screen = 5;
+          this.changeScreen(5);
           break;
         case 5:
-          this.screen = 5;
+          this.changeScreen(5);
           break;
         default:
-          this.screen = 1;
+          this.changeScreen(1);
           break;
       }
       sessionStorage.setItem("screen", this.screen);

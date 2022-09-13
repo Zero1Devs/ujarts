@@ -71,16 +71,21 @@ export default AdminLayout;
 
 const AdminWrapper = styled.div`
   display: flex;
+  width: 100%;
+  padding: 0px;
+  border: solid 0px blue;
+  height: 100vh;
 `;
 const Div = styled.div`
-  flex: 1;
-  padding: 20px;
-  background: white;
+  flex: 2;
+  padding: 0px 20px;
+  height: 100%;
+  min-height: 93vh;
+  border: solid 0px red;
+  overflow-y: scroll;
 `;
 const VerticalNavBar = styled.div`
-  height: 100vh;
-  width: 180px;
-  max-width: 200px;
+  max-width: 162px;
   border: solid 0px;
   flex: 1;
   display: flex;
@@ -92,8 +97,8 @@ const VerticalNavBar = styled.div`
 `;
 const Img = styled.img`
   padding: 10px;
-  width: 50%;
-  height: 15%;
+  width: 75%;
+  height: 18%;
   margin-bottom: 20px;
 `;
 /*

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import CustomerLayout from "../../layouts/CustomerLayout";
 import "../../styles/index";
-import thumbnail from "../../assets/thumbnail.jpg";
 import Button from "../../components/Button";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -20,12 +19,12 @@ import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { BsFillCreditCardFill } from "react-icons/bs";
 import { NavigationStore } from "../../stores/navigationStore";
 import DateTime from "./DateTime";
-
+import { DownloadPhoto, Downloadphoto } from "../../util/DownloadPhoto";
+import { useEffect } from "react";
 const Booking = observer(() => {
   let params = useParams();
   let eventId = params.event;
   const [step, setStep] = useState(1);
-  /*const [screen, setScreen] = useState(1);*/
   const {
     screen,
     setScreen,
@@ -37,20 +36,28 @@ const Booking = observer(() => {
     email,
     getCost,
   } = useBookingPresenter;
-  const { events } = useEventPresenter;
+  const { gridEvents } = useEventPresenter;
+  const [url, setUrl] = useState("");
 
+  useEffect(() => {
+    gridEvents.length > 0 &&
+      DownloadPhoto(gridEvents[eventId]?.thumbnail).then((response) => {
+        setUrl(response);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); /**/
   const Switch = () => {
     switch (screen) {
       case 1:
-        return <DateTime />;
+        return <DateTime id={eventId} />;
       case 2:
-        return <TicketType />;
+        return <TicketType id={eventId} />;
       case 3:
-        return <BookingForm />;
+        return <BookingForm id={eventId} />;
       case 4:
-        return <ConfirmBooking />;
+        return <ConfirmBooking id={eventId} />;
       case 5:
-        return <Checkout />;
+        return <Checkout id={eventId} />;
       default:
         return;
     }
@@ -96,13 +103,16 @@ const Booking = observer(() => {
       }
     }
   };
+  const Screen = async () => {
+    await setScreen();
+  };
   return (
     <CustomerLayout>
       <Div>
-        <Cover background={thumbnail}>
+        <Cover background={url}>
           <Info>
-            <h1>{events[eventId - 1]?.name}</h1>
-            <EventType>{events[eventId - 1]?.event_types?.type}</EventType>
+            <h1>{gridEvents[eventId]?.name}</h1>
+            <EventType>{gridEvents[eventId]?.event_types?.type}</EventType>
           </Info>
         </Cover>
         <div style={{ width: "76%" }}>
@@ -110,12 +120,7 @@ const Booking = observer(() => {
           <BookingProcess>
             <nav></nav>
             <StepWrapper>
-              <Step
-                onClick={async () => {
-                  await setScreen();
-                }}
-                color={screen === 1 ? "var(--orange)" : "var(--orange)"}
-              >
+              <Step color={screen === 1 ? "var(--orange)" : "var(--orange)"}>
                 <StepCircle
                   background={screen === 1 ? "white" : "var(--orange)"}
                   borderColor={"var(--orange)"}
@@ -133,12 +138,7 @@ const Booking = observer(() => {
                 </StepCircle>
                 <label>Date & Time</label>
               </Step>
-              <Step
-                onClick={async () => {
-                  await setScreen();
-                }}
-                color={screen >= 2 ? "var(--orange)" : "black"}
-              >
+              <Step color={screen >= 2 ? "var(--orange)" : "black"}>
                 <StepCircle
                   background={
                     screen === 2 ? "white" : screen > 2 ? "var(--orange)" : ""
@@ -158,12 +158,7 @@ const Booking = observer(() => {
                 </StepCircle>
                 <label>Ticket Type</label>
               </Step>
-              <Step
-                onClick={async () => {
-                  await setScreen(3);
-                }}
-                color={screen >= 3 ? "var(--orange)" : undefined}
-              >
+              <Step color={screen >= 3 ? "var(--orange)" : undefined}>
                 <StepCircle
                   background={
                     screen === 3 ? "white" : screen > 3 ? "var(--orange)" : ""
@@ -183,10 +178,7 @@ const Booking = observer(() => {
                 </StepCircle>
                 <label>Your details</label>
               </Step>
-              <Step
-                onClick={() => setStep(4)}
-                color={screen >= 4 ? "var(--orange)" : undefined}
-              >
+              <Step color={screen >= 4 ? "var(--orange)" : undefined}>
                 <StepCircle
                   background={
                     screen === 4 ? "white" : screen > 4 ? "var(--orange)" : ""
@@ -206,10 +198,7 @@ const Booking = observer(() => {
                 </StepCircle>
                 <label>Confirm booking</label>
               </Step>
-              <Step
-                onClick={() => setStep(5)}
-                color={screen === 5 ? "var(--orange)" : undefined}
-              >
+              <Step color={screen === 5 ? "var(--orange)" : undefined}>
                 <StepCircle
                   background={screen === 5 ? "white" : undefined}
                   borderColor={screen === 5 ? "var(--orange)" : undefined}
@@ -268,15 +257,12 @@ const Booking = observer(() => {
               {screen === 5 ? (
                 SwitchPaymentButton()
               ) : (
-                //<h1>sqi</h1>
                 <Button
                   width={screen === 4 ? "100%" : "50%"}
                   background="var(--orange)"
                   hover="var(--darkorange)"
-                  onClick={async () => {
-                    //                    setStep((prev) => (prev < 4 ? prev + 1 : 4));
-                    await setScreen();
-                  }}
+                  onClick={() => setScreen()}
+                  //                    setStep((prev) => (prev < 4 ? prev + 1 : 4));
                 >
                   Continue
                 </Button>

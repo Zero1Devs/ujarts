@@ -1,154 +1,66 @@
-import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { NavigationStore } from "../../stores/navigationStore";
-import Button from "../../components/Button";
-import styled from "styled-components";
-import { BsFillCreditCardFill } from "react-icons/bs";
 import { useBookingPresenter } from "./presenter";
-
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import { useEventPresenter } from "../admin/event/presenter";
 const DateTime = observer(() => {
-  const [checked, setChecked] = useState(false);
-  const { date, time, setFormValue, setDate } = useBookingPresenter;
-  useEffect(()=>{setChecked(!checked)},[date])
+  const [checked, setChecked] = useState("");
+  const { date, time, setFormValue, setDate, getDates, dates } =
+    useBookingPresenter;
+  const { gridEvents } = useEventPresenter;
+  let params = useParams();
+  const [load, setLoad] = useState(true);
+  useEffect(
+    () => {
+    getDates(gridEvents[params?.event]?.id);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
   return (
     <div>
       <h3>Select your date & time</h3>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <DatesWrapper>
-          <Date htmlFor="date1" checked={date === "4 September"} >
-            <Day htmlFor="date1">4</Day>
-            <DayOfWeek htmlFor="date1">Sun</DayOfWeek>
-            <input
-              id="date1"
-              checked={date === "4 September"}
-              value="4 September"
-              onChange={(e) => {
-                setFormValue(e);
-                setDate(e);
-              }}
-              name="date"
-              type={"radio"}
-            />
-          </Date>
-          <Date htmlFor="date2" checked={date === "5 September"}>
-            <Day htmlFor="date2">5</Day>
-            <DayOfWeek htmlFor="date2">Mon</DayOfWeek>
-            <input
-              id="date2"
-              checked={date === "5 September"}
-              value="5 September"
-              onChange={(e) => {
-                setFormValue(e);
-                setDate(e);
-              }}
-              name="date"
-              type={"radio"}
-            />
-          </Date>
-          <Date htmlFor="date3" checked={date === "6 September"}>
-            <Day htmlFor="date3">6</Day>
-            <DayOfWeek htmlFor="date3">Tue</DayOfWeek>
-            <input
-              id="date3"
-              checked={date === "6 September"}
-              value="6 September"
-              onChange={(e) => {
-                setFormValue(e);
-                setDate(e);
-              }}
-              name="date"
-              type={"radio"}
-            />
-          </Date>
-          <Date htmlFor="date4" checked={date === "7 September"}>
-            <Day htmlFor="date4">7</Day>
-            <DayOfWeek htmlFor="date4">Wed</DayOfWeek>
-            <input
-              id="date4"
-              checked={date === "7 September"}
-              value="7 September"
-              onChange={(e) => {
-                setFormValue(e);
-                setDate(e);
-              }}
-              name="date"
-              type={"radio"}
-            />
-          </Date>
-          <Date htmlFor="date5" checked={date === "8 September"}>
-            <Day htmlFor="date5">8</Day>
-            <DayOfWeek htmlFor="date5">Thu</DayOfWeek>
-            <input
-              id="date5"
-              checked={date === "8 September"}
-              value="8 September"
-              onChange={(e) => {
-                setFormValue(e);
-                setDate(e);
-              }}
-              name="date"
-              type={"radio"}
-            />
-          </Date>
+          {dates?.map((dates, id) => (
+            <div key={id} style={{ display: "grid", rowGap: "20px" }}>
+              <Date
+                htmlFor={"date" + id}
+                checked={checked === dates.id || time === dates.start_time}
+              >
+                <Day htmlFor={"date" + id}>{dates?.day}</Day>
+                <DayOfWeek htmlFor={"date" + id}>{dates?.weekday}</DayOfWeek>
+                <input
+                  id={"date" + id}
+                  checked={checked === dates.id}
+                  value={dates.date}
+                  onChange={(e) => {
+                    setFormValue(e);
+                    setChecked(dates.id);
+                    setDate(e);
+                    console.log(dates.id);
+                  }}
+                  name="date"
+                  type={"radio"}
+                />
+              </Date>
+              {checked === dates.id && (
+                <Time checked={time === dates.start_time} htmlFor="11">
+                  {dates.start_time}
+                  <input
+                    id="11"
+                    checked={time === dates.start_time}
+                    value={dates.start_time}
+                    onChange={(e) => setFormValue(e)}
+                    name="time"
+                    type={"radio"}
+                  />
+                </Time>
+              )}
+            </div>
+          ))}
         </DatesWrapper>
-        <TimesWrapper>
-          <Time checked={time === "11:00"} htmlFor="11">
-            11:00
-            <input
-              id="11"
-              checked={time === "11:00"}
-              value="11:00"
-              onChange={(e) => setFormValue(e)}
-              name="time"
-              type={"radio"}
-            />
-          </Time>
-          <Time checked={time === "13:30"} htmlFor="13">
-            13:30
-            <input
-              id="13"
-              checked={time === "13:30"}
-              value="13:30"
-              onChange={(e) => setFormValue(e)}
-              name="time"
-              type={"radio"}
-            />
-          </Time>
-          <Time checked={time === "15:00"} htmlFor="15">
-            15:00
-            <input
-              id="15"
-              checked={time === "15:00"}
-              value="15:00"
-              onChange={(e) => setFormValue(e)}
-              name="time"
-              type={"radio"}
-            />
-          </Time>
-          <Time checked={time === "17:30"} htmlFor="17">
-            17:30
-            <input
-              id="17"
-              checked={date === "17:30"}
-              value="17:30"
-              onChange={(e) => setFormValue(e)}
-              name="time"
-              type={"radio"}
-            />
-          </Time>
-          <Time checked={time === "19:00"} htmlFor="19">
-            19:00
-            <input
-              id="19"
-              checked={time === "19:00"}
-              value="19:00"
-              onChange={(e) => setFormValue(e)}
-              name="time"
-              type={"radio"}
-            />
-          </Time>
-        </TimesWrapper>
       </div>
     </div>
   );

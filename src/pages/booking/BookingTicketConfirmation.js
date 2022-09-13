@@ -1,14 +1,12 @@
 import { observer } from "mobx-react-lite";
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { useEventPresenter } from "../admin/event/presenter";
 import { useBookingPresenter } from "./presenter";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import QRCode from "react-qr-code";
 import Button from "../../components/Button";
 import emailjs from "@emailjs/browser";
 import * as ReactDOMServer from "react-dom/server";
-import { jsPDF } from "jspdf";
 import Pdf from "react-to-pdf";
 import { AiOutlineDownload } from "react-icons/ai";
 import CustomerLayout from "../../layouts/CustomerLayout";
@@ -21,24 +19,53 @@ import {
   Step,
   Cover,
 } from "./Booking";
-import thumbnail from "../../assets/thumbnail.jpg";
 import { Info } from "../../components/EventSummary";
 import { EventType } from "../../components/Event";
 import { NavigationStore } from "../../stores/navigationStore";
-
+import { DownloadPhoto } from "../../util/DownloadPhoto";
 const ref = React.createRef();
 const TicketConfirmation = observer(() => {
-  const { name, surname, email, event, eventType } = useBookingPresenter;
+  const {
+    name,
+    surname,
+    email,
+    event,
+    eventType,
+    time,
+    place,
+    date,
+    getBooking,
+  } = useBookingPresenter;
   const options = {
     orientation: "landscape",
     unit: "cm",
     format: [22, 11],
   };
   const navigation = NavigationStore;
+  const [refNumber, setRefNumber] = useState("");
+  let location = useLocation();
+  const search = location.search.split("&");
+  const [url, setUrl] = useState("");
+  const { gridEvents } = useEventPresenter;
+  useEffect(() => {
+    getBooking();
+    console.log(search);
+    if (search[0] === "?status=successful") {
+      console.log(search[1].split("=")[1]);
+      setRefNumber(search[1].split("=")[1]);
+    }
+    // eslint-disable-next-line
+  }, []);
+  useEffect(() => {
+    DownloadPhoto(gridEvents[0]?.thumbnail).then((response) => {
+      setUrl(response);
+    });
+    // eslint-disable-next-line
+  }, [url]);
   return (
     <CustomerLayout>
       <Div>
-        <Cover background={thumbnail}>
+        <Cover background={url}>
           <Info>
             <h1>{event}</h1>
             <EventType>{eventType}</EventType>
@@ -122,6 +149,12 @@ const TicketConfirmation = observer(() => {
         <div style={{ display: "grid", placeItems: "center" }}>
           <h3>Your ticket</h3>
           <Ticket
+            time={time}
+            place={place}
+            eventType={eventType}
+            date={date}
+            event={event}
+            refNumber={refNumber}
             onClick={() => {
               emailjs
                 .send(
@@ -131,8 +164,18 @@ const TicketConfirmation = observer(() => {
                     name: name,
                     email: email,
                     to_name: name + " " + surname,
-
-                    myhtml: ReactDOMServer.renderToStaticMarkup(<Ticket />),
+                    from_name: "UJ Arts & Culture",
+                    message: "Hello, how are you? Here is your ticket",
+                    myhtml: ReactDOMServer.renderToStaticMarkup(
+                      <Ticket
+                        time={time}
+                        place={place}
+                        eventType={eventType}
+                        date={date}
+                        event={event}
+                        refNumber={refNumber}
+                      />
+                    ),
                   },
                   "kH-h4rehfRqCVNXY-"
                 )
@@ -192,21 +235,6 @@ export default TicketConfirmation;
  dasdasdas
  */
 const Ticket = observer((props) => {
-  const { quantity, date, time, eventType, event, place, getBooking } =
-    useBookingPresenter;
-  const [refNumber, setRefNumber] = useState("");
-  let location = useLocation();
-  const search = location.search.split("&");
-  useEffect(() => {
-    getBooking();
-    console.log(search);
-    if (search[0] === "?status=successful") {
-      console.log(search[1].split("=")[1]);
-      setRefNumber(search[1].split("=")[1]);
-    }
-
-    // eslint-disable-next-line
-  }, []);
   return (
     <div
       ref={ref}
@@ -232,7 +260,7 @@ const Ticket = observer((props) => {
           padding: "20px 40px",
           boxSizing: "border-box",
         }}
-        onClick={() => props.onClick()}
+        onClick={props.onClick}
       >
         <label
           style={{
@@ -248,7 +276,7 @@ const Ticket = observer((props) => {
             margin: "0px 0 20px 0px",
           }}
         >
-          {eventType}
+          {props.eventType}
         </label>
         <label
           title="Event Name"
@@ -261,7 +289,7 @@ const Ticket = observer((props) => {
             marginBottom: "30px",
           }}
         >
-          {event}
+          {props.event}
         </label>
         <br />
         <label
@@ -296,7 +324,9 @@ const Ticket = observer((props) => {
             >
               Tickets
             </label>
-            <label style={{ color: "#643E77" }}>{quantity}x Early Bird</label>
+            <label style={{ color: "#643E77" }}>
+              {props.quantity}x Early Bird
+            </label>
           </span>
           <span style={{ display: "grid", textAlign: "center" }}>
             <label
@@ -309,7 +339,7 @@ const Ticket = observer((props) => {
             >
               Date
             </label>
-            <label style={{ color: "#643E77" }}>{date} 2022</label>
+            <label style={{ color: "#643E77" }}>{props.date} 2022</label>
           </span>
           <span style={{ display: "grid", textAlign: "center" }}>
             <label
@@ -323,7 +353,8 @@ const Ticket = observer((props) => {
               Time
             </label>
             <label style={{ color: "#643E77" }}>
-              {time} {parseInt(time.substring(0, 2)) > 12 ? "pm" : "am"}
+              {props.time}{" "}
+              {parseInt(props.time.substring(0, 2)) > 12 ? "pm" : "am"}
             </label>
           </span>
         </div>
@@ -344,7 +375,7 @@ const Ticket = observer((props) => {
           >
             Place
           </label>
-          <label style={{ color: "#643E77" }}>{place}</label>
+          <label style={{ color: "#643E77" }}>{props.place}</label>
         </span>
       </div>
       <div
@@ -361,7 +392,7 @@ const Ticket = observer((props) => {
       >
         <div style={{ textAlign: "center" }}>
           <div>
-            <QRCode value={refNumber} size={180} />
+            <QRCode value={props.refNumber} size={180} />
           </div>
           <label
             style={{
@@ -373,7 +404,7 @@ const Ticket = observer((props) => {
           >
             Reference no.
           </label>
-          <label style={{}}>{refNumber}</label>
+          <label style={{}}>{props.refNumber}</label>
         </div>
       </div>
     </div>

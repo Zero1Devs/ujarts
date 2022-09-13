@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../styles/index.css";
 import "../styles/customerLayout.css";
-import thumbnail from "../assets/thumbnail.jpg";
 import { FiCalendar, FiClock, FiMapPin, FiUsers } from "react-icons/fi";
 import { observer } from "mobx-react";
 import EventSummary from "./EventSummary";
@@ -15,10 +14,9 @@ const Event = observer(({ id, event }) => {
   useEffect(() => {
     DownloadPhoto(event?.thumbnail).then((response) => {
       setUrl(response);
-      console.log(response);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [url]);
 
   return (
     <div>
