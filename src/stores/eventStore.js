@@ -15,6 +15,9 @@ class EventStore {
     id: new Int32Array(),
     name: String(),
   };
+  events = [];
+  upcomingEvents = [];
+  runningEvents = [];
   constructor() {
     makeAutoObservable(this);
     autorun(() => {
@@ -59,8 +62,33 @@ class EventStore {
           "events",
           "event_types(id,type), venues(name)"
         );
-
-      //  console.log(this.events);
+      if (error) throw new Error(error.message);
+      runInAction(() => {
+        this.events = data.map(
+          ({
+            id,
+            name,
+            description,
+            state,
+            host,
+            thumbnail,
+            venues,
+            event_types,
+          }) => ({
+            id,
+            name,
+            description,
+            state,
+            thumbnail,
+            host,
+            venues,
+            event_types,
+            sold: Math.floor(
+              Math.random() * (Math.floor(100) - Math.ceil(0)) + Math.ceil(0)
+            ),
+          })
+        );
+      });
       return data;
     } catch (error) {
       console.log(error.message);
@@ -72,10 +100,7 @@ class EventStore {
         "events",
         "event_types(id,type), venues(name),schedule(event_id,*)"
       );
-      /*
-         "schedule",
-        "events(*,event_types(id,type), venues(name))"
-       */
+
       if (error) throw new Error(error.message);
 
       runInAction(() => {
@@ -106,7 +131,6 @@ class EventStore {
             })
           );
       });
-      //  console.log(this.events);
       return data;
     } catch (error) {
       console.log(error.message);
@@ -121,7 +145,32 @@ class EventStore {
           { column: "state", value: "running" }
         );
       if (error) throw new Error(error.message);
-      //  console.log(data);
+      runInAction(() => {
+        this.events = data.map(
+          ({
+            id,
+            name,
+            description,
+            state,
+            host,
+            thumbnail,
+            venues,
+            event_types,
+          }) => ({
+            id,
+            name,
+            description,
+            state,
+            thumbnail,
+            host,
+            venues,
+            event_types,
+            sold: Math.floor(
+              Math.random() * (Math.floor(100) - Math.ceil(0)) + Math.ceil(0)
+            ),
+          })
+        );
+      });
       return data;
     } catch (error) {
       console.log(error.message);
@@ -136,7 +185,29 @@ class EventStore {
           { column: "state", value: "upcoming" }
         );
       if (error) throw new Error(error.message);
-      //  console.log(data);
+      runInAction(() => {
+        this.events = data.map(
+          ({
+            id,
+            name,
+            description,
+            state,
+            host,
+            thumbnail,
+            venues,
+            event_types,
+          }) => ({
+            id,
+            name,
+            description,
+            state,
+            thumbnail,
+            host,
+            venues,
+            event_types,
+          })
+        );
+      });
       return data;
     } catch (error) {
       console.log(error.message);

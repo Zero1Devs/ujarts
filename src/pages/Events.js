@@ -10,11 +10,10 @@ import { useLocation } from "react-router-dom";
 import { NavigationStore } from "../stores/navigationStore";
 import { useEventPresenter } from "./admin/event/presenter";
 import Select from "../components/Select";
-import EventSummary from "../components/EventSummary";
 const Events = observer(() => {
   let location = useLocation();
   const navigation = NavigationStore;
-  const { events, gridEvents, setFilterValue, getEventTypes, eventTypes } =
+  const { gridEvents, setFilterValue, eventTypes } =
     useEventPresenter;
 
   useEffect(() => {
@@ -25,11 +24,11 @@ const Events = observer(() => {
 
     // eslint-disable-next-line
   }, []);
-  useEffect(() => {
+ /* useEffect(() => {
     getEventTypes();
 
     // eslint-disable-next-line
-  }, [eventTypes]);
+  }, []);*/
   const [seconds, setSeconds] = useState(5);
 
   useEffect(() => {

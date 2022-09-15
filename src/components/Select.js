@@ -15,7 +15,6 @@ const StyledSelect = styled.select`
 const Select = (props) => {
   return (
     <StyledSelect {...props}>
-      {props?.children}
       {props?.options?.map((option) => (
         <option value={option?.id} key={option?.id}>
           {option?.name}
@@ -25,16 +24,3 @@ const Select = (props) => {
   );
 };
 export default Select;
-/*
- {props?.options?.map((option) =>
-        props?.selected.abbreviation === option.abbreviation ? (
-          <option selected value={option.id} key={option.id}>
-            {option.name}
-          </option>
-        ) : (
-          <option value={option.id} key={option.id}>
-            {option.name}
-          </option>
-        )
-      )}
- */

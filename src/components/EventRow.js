@@ -20,7 +20,7 @@ const EventRow = observer(({ event }) => {
       setUrl(response);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, []);
   return (
     <EventCard
       onMouseLeave={() => {
@@ -101,7 +101,7 @@ const EventRow = observer(({ event }) => {
                 />
               </div>
             </Label>
-            <label>{event?.sold - 10}</label>
+            <label>{event?.sold > 10 ? event?.sold - 10 : 0}</label>
           </Attendence>
         </TagsGroup>
         <MakeAnnoncement>

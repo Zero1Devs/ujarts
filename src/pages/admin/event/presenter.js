@@ -4,19 +4,17 @@ import { useEventStore } from "../../../stores/eventStore";
 class EventPresenter {
   eventStore = useEventStore;
   active = 0;
-  events = [];
   eventType = "";
-  eventTypes = {
+/*  eventTypes = {
     id: new Int32Array(),
     name: String(),
-  };
+  };*/
   runningEvents = [];
   upcomingEvents = [];
   constructor() {
     makeAutoObservable(this);
     autorun(() => {
       this.getEvents();
-      this.getEventTypes();
       this.eventStore.getGridEvents();
     });
   }
@@ -25,13 +23,6 @@ class EventPresenter {
     console.log(this[e.target.name]);
   };
   setActive = (id) => {
-    /* for (var i = 0; i < this.events.length; i++) {
-      if (i !== id) {
-        this.events[i].active = false;
-      }
-    }
-    this.active = id;
-    this.event[id].active = !this.event[id].active;*/
     for (var i = 0; i < this.gridEvents.length; i++) {
       if (i !== id) {
         this.gridEvents[i].active = false;
@@ -57,7 +48,7 @@ class EventPresenter {
     try {
       const data = await this.eventStore.getEvents();
 
-      runInAction(() => {
+      /*  runInAction(() => {
         this.events = data.map(
           ({
             id,
@@ -83,10 +74,8 @@ class EventPresenter {
             ),
           })
         );
-      });
+      });*/
 
-      console.log(this.eventStore.events);
-      //    console.log(this.events);
     } catch (error) {
       console.log(error.message);
     }
@@ -94,11 +83,17 @@ class EventPresenter {
   get gridEvents() {
     return this.eventStore.gridEvents;
   }
+  get events() {
+    return this.eventStore.events;
+  }
+  get eventTypes() {
+    return this.eventStore.eventTypes;
+  }
   getRunningEvents = async () => {
     try {
-      const data = await this.eventStore.getRunningEvents();
+      await this.eventStore.getRunningEvents();
 
-      runInAction(() => {
+      /* runInAction(() => {
         this.runningEvents = data.map(
           ({
             id,
@@ -124,7 +119,7 @@ class EventPresenter {
             ),
           })
         );
-      });
+      });*/
       //    console.log(this.events);
     } catch (error) {
       console.log(error.message);
@@ -134,33 +129,6 @@ class EventPresenter {
     try {
       const data = await this.eventStore.getUpcomingEvents();
 
-      runInAction(() => {
-        this.upcomingEvents = data.map(
-          ({
-            id,
-            name,
-            description,
-            state,
-            host,
-            thumbnail,
-            venues,
-            event_types,
-          }) => ({
-            id,
-            name,
-            description,
-            state,
-            thumbnail,
-            host,
-            venues,
-            event_types,
-            active: false,
-            sold: Math.floor(
-              Math.random() * (Math.floor(100) - Math.ceil(0)) + Math.ceil(0)
-            ),
-          })
-        );
-      });
       //    console.log(this.events);
     } catch (error) {
       console.log(error.message);

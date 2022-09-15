@@ -46,7 +46,7 @@ class Supabase {
       .from("schedule")
       .select("*")
       .eq("event_id", id)
-      //  .filter("date", "gte", new Date().toLocaleDateString())
+      //  .filter("id_type", "eq",x)
       .gte("date", new Date().toLocaleDateString())
       .gt("available_seats", 0);
     //.then((response) => console.log(response.data));
