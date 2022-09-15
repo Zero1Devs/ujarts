@@ -5,7 +5,7 @@ class EventPresenter {
   eventStore = useEventStore;
   active = 0;
   eventType = "";
-/*  eventTypes = {
+  /*  eventTypes = {
     id: new Int32Array(),
     name: String(),
   };*/
@@ -18,9 +18,12 @@ class EventPresenter {
       this.eventStore.getGridEvents();
     });
   }
+
   setFilterValue = (e) => {
     this[e.target.name] = e.target.value;
-    console.log(this[e.target.name]);
+    //  console.log(this[e.target.name]);
+    this.eventStore.getGridEventsByType(e.target.value);
+    console.log(this.eventStore.gridEvents);
   };
   setActive = (id) => {
     for (var i = 0; i < this.gridEvents.length; i++) {
@@ -75,7 +78,6 @@ class EventPresenter {
           })
         );
       });*/
-
     } catch (error) {
       console.log(error.message);
     }

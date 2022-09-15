@@ -13,8 +13,7 @@ import Select from "../components/Select";
 const Events = observer(() => {
   let location = useLocation();
   const navigation = NavigationStore;
-  const { gridEvents, setFilterValue, eventTypes } =
-    useEventPresenter;
+  const { gridEvents, setFilterValue, eventTypes } = useEventPresenter;
 
   useEffect(() => {
     const hash = location.hash.split("&");
@@ -24,7 +23,7 @@ const Events = observer(() => {
 
     // eslint-disable-next-line
   }, []);
- /* useEffect(() => {
+  /* useEffect(() => {
     getEventTypes();
 
     // eslint-disable-next-line
@@ -57,16 +56,21 @@ const Events = observer(() => {
             <Select
               name="evenType"
               onChange={(e) => setFilterValue(e)}
-              options={eventTypes}
+              defaultValue={0}
+              options={[...eventTypes,{id:0,name:"All"}]}
               width="50%"
             ></Select>
           )}
         </Div>
 
         <EventList className="eventList">
-          {gridEvents.map((data, id) => (
-            <Event key={id} id={id} event={data} />
-          ))}
+          {gridEvents.length>0 ? (
+            gridEvents?.map((data, id) => (
+              <Event key={id} id={id} event={data} />
+            ))
+          ) : (
+            <h1 style={{textAlign:"center"}}>No events for now</h1>
+          )}
         </EventList>
       </div>
     </CustomerLayout>

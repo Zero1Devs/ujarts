@@ -96,10 +96,7 @@ class EventStore {
   };
   getGridEvents = async () => {
     try {
-      const { data, error } = await this.supabaseGateway.selectGridEvents(
-        "events",
-        "event_types(id,type), venues(name),schedule(event_id,*)"
-      );
+      const { data, error } = await this.supabaseGateway.selectGridEvents();
 
       if (error) throw new Error(error.message);
 
@@ -132,6 +129,50 @@ class EventStore {
           );
       });
       return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getGridEventsByType = async (type) => {
+    try {
+      if (type === 0) {
+        await this.getGridEvents();
+      } else {
+        const { data, error } =
+          await this.supabaseGateway.selectGridEventsByType(type);
+
+        if (error) throw new Error(error.message);
+
+        runInAction(() => {
+          this.gridEvents = data
+            .filter((events) => events.schedule.length > 0)
+            .map(
+              ({
+                id,
+                name,
+                description,
+                state,
+                host,
+                thumbnail,
+                venues,
+                event_types,
+                schedule,
+              }) => ({
+                id,
+                name,
+                description,
+                state,
+                thumbnail,
+                host,
+                venues,
+                event_types,
+                schedule,
+                active: false,
+              })
+            );
+        });
+        return data;
+      }
     } catch (error) {
       console.log(error.message);
     }

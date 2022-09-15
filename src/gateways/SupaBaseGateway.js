@@ -31,25 +31,31 @@ class Supabase {
       .order("id", { ascending: true });
     //.then((response) => console.log(response.data));
   };
-  selectGridEvents = async (table, select) => {
+  selectGridEvents = async () => {
     return await this.sbClient
-      .from(table)
-      .select("*," + select)
+      .from("events")
+      .select("*, event_types(id,type), venues(name),schedule(event_id,*)")
       .gte("schedule.date", new Date().toLocaleDateString("fr-CA"))
       .order("state", { ascending: true })
       .order("id", { ascending: true });
-    // .gte("date", "2022-09-07")
-    //.then((response) => console.log(response.data));
+  };
+  selectGridEventsByType = async (type) => {
+    return await this.sbClient
+      .from("events")
+      .select("*, event_types(id,type), venues(name),schedule(event_id,*)")
+      .gte("schedule.date", new Date().toLocaleDateString("fr-CA"))
+      .eq("id_type", type)
+      .order("state", { ascending: true })
+      .order("id", { ascending: true });
   };
   selectDates = async (id) => {
     return await this.sbClient
       .from("schedule")
       .select("*")
       .eq("event_id", id)
-      //  .filter("id_type", "eq",x)
+
       .gte("date", new Date().toLocaleDateString())
       .gt("available_seats", 0);
-    //.then((response) => console.log(response.data));
   };
   selectFromTableWithForeignKeyFilter = async (table, select, filter) => {
     return await this.sbClient

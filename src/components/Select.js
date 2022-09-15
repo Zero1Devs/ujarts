@@ -15,11 +15,15 @@ const StyledSelect = styled.select`
 const Select = (props) => {
   return (
     <StyledSelect {...props}>
-      {props?.options?.map((option) => (
-        <option value={option?.id} key={option?.id}>
-          {option?.name}
-        </option>
-      ))}
+      {props?.options ? (
+        props?.options?.map((option) => (
+          <option value={option?.id} key={option?.id}>
+            {option?.name}
+          </option>
+        ))
+      ) : (
+        <option></option>
+      )}
     </StyledSelect>
   );
 };
