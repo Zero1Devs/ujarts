@@ -20,7 +20,6 @@ const PromoList = () => {
   return (
     <AdminLayout>
       <Title width="210px">Ticket Sales</Title>
-
       <Card style={{ background: "#F0652F", color: "white" }}>
         <>
           <h4>
@@ -63,7 +62,7 @@ const PromoList = () => {
           background="#3C8F53"
           hover="var(--darkpurple)"
           style={{ float: "right" }}
-          onClick={() => alert("download table")}
+          onClick={() => downloadCSV(data)}
         >
           <BsDownload color="white" size={20} />
           Export
@@ -163,6 +162,48 @@ const data = [
     total: "100",
   },
 ];
+
+//Export data
+function convertArrayOfObjectsToCSV(array) {
+  let result;
+
+  const columnDelimiter = "\t";
+  const lineDelimiter = "\n";
+  const keys = Object.keys(data[0]);
+
+  result = "";
+  result += keys.join(columnDelimiter);
+  result += lineDelimiter;
+
+  array.forEach((item) => {
+    let ctr = 0;
+    keys.forEach((key) => {
+      if (ctr > 0) result += columnDelimiter;
+
+      result += item[key];
+      ctr++;
+    });
+    result += lineDelimiter;
+  });
+
+  return result;
+}
+
+function downloadCSV(array) {
+  const link = document.createElement("a");
+  let csv = convertArrayOfObjectsToCSV(array);
+  if (csv == null) return;
+
+  const filename = "export.xls";
+
+  if (!csv.match(/^data:text\/csv/i)) {
+    csv = `data:text/csv;charset=utf-8,${csv}`;
+  }
+
+  link.setAttribute("href", encodeURI(csv));
+  link.setAttribute("download", filename);
+  link.click();
+}
 
 const Card = styled.button`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

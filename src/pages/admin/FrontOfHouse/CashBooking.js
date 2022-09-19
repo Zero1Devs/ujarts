@@ -51,6 +51,25 @@ const CashBooking = (props) => {
         </InputGroup>
         <InputGroup>
           <Input
+            width="400px"
+            type="number"
+            name="ticket_qty"
+            placeholder="Ticket Quantity"
+            onChange={(e) => console.log(e.target.value)}
+          />
+        </InputGroup>
+        <InputGroup>
+          <Input
+            width="400px"
+            type="text"
+            name="total_price"
+            placeholder="Total Price"
+            disabled
+            onChange={(e) => console.log(e.target.value)}
+          />
+        </InputGroup>
+        <InputGroup>
+          <Input
             width="150px"
             type="text"
             name="discount_code"
