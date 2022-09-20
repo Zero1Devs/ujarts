@@ -16,6 +16,10 @@ const CashBooking = (props) => {
   const [amount_given, setAmount_given] = useState("");
   const [customer_change, setCustomer_change] = useState("");
   const [discount_code, setDiscount_code] = useState("");
+  const [discount_appied, setDiscount_appied] = useState(false);
+  const [formating_discount_appied, setFormating_discount_appied] =
+    useState("Apply");
+
   const [formatingForAmountDue, setFormatingForAmountDue] = useState("");
 
   useEffect(() => {
@@ -27,7 +31,33 @@ const CashBooking = (props) => {
     } else {
       setFormatingForAmountDue("Amount Due");
     }
+
+    if (discount_appied == true) {
+      setFormating_discount_appied("Applied");
+    } else {
+      setFormating_discount_appied("Apply");
+    }
   });
+
+  //Get data from db
+  const promoList = ["UJ Rocks", "art is cool"];
+  const checkPromoCode = () => {
+    if (promoList) {
+      for (var i = 0; i < promoList.length; i++) {
+        if (promoList[i] === discount_code) {
+          setDiscount_appied(true);
+          console.log(discount_code + "true");
+          return;
+        } else if (promoList[i] != discount_code) {
+          setDiscount_appied(false);
+          console.log(discount_code + "false");
+        }
+      }
+    }
+    // for (let i = 0; i <= promoList.length; i++) {
+    //   console.log(promoList[(1, i, 0)]); // 1 2 3 4 5 6
+    // }
+  };
 
   //Link database data to event drop down list
   const eventList = [
@@ -130,13 +160,16 @@ const CashBooking = (props) => {
             onChange={(e) => setDiscount_code(e.target.value)}
           />
           <Button
+            style={{
+              background: discount_appied ? "green" : "var(--purple)",
+            }}
             width="100px"
-            color="var(--purple)"
+            // color="var(--purple)"
             hover="var(--darkpurple)"
             border="solid 1px var(--darkpurple)"
-            onClick={(e) => props.onClick((e = false))}
+            onClick={checkPromoCode}
           >
-            Apply
+            {formating_discount_appied}
           </Button>
         </InputGroup>
         <Label>Amount Given</Label>

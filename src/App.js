@@ -58,7 +58,7 @@ const App = observer(() => {
         />
         <Route path="admin/:cash_booking" element={<CashBooking />} />
         <Route
-          path="admin/cash_booking/confirm-cash-booking"
+          path="admin/foh/confirm-cash-booking"
           element={<ConfirmCashBooking />}
         />
         <Route path="ticket-confirmation" element={<TicketConfirmation />} />
