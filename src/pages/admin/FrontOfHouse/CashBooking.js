@@ -31,27 +31,12 @@ const CashBooking = (props) => {
 
   //Link database data to event drop down list
   const eventList = [
-    "MY EARLY JAZZ EDUCATION (AND THE ONE I WANT FOR MY STUDENTS)",
     "Futures and Beyond :: Creativity and 4IR Conference 2022",
     "UNDERSTANDING THE FUNDING LANDSCAPE",
     "COSMOPOLITAN COLLECTIVE DJs",
     "JAZZ AS HERITAGE",
+    "MY EARLY JAZZ EDUCATION (AND THE ONE I WANT FOR MY STUDENTS)",
   ];
-
-  const DropDownList = styled("ul")`
-    padding: 0;
-    margin: 0;
-    padding-left: "1em";
-    background: "#ffffff";
-    box-sizing: border-box;
-    color: "#3faffa";
-    font-weight: 500;
-  `;
-
-  const ListItem = styled("li")`
-    list-style: none;
-    margin-bottom: 0.8em;
-  `;
 
   return (
     <FrontOfHouseLayOut>
@@ -59,16 +44,6 @@ const CashBooking = (props) => {
       <h1>Enter Details</h1>
 
       <Div className="container">
-        <DropDownList>
-          <select>
-            {eventList.map((value) => (
-              <option value={value} key={value}>
-                <ListItem> {value}</ListItem>
-              </option>
-            ))}
-          </select>
-        </DropDownList>
-
         <InputGroup>
           <Input
             width="400px"
@@ -109,6 +84,17 @@ const CashBooking = (props) => {
             onChange={(e) => setCellphone_number(e.target.value)}
           />
         </InputGroup>
+        <h1>Event</h1>
+
+        <Select>
+          {eventList.map((value) => (
+            <option value={value} key={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
+
+        <Label>Ticket Quantity</Label>
         <InputGroup>
           <Input
             width="400px"
@@ -119,6 +105,7 @@ const CashBooking = (props) => {
             onChange={(e) => setTicket_qty(e.target.value)}
           />
         </InputGroup>
+        <Label>Total Amount</Label>
         <InputGroup>
           <Input
             width="400px"
@@ -126,10 +113,13 @@ const CashBooking = (props) => {
             value={total_price * ticket_qty}
             name="total_price"
             placeholder="Total Price"
+            background="red"
             disabled
             onChange={(e) => setTotal_price(e.target.value)}
           />
         </InputGroup>
+        <Label>Discount code</Label>
+
         <InputGroup>
           <Input
             width="150px"
@@ -149,6 +139,8 @@ const CashBooking = (props) => {
             Apply
           </Button>
         </InputGroup>
+        <Label>Amount Given</Label>
+
         <InputGroup>
           <Input
             width="400px"
@@ -160,15 +152,17 @@ const CashBooking = (props) => {
           />
         </InputGroup>
         <InputGroup>
-          <label>{formatingForAmountDue}</label>
+          <Label>{formatingForAmountDue}</Label>
         </InputGroup>
         <InputGroup>
           <Input
+            color=" var(--darkpurple)"
             width="400px"
             type="number"
             name="customer_change"
             value={customer_change}
             placeholder="Change"
+            disabled
             onChange={(e) => setCustomer_change(e.target.value)}
           />
         </InputGroup>
@@ -193,11 +187,13 @@ const CashBooking = (props) => {
 export default CashBooking;
 
 const Div = styled.div`
-  display: flex;
+  ${
+    "" /* display: flex;
   align-items: center;
   height: 80%;
   border: none;
-  justify-content: center;
+  justify-content: center; */
+  }
 `;
 
 const InputGroup = styled.div`
@@ -207,4 +203,24 @@ const InputGroup = styled.div`
   margin: 10px;
   margin-top: ${({ marginTop }) => marginTop || "10px"};
   width: ${({ width }) => width || "320px"};
+`;
+
+const Select = styled.select`
+  height: 40px;
+  margin: 10px;
+  border-radius: 6px;
+  padding-left: 10px;
+  border: none;
+  background: white;
+  filter: drop-shadow(2px 2px 2px #45116d);
+  border: 2px solid transparent;
+  :focus {
+    outline: none !important;
+    border: 2px solid var(--darkpurple);
+  }
+  width: ${({ width }) => width || "320px"};
+`;
+
+const Label = styled.label`
+  padding-left: 10px;
 `;
