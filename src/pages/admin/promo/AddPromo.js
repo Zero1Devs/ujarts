@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { observer } from "mobx-react";
 import Title from "../../../components/Title";
 import styled from "styled-components";
 import Input, { StyledInput } from "../../../components/Input";
 import Select from "../../../components/Select";
 import Button from "../../../components/Button";
 import percent from "../../../assets/percent.svg";
-import { useEventPresenter } from "../event/presenter";
-const AddPromo = (props) => {
-  const { events } = useEventPresenter;
+import { usePromoPresenter } from "./presenter";
+const AddPromo = observer((props) => {
+  const { setFormValue, createPromo, getEvents, events } = usePromoPresenter;
+  useEffect(() => {
+    getEvents();
+  });
   return (
     <>
       <Title width="300px">New Promo Code</Title>
@@ -19,7 +23,7 @@ const AddPromo = (props) => {
             width="200px"
             type="text"
             name="promo_code"
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setFormValue(e)}
           />
         </InputGroup>
 
@@ -29,7 +33,7 @@ const AddPromo = (props) => {
             width="200px"
             type="text"
             name="discount"
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setFormValue(e)}
           />
         </InputGroup>
         <InputGroup>
@@ -37,7 +41,7 @@ const AddPromo = (props) => {
           <Select
             width="210px"
             name="event"
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setFormValue(e)}
             options={events}
           />
         </InputGroup>
@@ -56,7 +60,7 @@ const AddPromo = (props) => {
             background="var(--purple)"
             hover="var(--darkpurple)"
             border="solid 1px var(--darkpurple)"
-            onClick={() => alert("created")}
+            onClick={() => createPromo()}
           >
             Create
           </Button>
@@ -64,7 +68,7 @@ const AddPromo = (props) => {
       </Div>
     </>
   );
-};
+});
 
 export default AddPromo;
 const Div = styled.div`
