@@ -1,5 +1,5 @@
 import { SupabaseGateway } from "../gateways/SupaBaseGateway";
-import { makeAutoObservable, runInAction, autorun } from "mobx";
+import { makeAutoObservable, autorun } from "mobx";
 
 class AnnouncementStore {
   announcementList = [];
@@ -14,23 +14,21 @@ class AnnouncementStore {
 
   getAnnouncements = async () => {
     try {
-      const { data, error } =
+      const { error, data } =
         await this.supabaseGateway.selectFromTableWithForeignKey(
-          "announcements",
-          "events(name)"
+          "announcement",
+          "events(id,name)"
         );
       if (error) throw new Error(error.message);
-      runInAction(() => {
-        this.announcementList = data;
-      });
+      return data;
     } catch (error) {
       console.log(error.message);
     }
   };
   makeAnnouncement = async (payload) => {
     try {
-      const { data, error } = await this.supabaseGateway.insertToTable(
-        "announcements",
+      const { error } = await this.supabaseGateway.insertToTable(
+        "announcement",
         payload
       );
       if (error) throw new Error(error.message);
@@ -41,14 +39,16 @@ class AnnouncementStore {
   };
   deleteAnnouncement = async (id) => {
     try {
-      const { data, error } = await this.supabaseGateway.deleteFromTable(
-        "announcements",
+      const { error } = await this.supabaseGateway.deleteFromTable(
+        "announcement",
         { id: id }
       );
       if (error) throw new Error(error.message);
       alert("Announcement deleted");
     } catch (error) {
       console.log(error.message);
+    } finally {
+      this.getAnnouncements();
     }
   };
 }
