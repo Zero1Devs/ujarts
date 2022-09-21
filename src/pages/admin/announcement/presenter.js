@@ -1,5 +1,6 @@
 import { autorun, makeAutoObservable, runInAction } from "mobx";
 import { useAnnouncementStore } from "../../../stores/announcementStore";
+import { NavigationStore } from "../../../stores/navigationStore";
 
 class AnnouncementPresenter {
   announcement = {
@@ -12,6 +13,7 @@ class AnnouncementPresenter {
   message = "";
   subject = "";
   event_id = "";
+  navigation = NavigationStore;
   id = "";
   announcements = [];
 
@@ -48,6 +50,7 @@ class AnnouncementPresenter {
       let announcement = { subject, event_id: event, message };
       console.log(announcement);
       await this.announcementStore.makeAnnouncement(announcement);
+      this.navigation.push("/admin/annoucenments");
     } catch (error) {
       console.log(error.message);
     }

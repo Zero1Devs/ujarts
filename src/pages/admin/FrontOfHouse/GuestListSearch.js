@@ -38,11 +38,6 @@ export default GuestListSearch;
 
 const columns = [
   {
-    name: "Booking.ID",
-    selector: (row) => row.booking_id,
-    sortable: true,
-  },
-  {
     name: "Cust.Details",
     selector: (row) => row.cust_details,
     sortable: true,
@@ -53,8 +48,8 @@ const columns = [
     sortable: true,
   },
   {
-    name: "Event ID",
-    selector: (row) => row.event_id,
+    name: "DateTime",
+    selector: (row) => row.date,
     sortable: true,
   },
   {
@@ -75,13 +70,12 @@ const columns = [
 ];
 const data = [
   {
-    booking_id: "#0063",
-    cust_details: "Jay Green jaygreen@gmail.com 071 626 6666",
-    name: "Futures and Beyond :: Creativity and 4IR Conference 2022",
-    event_id: "#008",
-    ticket_qty: 2,
-    ticket_type: "General",
-    ticket_ref: "Sf3267",
+    cust_details: "Zacharias Siphoro",
+    name: "MY EARLY JAZZ EDUCATION (AND THE ONE I WANT FOR MY STUDENTS)",
+    date: "29 Sep @ 15:25pm",
+    ticket_qty: 1,
+    ticket_type: "Early Bird",
+    ticket_ref: "1663764713375",
   },
 ];
 

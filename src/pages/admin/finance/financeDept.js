@@ -26,7 +26,7 @@ const PromoList = () => {
             <b>Sales Today</b>
             <BsCoin color="#4F2365" size={20} />
           </h4>
-          <p>R250</p>
+          <p>R300</p>
         </>
       </Card>
       <Card style={{ background: "#E9E9E9", color: "black" }}>
@@ -35,7 +35,7 @@ const PromoList = () => {
             <b>Total Earning</b>
             <BsCashCoin color="#4F2365" size={20} />
           </h4>
-          <p>R1500</p>
+          <p>R600</p>
         </>
       </Card>
       <Card style={{ background: "#E9E9E9", color: "black" }}>
@@ -44,7 +44,7 @@ const PromoList = () => {
             <b>Total Tickets Sold</b>
             <BsReceiptCutoff color="#FF520F" size={20} />
           </h4>
-          <p>103</p>
+          <p>5</p>
         </>
       </Card>
       <Card style={{ background: "#4F2365", color: "white" }}>
@@ -53,7 +53,7 @@ const PromoList = () => {
             <b>Number of Audience</b>
             <BsFillPeopleFill color="white" size={20} />
           </h4>
-          <p>65</p>
+          <p>5</p>
         </>
       </Card>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -100,7 +100,7 @@ const columns = [
     sortable: true,
   },
   {
-    name: "Booking Dates",
+    name: "Booking Date",
     selector: (row) => row.booking_date,
     sortable: true,
     width: "30%",
@@ -130,36 +130,36 @@ const columns = [
 const data = [
   {
     no: "1",
-    name: "Jasmin",
-    email: "jasmin@gmail.com",
-    booking_date: "08/06/2022",
+    name: "Zacharias Siphoro",
+    email: "zachariasiphoro@gmail.com",
+    booking_date: "21/09/2022",
     ticket_qty: "1",
-    ticket_ref: "Sf3267",
-    ticket_type: "Choir",
+    ticket_ref: "1663764713375",
+    ticket_type: "Early Bird",
     payment_method: "Credit Card",
     total: "150",
   },
   {
     no: "2",
-    name: "Johan",
-    email: "johon211@gmail.com",
-    booking_date: "12/06/2022",
+    name: "Zacharias Siphoro",
+    email: "zachariasiphoro@gmail.com",
+    booking_date: "21/09/2022",
     ticket_qty: "2",
-    ticket_ref: "rt7667",
-    ticket_type: "Dance",
-    payment_method: "Debit Card",
-    total: "350",
+    ticket_ref: "2683745713375",
+    ticket_type: "Early Bird",
+    payment_method: "Cash",
+    total: "150",
   },
   {
     no: "3",
-    name: "Johan",
-    email: "johon211@gmail.com",
-    booking_date: "12/06/2022",
+    name: "Vivaldo Gaston",
+    email: "vivaldo2009@live.com.pt",
+    booking_date: "03/09/2022",
     ticket_qty: "2",
-    ticket_ref: "rt7667",
-    ticket_type: "Theatre",
-    payment_method: "Debit Card",
-    total: "100",
+    ticket_ref: "1662199160261",
+    ticket_type: "Early Bird",
+    payment_method: "Credit Card",
+    total: "300",
   },
 ];
 

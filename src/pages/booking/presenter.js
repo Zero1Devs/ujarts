@@ -94,6 +94,7 @@ class Booking {
       runInAction(() => {
         this.guest = data.data;
       });
+      console.log(this.guest);
       return this.guest;
     } catch (error) {
       console.log(error.message);

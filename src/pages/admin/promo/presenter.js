@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, autorun } from "mobx";
+import { NavigationStore } from "../../../stores/navigationStore";
 import { usePromoStore } from "../../../stores/promoStore";
 class PromoPresenter {
   promo = {
@@ -14,6 +15,7 @@ class PromoPresenter {
   promos = [];
   id = "";
   events = [];
+  navigation = NavigationStore;
 
   constructor() {
     makeAutoObservable(this);
@@ -45,6 +47,7 @@ class PromoPresenter {
       let promo = { promo_code, event_id: event, discount };
       console.log(promo);
       await this.promoStore.addPromo(promo);
+      this.navigation.push("/admin/promo");
     } catch (error) {
       console.log(error.message);
     }
