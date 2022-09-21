@@ -56,9 +56,9 @@ const App = observer(() => {
           path="admin/foh-main/guest-list-search-searchbar"
           element={<GuestListSeach />}
         />
-        <Route path="admin/:cash_booking" element={<CashBooking />} />
+        <Route path="admin/cash-booking" element={<CashBooking />} />
         <Route
-          path="admin/cash_booking/confirm-cash-booking"
+          path="admin/cash-booking/confirm-cash-booking"
           element={<ConfirmCashBooking />}
         />
         <Route path="ticket-confirmation" element={<TicketConfirmation />} />
@@ -67,9 +67,6 @@ const App = observer(() => {
         <Route path="admin/finance" element={<FinanceDept />} />
 
         <Route path="events/:event" element={<EventDetails />} />
-        {
-          //<Route path="booking/:event" element={<Booking />} />
-        }
         <Route path="booking/:event" element={<Booking />} />
         <Route path="venues" element={<Venues />} />
         <Route path="about" element={<About />} />

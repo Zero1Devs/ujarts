@@ -5,6 +5,7 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import FrontOfHouseLayOut from "../../../layouts/FrontOfHouseLayOut";
 import { Link } from "react-router-dom";
+// import { setHours } from "rsuite/esm/utils/dateUtils";
 
 const CashBooking = (props) => {
   const [name, setName] = useState("");
@@ -16,6 +17,7 @@ const CashBooking = (props) => {
   const [amount_given, setAmount_given] = useState("");
   const [customer_change, setCustomer_change] = useState("");
   const [discount_code, setDiscount_code] = useState("");
+  const [discount_percentage, setDiscount_percentage] = useState(1);
   const [discount_appied, setDiscount_appied] = useState(false);
   const [formating_discount_appied, setFormating_discount_appied] =
     useState("Apply");
@@ -23,7 +25,7 @@ const CashBooking = (props) => {
   const [formatingForAmountDue, setFormatingForAmountDue] = useState("");
 
   useEffect(() => {
-    setCustomer_change(amount_given - total_price * ticket_qty * 0.8);
+    setCustomer_change(total_price * ticket_qty * discount_percentage);
     if (customer_change == 0) {
       setFormatingForAmountDue("No change required");
     } else if (customer_change > 0) {
@@ -34,8 +36,10 @@ const CashBooking = (props) => {
 
     if (discount_appied == true) {
       setFormating_discount_appied("Applied");
+      setDiscount_percentage(0.5);
     } else {
       setFormating_discount_appied("Apply");
+      setDiscount_percentage(1);
     }
   });
 
@@ -71,10 +75,10 @@ const CashBooking = (props) => {
   return (
     <FrontOfHouseLayOut>
       <Title width="300px">Cash Booking</Title>
-      <h1>Enter Details</h1>
+      <h1>Enter Customer details</h1>
 
-      <Div className="container">
-        <InputGroup>
+      <Div>
+        <Form>
           <Input
             width="400px"
             type="text"
@@ -83,8 +87,7 @@ const CashBooking = (props) => {
             placeholder="Name"
             onChange={(e) => setName(e.target.value)}
           />
-        </InputGroup>
-        <InputGroup>
+
           <Input
             width="400px"
             type="text"
@@ -93,18 +96,7 @@ const CashBooking = (props) => {
             placeholder="Enter email address"
             onChange={(e) => setEmail(e.target.value)}
           />
-        </InputGroup>
-        <InputGroup>
-          <Input
-            width="400px"
-            type="text"
-            value={confirm_email}
-            name="confirm_email"
-            placeholder="Confirm email addres"
-            onChange={(e) => setConfirm_email(e.target.value)}
-          />
-        </InputGroup>
-        <InputGroup>
+
           <Input
             width="400px"
             type="text"
@@ -113,19 +105,18 @@ const CashBooking = (props) => {
             placeholder="Cellphone number"
             onChange={(e) => setCellphone_number(e.target.value)}
           />
-        </InputGroup>
-        <h1>Event</h1>
 
-        <Select>
-          {eventList.map((value) => (
-            <option value={value} key={value}>
-              {value}
-            </option>
-          ))}
-        </Select>
+          <Label>Event</Label>
+          <Select width="420px">
+            {eventList.map((value) => (
+              <option value={value} key={value}>
+                {value}
+              </option>
+            ))}
+          </Select>
 
-        <Label>Ticket Quantity</Label>
-        <InputGroup>
+          <Label>Ticket Quantity</Label>
+
           <Input
             width="400px"
             type="number"
@@ -134,9 +125,8 @@ const CashBooking = (props) => {
             placeholder="Ticket Quantity"
             onChange={(e) => setTicket_qty(e.target.value)}
           />
-        </InputGroup>
-        <Label>Total Amount</Label>
-        <InputGroup>
+          <Label>Total Amount</Label>
+
           <Input
             width="400px"
             type="text"
@@ -147,34 +137,30 @@ const CashBooking = (props) => {
             disabled
             onChange={(e) => setTotal_price(e.target.value)}
           />
-        </InputGroup>
-        <Label>Discount code</Label>
+          <Label>Discount code</Label>
+          <InputGroup>
+            <Input
+              width="400px"
+              type="text"
+              value={discount_code}
+              name="discount_code"
+              placeholder="Discount code"
+              onChange={(e) => setDiscount_code(e.target.value)}
+            />
+            <Button
+              style={{
+                background: discount_appied ? "green" : "var(--purple)",
+              }}
+              width="200px"
+              hover="var(--darkpurple)"
+              border="solid 1px var(--darkpurple)"
+              onClick={checkPromoCode}
+            >
+              {formating_discount_appied}
+            </Button>
+          </InputGroup>
+          <Label>Amount Given</Label>
 
-        <InputGroup>
-          <Input
-            width="150px"
-            type="text"
-            value={discount_code}
-            name="discount_code"
-            placeholder="Discount code"
-            onChange={(e) => setDiscount_code(e.target.value)}
-          />
-          <Button
-            style={{
-              background: discount_appied ? "green" : "var(--purple)",
-            }}
-            width="100px"
-            // color="var(--purple)"
-            hover="var(--darkpurple)"
-            border="solid 1px var(--darkpurple)"
-            onClick={checkPromoCode}
-          >
-            {formating_discount_appied}
-          </Button>
-        </InputGroup>
-        <Label>Amount Given</Label>
-
-        <InputGroup>
           <Input
             width="400px"
             type="number"
@@ -183,36 +169,31 @@ const CashBooking = (props) => {
             placeholder="Amount Given"
             onChange={(e) => setAmount_given(e.target.value)}
           />
-        </InputGroup>
-        <InputGroup>
+
           <Label>{formatingForAmountDue}</Label>
-        </InputGroup>
-        <InputGroup>
+
           <Input
             color=" var(--darkpurple)"
             width="400px"
             type="number"
             name="customer_change"
-            value={customer_change}
+            value={amount_given - customer_change}
             placeholder="Change"
             disabled
             onChange={(e) => setCustomer_change(e.target.value)}
           />
-        </InputGroup>
 
-        <InputGroup>
-          <Link to={"confirm-cash-booking"}>
+          <Link to={"/admin/cash-booking/confirm-cash-booking"}>
             <Button
-              width="100px"
+              width="415px"
               background="var(--purple)"
               hover="var(--darkpurple)"
               border="solid 1px var(--darkpurple)"
-              onClick={() => alert("created")}
             >
-              Create
+              Proceed
             </Button>
           </Link>
-        </InputGroup>
+        </Form>
       </Div>
     </FrontOfHouseLayOut>
   );
@@ -220,27 +201,30 @@ const CashBooking = (props) => {
 export default CashBooking;
 
 const Div = styled.div`
-  ${
-    "" /* display: flex;
-  align-items: center;
-  height: 80%;
+  display: flex;
+  flex-direction: column;
   border: none;
-  justify-content: center; */
-  }
+  justify-content: center;
+  align-items: center; /**/
 `;
-
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: none;
+  justify-content: center;
+`;
 const InputGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px;
+  margin: 0px;
   margin-top: ${({ marginTop }) => marginTop || "10px"};
-  width: ${({ width }) => width || "320px"};
+  width: ${({ width }) => width || "420px"};
 `;
 
 const Select = styled.select`
   height: 40px;
-  margin: 10px;
+  margin: 10px 0px;
   border-radius: 6px;
   padding-left: 10px;
   border: none;

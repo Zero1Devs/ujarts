@@ -118,7 +118,7 @@ const AdminLayout = (props) => {
               borderBottomLeftRadius: "2px",
             };
           }}
-          to="/admin/foh"
+          to="/admin/cash-booking"
         >
           <FaCashRegister color="white" size={25} />
         </NavLink>

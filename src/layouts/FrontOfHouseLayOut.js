@@ -53,7 +53,7 @@ const AdminLayout = (props) => {
               borderBottomLeftRadius: "2px",
             };
           }}
-          to="/admin/cash_booking"
+          to="/admin/cash-booking"
         >
           <BsCashCoin color="white" size={25} />
         </NavLink>
