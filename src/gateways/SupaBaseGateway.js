@@ -31,6 +31,14 @@ class Supabase {
       .order("id", { ascending: true });
     //.then((response) => console.log(response.data));
   };
+  selectFromTableWithForeignKey2 = async (table, select) => {
+    return await this.sbClient
+      .from(table)
+      .select("*," + select)
+      .order("state", { ascending: true });
+
+    //.then((response) => console.log(response.data));
+  };
   selectGridEvents = async () => {
     return await this.sbClient
       .from("events")
@@ -80,6 +88,14 @@ class Supabase {
   };
   deleteFromTable = async (table, match) => {
     return await SupabaseGateway.sbClient.from(table).delete().match(match);
+  };
+  uploadPhoto = async (filePath, file) => {
+    return await SupabaseGateway.sbClient.storage
+      .from("photos")
+      .upload(filePath, file);
+  };
+  downloadPhoto = async (url) => {
+    return await SupabaseGateway.sbClient.storage.from("photos").download(url);
   };
 }
 export const SupabaseGateway = new Supabase();

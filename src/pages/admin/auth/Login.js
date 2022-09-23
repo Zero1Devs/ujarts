@@ -12,7 +12,7 @@ const LoginForm = observer(() => {
   const { isLoggedIn } = useUserStore;
   const navigation = NavigationStore;
   useEffect(() => {
-    if (isLoggedIn) navigation.replace("/admin/venues");
+    if (isLoggedIn) navigation.replace("/admin/events");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

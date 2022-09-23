@@ -12,7 +12,7 @@ import { useEventPresenter } from "./presenter";
 const CreateEvent = observer((props) => {
   const [page, setPage] = useState(true);
   const { getVenues, venues } = useVenuePresenter;
-  const { eventTypes } = useEventPresenter;
+  const { eventTypes, setFormValue, createEvent } = useEventPresenter;
 
   return (
     <div>
@@ -33,7 +33,7 @@ const CreateEvent = observer((props) => {
                   id="single"
                   name="thumbnail"
                   accept="image/*"
-                  onChange={(e) => console.log(e.target.files)}
+                  onChange={(e) => setFormValue(e)}
                 />
               </FileWrapper>
             </Imagewrapper>
@@ -44,6 +44,7 @@ const CreateEvent = observer((props) => {
                 className="textInput"
                 type="text"
                 width="auto"
+                onChange={(e) => setFormValue(e)}
               />
               <label>Description</label>
               <textarea
@@ -54,6 +55,7 @@ const CreateEvent = observer((props) => {
                   borderRadius: "6px",
                 }}
                 name="description"
+                onChange={(e) => setFormValue(e)}
               />
               <DetailsWrapper>
                 <HostDetails>
@@ -63,18 +65,19 @@ const CreateEvent = observer((props) => {
                     className="textInput"
                     type="text"
                     width="auto"
+                    onChange={(e) => setFormValue(e)}
                   />
                   <label>Venue</label>
                   <Select
                     name="venue"
-                    onChange={(e) => console.log(e.target.value)}
+                    onChange={(e) => setFormValue(e)}
                     defaultValue={venues[0]?.id}
                     options={venues}
                   />
                   <label>Type</label>
                   <Select
                     name="type"
-                    onChange={(e) => console.log(e.target.value)}
+                    onChange={(e) => setFormValue(e)}
                     options={eventTypes}
                   />
                 </HostDetails>
@@ -82,16 +85,31 @@ const CreateEvent = observer((props) => {
                   <DateWrapper>
                     <label>Date and Time</label>
                     <label>Select a day</label>
-                    <Input name="date" type="date" width="auto" />
+                    <Input
+                      name="date"
+                      type="date"
+                      width="auto"
+                      onChange={(e) => setFormValue(e)}
+                    />
                   </DateWrapper>
                   <TimeWrapper>
                     <span>
                       <label>Starts at</label>
-                      <Input name="start_time" type="time" width="auto" />
+                      <Input
+                        name="start_time"
+                        type="time"
+                        width="auto"
+                        onChange={(e) => setFormValue(e)}
+                      />
                     </span>
                     <span>
                       <label>Ends at</label>
-                      <Input name="ending_time" type="time" width="auto" />
+                      <Input
+                        name="end_time"
+                        type="time"
+                        width="auto"
+                        onChange={(e) => setFormValue(e)}
+                      />
                     </span>
                   </TimeWrapper>
                 </div>
@@ -116,16 +134,16 @@ const CreateEvent = observer((props) => {
                   <form>
                     <div>
                       <input type="checkbox" id="Early" name="Early" />
-                      <label for="Early">Early Bird</label>
+                      <label htmlFor="Early">Early Bird</label>
                     </div>
 
                     <div>
                       <input type="checkbox" id="General" name="General" />
-                      <label for="General">General Admission</label>
+                      <label htmlFor="General">General Admission</label>
                     </div>
                     <div>
                       <input type="checkbox" id="VIP" name="VIP" />
-                      <label for="VIP">VIP</label>
+                      <label htmlFor="VIP">VIP</label>
                     </div>
                   </form>
                 </div>
@@ -135,7 +153,12 @@ const CreateEvent = observer((props) => {
                 </div>
                 <div style={{ display: "grid" }}>
                   <label>No. of Tickets: </label>
-                  <Input placeholder="0" width="120px" />
+                  <Input
+                    placeholder="0"
+                    width="120px"
+                    name="no_tickets"
+                    onChange={(e) => setFormValue(e)}
+                  />
                 </div>
               </InputWrapper>
               <ButtonsWrapper>
@@ -154,7 +177,11 @@ const CreateEvent = observer((props) => {
                   width="115px"
                   hover="var(--purple)"
                   background="var(--darkpurple)"
-                  onClick={() => alert("Create")}
+                  onClick={() => {
+                    createEvent();
+                    alert("Event created");
+                    //props.onClick();
+                  }}
                 >
                   Create
                 </Button>

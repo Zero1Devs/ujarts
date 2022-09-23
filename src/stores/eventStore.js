@@ -26,12 +26,36 @@ class EventStore {
   }
   createEvent = async (event) => {
     try {
-      const { error } = await this.supabaseGateway.insertToTable(
+      const { data, error } = await this.supabaseGateway.insertToTable(
         "events",
         event
       );
       if (error) throw new Error(error.message);
       alert("Event created!");
+      return data;
+    } catch (error) {
+      console.log(error.message);
+      alert(error.message);
+    }
+  };
+  deleteEvent = async (id) => {
+    try {
+      const { error } = await this.supabaseGateway.deleteFromTable("events", {
+        id: id,
+      });
+      if (error) throw new Error(error.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  addSchedule = async (payload) => {
+    try {
+      const { data, error } = await this.supabaseGateway.insertToTable(
+        "schedule",
+        payload
+      );
+      if (error) throw new Error(error.message);
+      return data;
     } catch (error) {
       console.log(error.message);
       alert(error.message);
@@ -58,7 +82,7 @@ class EventStore {
   getEvents = async () => {
     try {
       const { data, error } =
-        await this.supabaseGateway.selectFromTableWithForeignKey(
+        await this.supabaseGateway.selectFromTableWithForeignKey2(
           "events",
           "event_types(id,type), venues(name)"
         );

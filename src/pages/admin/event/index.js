@@ -14,7 +14,7 @@ const Events = observer(() => {
       <Toggle
         OnClick={(e) => setScreen(e)}
         width="400px"
-        options={["Promo Code List", "New Promo Code"]}
+  
       >
         <Option
           background={screen === "event" ? "var(--darkpurple)" : "none"}
@@ -32,7 +32,7 @@ const Events = observer(() => {
         </Option>
       </Toggle>
       {screen === "event" ? (
-        <EventList />
+        <EventList onClick={() => setScreen("event")} />
       ) : screen === "booking" ? (
         <BookingList />
       ) : (

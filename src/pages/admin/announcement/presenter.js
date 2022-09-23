@@ -50,7 +50,7 @@ class AnnouncementPresenter {
       let announcement = { subject, event_id: event, message };
       console.log(announcement);
       await this.announcementStore.makeAnnouncement(announcement);
-      this.navigation.push("/admin/annoucenments");
+      this.navigation.push("/admin/announcements");
     } catch (error) {
       console.log(error.message);
     }

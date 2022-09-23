@@ -9,7 +9,7 @@ import styled from "styled-components";
 import AllEvents from "./AllEvents";
 import RunningEvents from "./RunningEvents";
 import UpcomingEvents from "./UpcomingEvents";
-const EventList = observer(() => {
+const EventList = observer((props) => {
   const [screen, setScreen] = useState("all");
 
   return (
@@ -43,9 +43,9 @@ const EventList = observer(() => {
       {screen === "all" ? (
         <AllEvents />
       ) : screen === "running" ? (
-        <RunningEvents/>
+        <RunningEvents />
       ) : screen === "upcoming" ? (
-        <UpcomingEvents/>
+        <UpcomingEvents onClick={props.onClick} />
       ) : (
         <></>
       )}
