@@ -62,7 +62,7 @@ class Supabase {
       .select("*")
       .eq("event_id", id)
 
-      .gte("date", new Date().toLocaleDateString())
+      .gte("date", new Date().toLocaleDateString("fr-CA"))
       .gt("available_seats", 0);
   };
   selectFromTableWithForeignKeyFilter = async (table, select, filter) => {
