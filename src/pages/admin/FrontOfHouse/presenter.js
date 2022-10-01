@@ -1,4 +1,4 @@
-import { SupabaseGateway } from "../../gateways/SupaBaseGateway";
+import { SupabaseGateway } from "../../../gateways/SupaBaseGateway";
 import { autorun, makeAutoObservable, runInAction } from "mobx";
 
 class FrontOfHouse {
