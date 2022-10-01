@@ -9,9 +9,9 @@ import { observer } from "mobx-react";
 import { usePromoPresenter } from "./presenter";
 
 const PromoList = observer(() => {
-  const { getPromo, promos } = usePromoPresenter;
+  const { getPromos, promos } = usePromoPresenter;
   useEffect(() => {
-    getPromo();
+    getPromos();
     // eslint-disable-next-line
   }, []);
   return (

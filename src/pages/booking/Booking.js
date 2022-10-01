@@ -49,15 +49,15 @@ const Booking = observer(() => {
   const Switch = () => {
     switch (screen) {
       case 1:
-        return <DateTime id={eventId} />;
+        return <DateTime id={gridEvents[eventId]?.id} />;
       case 2:
-        return <TicketType id={eventId} />;
+        return <TicketType id={gridEvents[eventId]?.id} />;
       case 3:
-        return <BookingForm id={eventId} />;
+        return <BookingForm id={gridEvents[eventId]?.id} />;
       case 4:
-        return <ConfirmBooking id={eventId} />;
+        return <ConfirmBooking id={gridEvents[eventId]?.id} />;
       case 5:
-        return <Checkout id={eventId} />;
+        return <Checkout id={gridEvents[eventId]?.id} />;
       default:
         return;
     }

@@ -4,18 +4,24 @@ import styled from "styled-components";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import FrontOfHouseLayOut from "../../../layouts/FrontOfHouseLayOut";
-import { Link } from "react-router-dom";
-// import { setHours } from "rsuite/esm/utils/dateUtils";
-
-const CashBooking = (props) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [confirm_email, setConfirm_email] = useState("");
-  const [cellphone_number, setCellphone_number] = useState("");
-  const [ticket_qty, setTicket_qty] = useState(1);
+import { Link, useNavigate } from "react-router-dom";
+import { useFrontOfHousePresenter } from "./presenter";
+import { observable } from "mobx";
+import { usePromoPresenter } from "../promo/presenter";
+import { useEventPresenter } from "../event/presenter";
+const CashBooking = observable((props) => {
+  const {
+    name,
+    email,
+    phone_number,
+    quantity,
+    amount_given,
+    change,
+    setFormValue,
+  } = useFrontOfHousePresenter;
+  const { gridEvents } = useEventPresenter;
+  const { promos, getPromos } = usePromoPresenter;
   const [total_price, setTotal_price] = useState("150");
-  const [amount_given, setAmount_given] = useState("");
-  const [customer_change, setCustomer_change] = useState("");
   const [discount_code, setDiscount_code] = useState("");
   const [discount_percentage, setDiscount_percentage] = useState(1);
   const [discount_appied, setDiscount_appied] = useState(false);
@@ -25,10 +31,10 @@ const CashBooking = (props) => {
   const [formatingForAmountDue, setFormatingForAmountDue] = useState("");
 
   useEffect(() => {
-    setCustomer_change(total_price * ticket_qty * discount_percentage);
-    if (customer_change == 0) {
-      setFormatingForAmountDue("No change required");
-    } else if (customer_change > 0) {
+    setFormValue(total_price * ticket_qty * discount_percentage);
+    if (change == 0) {
+      setFormatingForAmountDue("No change requiredz");
+    } else if (change > 0) {
       setFormatingForAmountDue("Customer change");
     } else {
       setFormatingForAmountDue("Amount Due");
@@ -85,7 +91,7 @@ const CashBooking = (props) => {
             value={name}
             name="name"
             placeholder="Name"
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setFormValue(e)}
           />
 
           <Input
@@ -94,36 +100,35 @@ const CashBooking = (props) => {
             value={email}
             name="email"
             placeholder="Enter email address"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setFormValue(e)}
           />
 
           <Input
             width="400px"
             type="text"
-            value={cellphone_number}
-            name="cellphone_number"
+            value={phone_number}
+            name="phone_number"
             placeholder="Cellphone number"
-            onChange={(e) => setCellphone_number(e.target.value)}
+            onChange={(e) => setFormValue(e)}
           />
 
           <Label>Event</Label>
-          <Select width="420px">
-            {eventList.map((value) => (
-              <option value={value} key={value}>
-                {value}
-              </option>
-            ))}
-          </Select>
+          <Select
+            width="420px"
+            options={gridEvents}
+            name="event"
+            onChange={(e) => setFormValue(e)}
+          />
 
           <Label>Ticket Quantity</Label>
 
           <Input
             width="400px"
             type="number"
-            name="ticket_qty"
-            value={ticket_qty}
+            name="quantity"
+            value={quantity}
             placeholder="Ticket Quantity"
-            onChange={(e) => setTicket_qty(e.target.value)}
+            onChange={(e) => setFormValue(e)}
           />
           <Label>Total Amount</Label>
 
@@ -167,7 +172,7 @@ const CashBooking = (props) => {
             name="amount_given"
             value={amount_given}
             placeholder="Amount Given"
-            onChange={(e) => setAmount_given(e.target.value)}
+            onChange={(e) => setFormValue(e)}
           />
 
           <Label>{formatingForAmountDue}</Label>
@@ -176,11 +181,11 @@ const CashBooking = (props) => {
             color=" var(--darkpurple)"
             width="400px"
             type="number"
-            name="customer_change"
-            value={amount_given - customer_change}
+            name="change"
+            value={amount_given - change}
             placeholder="Change"
             disabled
-            onChange={(e) => setCustomer_change(e.target.value)}
+            onChange={(e) => setFormValue(e.target.value)}
           />
 
           <Link to={"/admin/cash-booking/confirm-cash-booking"}>
@@ -197,7 +202,7 @@ const CashBooking = (props) => {
       </Div>
     </FrontOfHouseLayOut>
   );
-};
+});
 export default CashBooking;
 
 const Div = styled.div`

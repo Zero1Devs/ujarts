@@ -24,7 +24,7 @@ class PromoPresenter {
   setFormValue = (e) => {
     this.promo[e.target.name] = e.target.value;
   };
-  getPromo = async () => {
+  getPromos = async () => {
     try {
       const data = await this.promoStore.getPromos();
 
@@ -58,7 +58,7 @@ class PromoPresenter {
     if (confirm) {
       try {
         await this.promoStore.deletePromo(id);
-        await this.getPromo();
+        await this.getPromos();
       } catch (error) {
         console.log(error.message);
       }
