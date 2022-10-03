@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { BsPersonFill } from "react-icons/bs";
 
 const Navbar = () => {
   return (
@@ -46,6 +47,7 @@ const Navbar = () => {
         >
           About
         </NavLink>
+        <NavLink to="/admin">{BsPersonFill}</NavLink>
       </Nav>
     </NavWrapper>
   );
