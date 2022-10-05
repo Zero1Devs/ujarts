@@ -6,11 +6,11 @@ import { Header } from "../venue/VenuesList";
 import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
 import search from "../../../assets/search.svg";
-import FrontOfHouseLayOut from "../../../layouts/FrontOfHouseLayOut";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
 
 const GuestListSearch = () => {
   return (
-    <FrontOfHouseLayOut>
+    <FrontOfHouseLayout>
       <Title width="300px">Guest List</Title>
       <Header>
         <Input
@@ -31,7 +31,7 @@ const GuestListSearch = () => {
           expandableRowsComponent={ExpandedComponent}
         />
       </Table>
-    </FrontOfHouseLayOut>
+    </FrontOfHouseLayout>
   );
 };
 export default GuestListSearch;

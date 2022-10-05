@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Title from "../../../components/Title";
-import FrontOfHouseLayOut from "../../../layouts/FrontOfHouseLayOut";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
 import styled from "styled-components";
 import SearchBarPic from "../../../assets/search_bar.jpg";
 import Button from "../../../components/Button";
@@ -17,7 +17,7 @@ const Foh_main = () => {
     getGuest(reference);
   }, [reference]);
   return (
-    <FrontOfHouseLayOut>
+    <FrontOfHouseLayout>
       <Title width="300px">Guest List</Title>
       <Div>
         <Link to={"guest-list-search-qr-code"}>
@@ -61,7 +61,7 @@ const Foh_main = () => {
           </Button>
         </Link>
       </Div>
-    </FrontOfHouseLayOut>
+    </FrontOfHouseLayout>
   );
 };
 export default Foh_main;

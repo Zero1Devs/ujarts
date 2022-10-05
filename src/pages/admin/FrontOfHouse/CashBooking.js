@@ -3,13 +3,13 @@ import Title from "../../../components/Title";
 import styled from "styled-components";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
-import FrontOfHouseLayOut from "../../../layouts/FrontOfHouseLayOut";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
 import { Link, useNavigate } from "react-router-dom";
 import { useFrontOfHousePresenter } from "./presenter";
-import { observable } from "mobx";
+import { observer } from "mobx-react";
 import { usePromoPresenter } from "../promo/presenter";
 import { useEventPresenter } from "../event/presenter";
-const CashBooking = observable((props) => {
+const CashBooking = observer((props) => {
   const {
     name,
     email,
@@ -21,19 +21,20 @@ const CashBooking = observable((props) => {
   } = useFrontOfHousePresenter;
   const { gridEvents } = useEventPresenter;
   const { promos, getPromos } = usePromoPresenter;
-  const [total_price, setTotal_price] = useState("150");
+  const [total_price, setTotal_price] = useState(150);
   const [discount_code, setDiscount_code] = useState("");
   const [discount_percentage, setDiscount_percentage] = useState(1);
   const [discount_appied, setDiscount_appied] = useState(false);
+  //const [change, setChange] = useState(false);
   const [formating_discount_appied, setFormating_discount_appied] =
     useState("Apply");
 
   const [formatingForAmountDue, setFormatingForAmountDue] = useState("");
 
   useEffect(() => {
-    setFormValue(total_price * ticket_qty * discount_percentage);
+   // setChange(total_price * quantity * discount_percentage);
     if (change == 0) {
-      setFormatingForAmountDue("No change requiredz");
+      setFormatingForAmountDue("No change required");
     } else if (change > 0) {
       setFormatingForAmountDue("Customer change");
     } else {
@@ -79,7 +80,7 @@ const CashBooking = observable((props) => {
   ];
 
   return (
-    <FrontOfHouseLayOut>
+    <FrontOfHouseLayout>
       <Title width="300px">Cash Booking</Title>
       <h1>Enter Customer details</h1>
 
@@ -135,7 +136,7 @@ const CashBooking = observable((props) => {
           <Input
             width="400px"
             type="text"
-            value={total_price * ticket_qty}
+            value={total_price * quantity}
             name="total_price"
             placeholder="Total Price"
             background="red"
@@ -200,7 +201,7 @@ const CashBooking = observable((props) => {
           </Link>
         </Form>
       </Div>
-    </FrontOfHouseLayOut>
+    </FrontOfHouseLayout>
   );
 });
 export default CashBooking;

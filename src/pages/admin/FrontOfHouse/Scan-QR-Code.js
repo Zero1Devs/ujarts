@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { QrReader } from "react-qr-reader";
 import Title from "../../../components/Title";
-import FrontOfHouseLayOut from "../../../layouts/FrontOfHouseLayOut";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
 import { useBookingPresenter } from "../../booking/presenter";
 import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
@@ -17,7 +17,7 @@ const Scan_Qr_Code = observer(() => {
   }, [data]);
 
   return (
-    <FrontOfHouseLayOut>
+    <FrontOfHouseLayout>
       <Title width="300px">Guest List</Title>
       <h3 border="2px solid blue">Reference: {data}</h3>
       <div style={{ width: "50%" }}>
@@ -38,7 +38,7 @@ const Scan_Qr_Code = observer(() => {
           <DataTable columns={columns} data={guest} fixedHeader />
         </Table>
       )}
-    </FrontOfHouseLayOut>
+    </FrontOfHouseLayout>
   );
 });
 export default Scan_Qr_Code;

@@ -72,7 +72,6 @@ const AdminLayout = (props) => {
         >
           <Icon.FiPercent color="white" size={25} />
         </NavLink>
-        {/* Finance dept screen */}
         <NavLink
           className="navLink"
           style={({ isActive }) => {
@@ -106,22 +105,6 @@ const AdminLayout = (props) => {
         >
           <BsFillMegaphoneFill color="white" size={25} />
         </NavLink>
-        <NavLink
-          className="navLink"
-          style={({ isActive }) => {
-            return {
-              background: isActive ? "var(--darkpurple)" : "",
-              borderLeft: isActive
-                ? "solid 5px white"
-                : "solid 5px transparent",
-              borderTopLeftRadius: "2px",
-              borderBottomLeftRadius: "2px",
-            };
-          }}
-          to="/admin/cash-booking"
-        >
-          <FaCashRegister color="white" size={25} />
-        </NavLink>
         <div onClick={() => logout()} className="navLink">
           <Icon.FiLogOut color="white" size={25} />
         </div>
@@ -133,14 +116,14 @@ const AdminLayout = (props) => {
 
 export default AdminLayout;
 
-const AdminWrapper = styled.div`
+export const AdminWrapper = styled.div`
   display: flex;
   width: 100%;
   padding: 0px;
   border: solid 0px blue;
   height: 100vh;
 `;
-const Div = styled.div`
+export const Div = styled.div`
   flex: 2;
   padding: 0px 20px;
   height: 100%;
@@ -148,7 +131,7 @@ const Div = styled.div`
   border: solid 0px red;
   overflow-y: scroll;
 `;
-const VerticalNavBar = styled.div`
+export const VerticalNavBar = styled.div`
   max-width: 162px;
   border: solid 0px;
   flex: 1;
@@ -159,7 +142,7 @@ const VerticalNavBar = styled.div`
   padding: 0px 0px;
   color: white;
 `;
-const Img = styled.img`
+export const Img = styled.img`
   padding: 10px;
   width: 75%;
   height: 18%;

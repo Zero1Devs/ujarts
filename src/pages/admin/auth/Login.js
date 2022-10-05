@@ -9,10 +9,10 @@ import { Link } from "react-router-dom";
 
 const LoginForm = observer(() => {
   const { login, setFormValue, loading } = useAdminPresenter;
-  const { isLoggedIn } = useUserStore;
+  const { isLoggedIn, checkUser } = useUserStore;
   const navigation = NavigationStore;
   useEffect(() => {
-    if (isLoggedIn) navigation.replace("/admin/events");
+    if (isLoggedIn) checkUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

@@ -3,12 +3,12 @@ import Title from "../../../components/Title";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import ConfirmPaymentPic from "../../../assets/confirm_payment.jpeg";
-import FrontOfHouseLayOut from "../../../layouts/FrontOfHouseLayOut";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
 import { Link } from "react-router-dom";
 
 const ConfirmCashPayment = () => {
   return (
-    <FrontOfHouseLayOut>
+    <FrontOfHouseLayout>
       <Title width="300px">Cash Booking</Title>
       <Div>
         <InputGroup>
@@ -35,7 +35,7 @@ const ConfirmCashPayment = () => {
           </Link>
         </InputGroup>
       </Div>
-    </FrontOfHouseLayOut>
+    </FrontOfHouseLayout>
   );
 };
 export default ConfirmCashPayment;
