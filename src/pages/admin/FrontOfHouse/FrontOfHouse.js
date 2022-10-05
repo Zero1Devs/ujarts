@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 import Title from "../../../components/Title";
 import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
 import styled from "styled-components";
 import SearchBarPic from "../../../assets/search_bar.jpg";
 import Button from "../../../components/Button";
+import search from "../../../assets/search.svg";
 import { BsFillCameraFill } from "react-icons/bs";
 import Input from "../../../components/Input";
 import { useBookingPresenter } from "../../booking/presenter";
 import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
-const Foh_main = () => {
+
+const Foh_main = observer(() => {
   const { getGuest, guest } = useBookingPresenter;
   const [reference, setReference] = useState("");
+  const [table, setTable] = useState(false);
   useEffect(() => {
     getGuest(reference);
   }, [reference]);
   return (
     <FrontOfHouseLayout>
       <Title width="300px">Guest List</Title>
+
       <Div>
         <Link to={"guest-list-search-qr-code"}>
           <Button
@@ -49,21 +54,29 @@ const Foh_main = () => {
           onChange={(e) => setReference(e.target.value)}
         />
 
-        <Link to={"guest-list-search-searchbar"}>
-          <Button
-            width="415px"
-            background="var(--purple)"
-            hover="var(--darkpurple)"
-            border="solid 1px var(--darkpurple)"
-            onClick={() => getGuest(reference)}
-          >
-            Proceed
-          </Button>
-        </Link>
+        <Button
+          width="415px"
+          background="var(--purple)"
+          hover="var(--darkpurple)"
+          border="solid 1px var(--darkpurple)"
+          onClick={() => {
+            getGuest(reference);
+            setTable(true);
+          }}
+        >
+          Search
+        </Button>
+        {table && (
+          <div>
+            <Table>
+              <DataTable columns={columns} data={guest} />
+            </Table>
+          </div>
+        )}
       </Div>
     </FrontOfHouseLayout>
   );
-};
+});
 export default Foh_main;
 
 const Div = styled.div`
