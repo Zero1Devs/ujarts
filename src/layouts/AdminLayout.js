@@ -12,10 +12,11 @@ import { NavigationStore } from "../stores/navigationStore";
 
 const AdminLayout = (props) => {
   const { logout } = useAdminPresenter;
-  const { isLoggedIn } = useUserStore;
+  const { isLoggedIn, checkUser } = useUserStore;
   const { replace } = NavigationStore;
   useEffect(() => {
     if (!isLoggedIn) replace("/admin");
+    else checkUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

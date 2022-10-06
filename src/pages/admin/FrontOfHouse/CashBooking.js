@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFrontOfHousePresenter } from "./presenter";
 import { observer } from "mobx-react";
 import { usePromoPresenter } from "../promo/presenter";
@@ -32,8 +32,8 @@ const CashBooking = observer((props) => {
   const [formatingForAmountDue, setFormatingForAmountDue] = useState("");
 
   useEffect(() => {
-   // setChange(total_price * quantity * discount_percentage);
-    if (change == 0) {
+    // setChange(total_price * quantity * discount_percentage);
+    if (change === 0) {
       setFormatingForAmountDue("No change required");
     } else if (change > 0) {
       setFormatingForAmountDue("Customer change");
@@ -41,14 +41,15 @@ const CashBooking = observer((props) => {
       setFormatingForAmountDue("Amount Due");
     }
 
-    if (discount_appied == true) {
+    if (discount_appied === true) {
       setFormating_discount_appied("Applied");
       setDiscount_percentage(0.5);
     } else {
       setFormating_discount_appied("Apply");
       setDiscount_percentage(1);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   //Get data from db
   const promoList = ["UJ Rocks", "art is cool"];
@@ -59,7 +60,7 @@ const CashBooking = observer((props) => {
           setDiscount_appied(true);
           console.log(discount_code + "true");
           return;
-        } else if (promoList[i] != discount_code) {
+        } else if (promoList[i] !== discount_code) {
           setDiscount_appied(false);
           console.log(discount_code + "false");
         }
@@ -189,7 +190,7 @@ const CashBooking = observer((props) => {
             onChange={(e) => setFormValue(e.target.value)}
           />
 
-          <Link to={"/admin/cash-booking/confirm-cash-booking"}>
+          <Link to={"/admin/cash-booking/confirm"}>
             <Button
               width="415px"
               background="var(--purple)"

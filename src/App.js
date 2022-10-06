@@ -26,8 +26,8 @@ import ForgotPassword from "./pages/admin/auth/ForgotPassword";
 import Announcement from "./pages/admin/announcement/Announcements";
 import UploadDownload from "./pages/UploadDownload";
 // Front of house screen
-import Foh from "./pages/admin/FrontOfHouse/FrontOfHouse";
-import ScanQRCode from "./pages/admin/FrontOfHouse/Scan-QR-Code";
+import Search from "./pages/admin/FrontOfHouse/Search";
+import ScanQRCode from "./pages/admin/FrontOfHouse/ScanQRCode";
 import CashBooking from "./pages/admin/FrontOfHouse/CashBooking";
 import GuestListSeach from "./pages/admin/FrontOfHouse/GuestListSearch";
 import ConfirmCashBooking from "./pages/admin/FrontOfHouse/ConfirmCashPayment";
@@ -47,18 +47,15 @@ const App = observer(() => {
       <Routes>
         <Route path="/" element={<Events />} />
         {/*FOH Screen*/}
-        <Route path="admin/:foh-main" element={<Foh />} />
+        <Route path="admin/search" element={<Search />} />
+        <Route path="admin/search/qr-code" element={<ScanQRCode />} />
         <Route
-          path="admin/foh-main/guest-list-search-qr-code"
-          element={<ScanQRCode />}
-        />
-        <Route
-          path="admin/foh-main/guest-list-search-searchbar"
+          path="admin/guest-list-search-searchbar"
           element={<GuestListSeach />}
         />
         <Route path="admin/cash-booking" element={<CashBooking />} />
         <Route
-          path="admin/cash-booking/confirm-cash-booking"
+          path="admin/cash-booking/confirm"
           element={<ConfirmCashBooking />}
         />
         <Route path="ticket-confirmation" element={<TicketConfirmation />} />

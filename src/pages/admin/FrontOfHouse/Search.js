@@ -4,28 +4,28 @@ import { observer } from "mobx-react-lite";
 import Title from "../../../components/Title";
 import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
 import styled from "styled-components";
-import SearchBarPic from "../../../assets/search_bar.jpg";
 import Button from "../../../components/Button";
-import search from "../../../assets/search.svg";
 import { BsFillCameraFill } from "react-icons/bs";
 import Input from "../../../components/Input";
 import { useBookingPresenter } from "../../booking/presenter";
 import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
 
-const Foh_main = observer(() => {
+const Search = observer(() => {
   const { getGuest, guest } = useBookingPresenter;
   const [reference, setReference] = useState("");
   const [table, setTable] = useState(false);
   useEffect(() => {
     getGuest(reference);
+    // eslint-disable-next-line
   }, [reference]);
+
   return (
     <FrontOfHouseLayout>
       <Title width="300px">Guest List</Title>
 
       <Div>
-        <Link to={"guest-list-search-qr-code"}>
+        <Link to={"qr-code"}>
           <Button
             width="200px"
             height="200px"
@@ -77,7 +77,7 @@ const Foh_main = observer(() => {
     </FrontOfHouseLayout>
   );
 });
-export default Foh_main;
+export default Search;
 
 const Div = styled.div`
   display: flex;

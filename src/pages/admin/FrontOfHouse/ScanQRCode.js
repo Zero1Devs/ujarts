@@ -8,7 +8,7 @@ import { Table } from "../venue/VenuesList";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 
-const Scan_Qr_Code = observer(() => {
+const ScanQRCode = observer(() => {
   const [data, setData] = useState("No result");
   const { getGuest, guest } = useBookingPresenter;
 
@@ -41,7 +41,7 @@ const Scan_Qr_Code = observer(() => {
     </FrontOfHouseLayout>
   );
 });
-export default Scan_Qr_Code;
+export default ScanQRCode;
 const columns = [
   {
     name: "Booking.ID",

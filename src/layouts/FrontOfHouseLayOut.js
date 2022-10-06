@@ -11,10 +11,11 @@ import { AdminWrapper, Div, Img, VerticalNavBar } from "./AdminLayout";
 //941015
 const FrontOfHouseLayout = (props) => {
   const { logout } = useAdminPresenter;
-  const { isLoggedIn } = useUserStore;
+  const { isLoggedIn, checkUser } = useUserStore;
   const { replace } = NavigationStore;
   useEffect(() => {
     if (!isLoggedIn) replace("/admin");
+    else checkUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -34,7 +35,7 @@ const FrontOfHouseLayout = (props) => {
               borderBottomLeftRadius: "2px",
             };
           }}
-          to="/admin/foh-main"
+          to="/admin/search"
         >
           <BsListTask color="white" size={25} />
         </NavLink>
