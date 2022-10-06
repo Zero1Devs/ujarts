@@ -6,7 +6,7 @@ import { Header } from "../venue/VenuesList";
 import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
 import search from "../../../assets/search.svg";
-import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayOut";
 
 const GuestListSearch = () => {
   return (

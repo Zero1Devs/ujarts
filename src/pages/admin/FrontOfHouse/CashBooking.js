@@ -3,7 +3,7 @@ import Title from "../../../components/Title";
 import styled from "styled-components";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
-import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayOut";
 import { Link } from "react-router-dom";
 import { useFrontOfHousePresenter } from "./presenter";
 import { observer } from "mobx-react";
@@ -49,7 +49,7 @@ const CashBooking = observer((props) => {
       setDiscount_percentage(1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  }, []);
 
   //Get data from db
   const promoList = ["UJ Rocks", "art is cool"];

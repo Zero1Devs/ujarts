@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import Title from "../../../components/Title";
-import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayOut";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { BsFillCameraFill } from "react-icons/bs";

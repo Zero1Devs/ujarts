@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { QrReader } from "react-qr-reader";
 import Title from "../../../components/Title";
-import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayOut";
 import { useBookingPresenter } from "../../booking/presenter";
 import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";

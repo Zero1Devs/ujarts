@@ -3,7 +3,7 @@ import Title from "../../../components/Title";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import ConfirmPaymentPic from "../../../assets/confirm_payment.jpeg";
-import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayout";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayOut";
 import { Link } from "react-router-dom";
 
 const ConfirmCashPayment = () => {
