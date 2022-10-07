@@ -59,13 +59,13 @@ class UserStore {
       console.log(error.message);
     }
   };
-  checkUser = () => {
-    if (this.user?.data[0]?.user_type === 1)
-      this.navigation.push("/admin/cash-booking");
-    else if (this.user?.data[0]?.user_type === 2)
-      this.navigation.push("/admin/finance");
-    else this.navigation.push("/admin/venues");
-  };
+  // checkUser = () => {
+  //   if (this.user?.data[0]?.user_type === 1)
+  //     this.navigation.push("/admin/cash-booking");
+  //   else if (this.user?.data[0]?.user_type === 2)
+  //     this.navigation.push("/admin/finance");
+  //   else this.navigation.push("/admin/venues");
+  // };
   login = async (email, password) => {
     try {
       const { user, error } = await this.auth.signIn({

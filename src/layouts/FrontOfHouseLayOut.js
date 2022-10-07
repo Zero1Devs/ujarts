@@ -11,13 +11,13 @@ import { AdminWrapper, Div, Img, VerticalNavBar } from "./AdminLayout";
 //941015
 const FrontOfHouseLayout = (props) => {
   const { logout } = useAdminPresenter;
-  const { isLoggedIn, checkUser } = useUserStore;
+  const { isLoggedIn /*, checkUser */ } = useUserStore;
   const { replace } = NavigationStore;
-  useEffect(() => {
-    if (!isLoggedIn) replace("/admin");
-    else checkUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (!isLoggedIn) replace("/admin");
+  //   else checkUser();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   return (
     <AdminWrapper>
       <VerticalNavBar>
