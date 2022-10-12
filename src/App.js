@@ -33,6 +33,7 @@ import GuestListSeach from "./pages/admin/FrontOfHouse/GuestListSearch";
 import ConfirmCashBooking from "./pages/admin/FrontOfHouse/ConfirmCashPayment";
 import TicketConfirmation from "./pages/booking/BookingTicketConfirmation";
 import FinanceDept from "./pages/admin/finance/financeDept";
+import Rsvp from "./pages/rsvp/Rsvp";
 const App = observer(() => {
   const { history } = NavigationStore;
   const { init } = useUserStore;
@@ -65,6 +66,7 @@ const App = observer(() => {
 
         <Route path="events/:event" element={<EventDetails />} />
         <Route path="booking/:event" element={<Booking />} />
+        <Route path="rsvp/:event" element={<Rsvp />} />
         <Route path="venues" element={<Venues />} />
         <Route path="about" element={<About />} />
         <Route path="admin" element={<Login />} />

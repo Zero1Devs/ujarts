@@ -39,15 +39,27 @@ const EventSummary = observer(({ id, event }) => {
                 Full Details
               </Button>
             </Link>
-            <Link to={"/booking/" + id}>
-              <Button
-                background="var(--orange)"
-                width={"100px"}
-                hover="var(--darkorange)"
-              >
-                {event?.state === "upcoming" ? "RSPV NOW" : "BOOK NOW"}
-              </Button>
-            </Link>
+            {event?.state === "upcoming" ? (
+              <Link to={"/rsvp/" + id}>
+                <Button
+                  background="var(--orange)"
+                  width={"100px"}
+                  hover="var(--darkorange)"
+                >
+                  RSVP NOW
+                </Button>
+              </Link>
+            ) : (
+              <Link to={"/booking/" + id}>
+                <Button
+                  background="var(--orange)"
+                  width={"100px"}
+                  hover="var(--darkorange)"
+                >
+                  BOOK NOW
+                </Button>
+              </Link>
+            )}
 
             <Button
               width={"100px"}
