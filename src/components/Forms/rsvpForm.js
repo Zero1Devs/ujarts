@@ -1,10 +1,14 @@
-import React from "react";
-import Input from "../../components/Input";
+import React, { useState } from "react";
+import Input from "../Input";
 import "../../styles/index";
 import { observer } from "mobx-react-lite";
 import { FlexboxGrid } from "rsuite";
+import { Radio } from "../../pages/booking/Checkout";
+import { useBookingPresenter } from "../../pages/booking/presenter";
 
 const RsvpForm = observer(() => {
+  const [checked, setChecked] = useState("");
+  const { setFormValue } = useBookingPresenter;
   return (
     <div
       style={{
@@ -54,24 +58,37 @@ const RsvpForm = observer(() => {
           width: "50%",
         }}
       >
-        <span>
-          <label for="sms">SMS</label>
-          <Input
-            type="radio"
+        <Radio>
+          <label htmlFor="sms">SMS</label>
+          <input
             id="sms"
             name="communication_method"
-            value="SMS"
+            value={"sms"}
+            checked={checked === "sms"}
+            onChange={(e) => {
+              setFormValue(e);
+              setChecked(e.target.value);
+              console.log(e.target.name);
+            }}
+            type={"radio"}
           />
-        </span>
-        <span>
-          <label for="sms">Email</label>
-          <Input
-            type="radio"
+        </Radio>
+        <Radio>
+          <label htmlFor="email"> Email</label>
+          <input
             id="email"
             name="communication_method"
-            value="Email"
+            value={"email"}
+            checked={checked === "email"}
+            onChange={(e) => {
+              setFormValue(e);
+              setChecked(e.target.value);
+              console.log(e.target.name);
+            }}
+            type={"radio"}
           />
-        </span>
+        </Radio>
+        
       </div>
     </div>
   );
