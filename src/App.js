@@ -33,7 +33,7 @@ import GuestListSeach from "./pages/admin/FrontOfHouse/GuestListSearch";
 import ConfirmCashBooking from "./pages/admin/FrontOfHouse/ConfirmCashPayment";
 import TicketConfirmation from "./pages/booking/BookingTicketConfirmation";
 import FinanceDept from "./pages/admin/finance/financeDept";
-import Rsvp from "./pages/rsvp/Rsvp";
+import Rsvp from "./pages/booking/Rsvp";
 const App = observer(() => {
   const { history } = NavigationStore;
   const { init } = useUserStore;
