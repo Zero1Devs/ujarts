@@ -57,19 +57,19 @@ const Events = observer(() => {
               name="evenType"
               onChange={(e) => setFilterValue(e)}
               defaultValue={0}
-              options={[...eventTypes,{id:0,name:"All"}]}
+              options={[...eventTypes, { id: 0, name: "All" }]}
               width="50%"
             ></Select>
           )}
         </Div>
 
         <EventList className="eventList">
-          {gridEvents.length>0 ? (
+          {gridEvents.length > 0 ? (
             gridEvents?.map((data, id) => (
               <Event key={id} id={id} event={data} />
             ))
           ) : (
-            <h1 style={{textAlign:"center"}}>No events for now</h1>
+            <h1 style={{ textAlign: "center" }}>No events for now</h1>
           )}
         </EventList>
       </div>

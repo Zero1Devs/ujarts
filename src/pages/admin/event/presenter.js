@@ -40,8 +40,13 @@ class EventPresenter {
   };
   setFilterValue = (e) => {
     this[e.target.name] = e.target.value;
-    this.eventStore.getGridEventsByType(e.target.value);
-    console.log(this.eventStore.gridEvents);
+    console.log(e.target.value);
+    if (e.target.value == 0) {
+      this.eventStore.getGridEvents();
+    } else {
+      this.eventStore.getGridEventsByType(e.target.value);
+      console.log(this.eventStore.gridEvents);
+    }
   };
   setActive = (id) => {
     for (var i = 0; i < this.gridEvents.length; i++) {
