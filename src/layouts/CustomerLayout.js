@@ -8,7 +8,7 @@ import whatsappLogo from "../assets/whatsapp.png";
 
 const CustomerLayout = (props) => {
   return (
-    <>
+    <Container>
       <Navbar />
       {props.children}
       <Float>
@@ -20,7 +20,7 @@ const CustomerLayout = (props) => {
       </Float>
 
       <Footer />
-    </>
+    </Container>
   );
 };
 export default CustomerLayout;
@@ -40,4 +40,13 @@ const Float = styled.div`
 
 const My_float = styled.div`
   margin-top: 18px;
+`;
+
+const Container = styled.div`
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+    max-width: 600px;
+    border: solid 1px;
+    margin: 0px;
+  }
 `;

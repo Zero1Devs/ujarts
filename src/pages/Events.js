@@ -45,7 +45,7 @@ const Events = observer(() => {
   }, [seconds]);
   return (
     <CustomerLayout>
-      <div className="container">
+      <div style={{ border: "solid 1px" }} className="container">
         <Title border center marginLeft="30px">
           What's On?
         </Title>
@@ -89,6 +89,16 @@ export const EventList = styled.div`
 export const Div = styled.div`
   align-self: center;
   border: solid 0px black;
-  width: 24%;
+  width: 25%;
   text-align: center;
+
+  @media only screen and (max-width: 600px) {
+    /* For mobile phones: */
+    max-width: 100px;
+    min-width: 100%
+    border: solid 1px black;
+    margin-left: 0px;
+    font-size: 10px;
+    text-align: left;
+  }
 `;

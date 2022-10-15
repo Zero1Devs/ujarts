@@ -11,6 +11,19 @@ const StyledSelect = styled.select`
   filter: drop-shadow(2px 2px 2px #45116d);
 
   border: none;
+  @media only screen and (max-width: 600px) {
+    background-color: #4f2365;
+    color: white;
+    width: 100%;
+    height: 30px;
+    display: block;
+    margin-left: 0px;
+    font-size: 10px;
+    padding: 5px;
+    label {
+      color: var(--purple);
+    }
+  }
 `;
 const Select = (props) => {
   return (

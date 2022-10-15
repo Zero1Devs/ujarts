@@ -96,6 +96,13 @@ export const EventCard = styled.div`
       cursor: pointer;
     }
   }
+  @media only screen and (max-width: 600px) {
+    width: 200px;
+    height: 300px;
+    img{
+      
+    }
+  }
 `;
 export const EventName = styled.label`
   font-size: 18px;

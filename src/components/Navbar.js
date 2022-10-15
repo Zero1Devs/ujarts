@@ -59,7 +59,16 @@ const NavWrapper = styled.div`
   align-items: center;
   padding: 40px;
   height: 10px;
-
+  @media only screen and (max-width: 600px) {
+    h1 {
+      font-size: 50%;
+      margin: 10px;
+    }
+    max-width: 600px;
+    height: 40px;
+    padding: 0px;
+    justify-content: space-between;
+  }
   h1 {
     flex: 1;
   }
@@ -86,6 +95,12 @@ const Nav = styled.nav`
     100% {
       transform: scale(1);
     }
+  }
+  @media only screen and (max-width: 600px) {
+    a {
+      font-size: 20%;
+    }
+    align-content: flex-end;
   }
 `;
 export default Navbar;

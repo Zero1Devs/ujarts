@@ -11,5 +11,10 @@ export const StyledH2 = styled.h2`
   color: var(--darkpurple);
   width: ${({ width }) => width || "140px"};
   margin-left: ${({ marginLeft }) => marginLeft || ""};
-  text-align:  ${({ center }) => center? "center" : "left"};
+  text-align: ${({ center }) => (center ? "center" : "left")};
+  @media only screen and (max-width: 600px) {
+    font-size: 12px;
+    border: none;
+    margin-left: 0px;
+  }
 `;
