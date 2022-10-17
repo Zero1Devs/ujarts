@@ -104,21 +104,10 @@ export const EventCard = styled.div`
   }
 `;
 export const EventName = styled.label`
-  display: inline-block;
-  width: 100%;
-  margin: 80px 0 0 0;
-  float: left;
-  position: relative;
-
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
   font-family: "Poppins";
-
-  @media (min-width: 768px) {
-    width: 20%;
-    margin: 280px 0 0 0;
-  }
 `;
 export const Thumbnail = styled.div`
   display: flex;
