@@ -4,8 +4,6 @@ import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import { BsWhatsapp } from "react-icons/bs";
 
-import whatsappLogo from "../assets/whatsapp.png";
-
 const CustomerLayout = (props) => {
   return (
     <Container>

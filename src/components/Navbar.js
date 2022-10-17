@@ -2,10 +2,13 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { BsPersonFill } from "react-icons/bs";
+import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
   return (
     <NavWrapper>
+      <Bar />
+
       <h1>
         <Link to="/" style={{ color: "white" }}>
           UJ ARTS & CULTURE
@@ -53,12 +56,12 @@ const Navbar = () => {
   );
 };
 const NavWrapper = styled.div`
-  background-color: #270c3b;
-  color: white;
+  z-index: 14;
+  height: 90px;
   display: flex;
-  align-items: center;
-  padding: 40px;
-  height: 10px;
+  background: #270c3b;
+  justify-content: space-between;
+  padding: 0.18rem calc((100vw - 1000px) / 2);
   @media only screen and (max-width: 600px) {
     h1 {
       font-size: 50%;
@@ -72,12 +75,55 @@ const NavWrapper = styled.div`
   h1 {
     flex: 1;
   }
+  ${
+    "" /* background-color: #270c3b;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  height: 10px;
+  @media only screen and (max-width: 600px) {
+    h1 {
+      font-size: 50%;
+      margin: 10px;
+    }
+    max-width: 600px;
+    height: 40px;`
+    padding: 0px;
+    justify-content: space-between;
+  }
+  h1 {
+    flex: 1;
+  } */
+  }
+`;
+
+const Bar = styled(FaBars)`
+  display: none;
+  color: #ffffff;
+  @media screen and (max-width: 768px) {
+    display: block;
+    font-size: 1.9rem;
+    top: 0;
+    right: 0;
+    position: absolute;
+    cursor: pointer;
+    transform: translate(-100%, 75%);
+  }
 `;
 const Nav = styled.nav`
-  flex: 3;
+  display: flex;
+  align-items: center;
+  margin-right: -25px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+  ${
+    "" /* flex: 3;
   border: solid 00px;
   display: flex;
-  justify-content: right;
+  justify-content: right; */
+  }
 
   a {
     margin: 10px;

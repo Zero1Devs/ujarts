@@ -30,15 +30,6 @@ const EventSummary = observer(({ id, event }) => {
             </p>
           </Description>
           <Div style={{ display: "flex" }}>
-            <Link to={"/events/" + id}>
-              <Button
-                background="var(--darkpurple)"
-                width={"100px"}
-                hover="var(--darkerpurple)"
-              >
-                Full Details
-              </Button>
-            </Link>
             {event?.state === "upcoming" ? (
               <Link to={"/rsvp/" + id}>
                 <Button

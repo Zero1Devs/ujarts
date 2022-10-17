@@ -99,16 +99,26 @@ export const EventCard = styled.div`
   @media only screen and (max-width: 600px) {
     width: 200px;
     height: 300px;
-    img{
-      
+    img {
     }
   }
 `;
 export const EventName = styled.label`
+  display: inline-block;
+  width: 100%;
+  margin: 80px 0 0 0;
+  float: left;
+  position: relative;
+
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
   font-family: "Poppins";
+
+  @media (min-width: 768px) {
+    width: 20%;
+    margin: 280px 0 0 0;
+  }
 `;
 export const Thumbnail = styled.div`
   display: flex;
@@ -122,6 +132,13 @@ export const Thumbnail = styled.div`
     border-bottom-left-radius: 0;
     width: 100%;
     height: 210px;
+  }
+  @media screen and (max-width: 600px) {
+    ${"" /* display: none; */}
+    img {
+      width: auto%;
+      height: 100%;
+    }
   }
 `;
 export const EventType = styled.span`

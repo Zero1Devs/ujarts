@@ -43,9 +43,9 @@ const TicketType = observer(() => {
         <Button
           width="50%"
           height="49px"
-          color="var(--grey)"
-          hover="var(--grey)"
-          border="solid 2px var(--grey)"
+          color=" var(--darkpurple)"
+          hover=" var(--darkpurple)"
+          border="solid 2px  var(--darkpurple)"
         >
           Apply
         </Button>
