@@ -5,18 +5,15 @@ import { useEventPresenter } from "../admin/event/presenter";
 import { DownloadPhoto } from "../../util/DownloadPhoto";
 import { Info, StyledEventSummary } from "../../components/EventSummary";
 import Button from "../../components/Button";
-//import RsvpForm from "../../components/Forms/RsvpForm";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import image from "../../assets/image.svg";
 import CustomerLayout from "../../layouts/CustomerLayout";
 import { useBookingPresenter } from "./presenter";
-import { Radio } from "./Checkout";
+import Input from "../../components/Input";
 
 const Rsvp = observer(() => {
-  const [checked, setChecked] = useState("");
   let params = useParams();
-
   let eventId = params.event;
   const { gridEvents } = useEventPresenter;
   const { setFormValue } = useBookingPresenter;
@@ -49,77 +46,38 @@ const Rsvp = observer(() => {
             }}
           >
             <h3>Provide Your details</h3>
-            <label>Your name</label>
+            <label htmlFor="name">Your name</label>
             <Input
               type="text"
               id="name"
               name="name"
               className="textInput"
-              onChange={console.log("change name")}
+              onChange={(e) => setFormValue(e)}
             />
-            <label>Your email Address</label>
+            <label htmlFor="email">Your email Address</label>
             <Input
               type="text"
-              id="name"
+              id="email"
               name="email"
               className="textInput"
-              onChange={(e) => console.log(e.target.value)}
+              onChange={(e) => setFormValue(e)}
             />
-            <label>Confirm email Address</label>
+            <label htmlFor="confirm_email">Confirm email Address</label>
             <Input
               type="text"
-              id="name"
+              id="confirm_email"
               name="confirm_email"
               className="textInput"
-              onChange={(e) => console.log(e.target.value)}
+              onChange={(e) => setFormValue(e)}
             />
-            <label>Your Telephone Number</label>
+            <label htmlFor="phone_number">Your Telephone Number</label>
             <Input
-              type="text"
-              id="name"
-              name="Telnumber"
+              type="tel"
+              id="phone_number"
+              name="phone_number"
               className="textInput"
-              onChange={(e) => console.log(e.target.value)}
+              onChange={(e) => setFormValue(e)}
             />
-            <label>Communication Method</label>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "50%",
-              }}
-            >
-              <Radio>
-                <label htmlFor="sms">SMS</label>
-                <input
-                  id="sms"
-                  name="communication_method"
-                  value={"sms"}
-                  checked={checked === "sms"}
-                  onChange={(e) => {
-                    setFormValue(e);
-                    setChecked(e.target.value);
-                    console.log(e.target.name);
-                  }}
-                  type={"radio"}
-                />
-              </Radio>
-              <Radio>
-                <label htmlFor="email"> Email</label>
-                <input
-                  id="email"
-                  name="communication_method"
-                  value={"email"}
-                  checked={checked === "email"}
-                  onChange={(e) => {
-                    setFormValue(e);
-                    setChecked(e.target.value);
-                    console.log(e.target.name);
-                  }}
-                  type={"radio"}
-                />
-              </Radio>
-            </div>
           </div>
         </div>
         <div
@@ -146,9 +104,8 @@ const Rsvp = observer(() => {
             <Link to={"/"}>
               <Button
                 width={"100px"}
-                color="var(--grey)"
-                background="var(D4C0DE)"
-                hover="var(--grey)"
+                background="var(--orange)"
+                hover="var(--darkorange)"
                 onClick={() =>
                   alert(
                     "Thank you. We will let you know when tickets are available"
