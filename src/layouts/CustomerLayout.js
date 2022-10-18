@@ -28,14 +28,16 @@ const Float = styled.div`
   width: 60px;
   height: 60px;
   bottom: 40px;
-  right: 40px;
+  right: 4%;
   background-color: #0c9;
   color: "#25D366";
   border-radius: 50px;
   text-align: center;
   box-shadow: 2px 2px 3px #999;
-  @media only screen and (max-width: 600px) {
+  ${
+    "" /* @media only screen and (max-width: 600px) {
     right: 30%;
+  } */
   }
 `;
 
