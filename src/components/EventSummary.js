@@ -55,9 +55,7 @@ const EventSummary = observer(({ id, event }) => {
             <Button
               width={"100px"}
               color="var(--orange)"
-              onClick={() => {
-                setActive(id);
-              }}
+              onClick={() => setActive(id)}
             >
               CANCEL
             </Button>

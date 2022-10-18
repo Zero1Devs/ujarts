@@ -65,8 +65,8 @@ const Events = observer(() => {
 
         <EventList className="eventList">
           {gridEvents.length > 0 ? (
-            gridEvents?.map((data) => (
-              <Event key={data.id} id={data.id} event={data} />
+            gridEvents?.map((data,id) => (
+              <Event key={id} id={id} event={data} />
             ))
           ) : (
             <h1 style={{ textAlign: "center" }}>No events for now</h1>

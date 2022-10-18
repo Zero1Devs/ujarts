@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import CustomerLayout from "../../layouts/CustomerLayout";
 import { observer } from "mobx-react-lite";
 import { useEventPresenter } from "../admin/event/presenter";
-import { DownloadPhoto, Downloadphoto } from "../../util/DownloadPhoto";
+import { DownloadPhoto } from "../../util/DownloadPhoto";
 import { Info, StyledEventSummary } from "../../components/EventSummary";
 import Button from "../../components/Button";
 import RsvpForm from "../../components/Forms/RsvpForm";
-
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
+import image from "../../assets/image.svg";
+import CustomerLayout from "../../layouts/CustomerLayout";
 const Rsvp = observer(() => {
   let params = useParams();
 
   let eventId = params.event;
   const { gridEvents } = useEventPresenter;
 
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(image);
   useEffect(() => {
     gridEvents.length > 0 &&
       DownloadPhoto(gridEvents[eventId]?.thumbnail).then((response) => {
@@ -27,7 +26,7 @@ const Rsvp = observer(() => {
   }, []);
 
   return (
-    <div>
+    <CustomerLayout>
       <Div>
         <Cover background={url}>
           <Info>
@@ -56,32 +55,29 @@ const Rsvp = observer(() => {
             }}
           >
             <Link to={"/"}>
-              <Button
-                width={"100px"}
-                color="var(--grey)"
-                hover="var(--grey)"
-                onClick={() => {
-                  console.log("back");
-                }}
-              >
+              <Button width={"100px"} color="var(--grey)" hover="var(--grey)">
                 <u>Back</u>
               </Button>
             </Link>
-
-            <Button
-              width={"100px"}
-              color="var(--grey)"
-              background="var(D4C0DE)"
-              hover="var(--grey)"
-              onClick={() => alert("continue")}
-              //                    setStep((prev) => (prev < 4 ? prev + 1 : 4));
-            >
-              Continue
-            </Button>
+            <Link to={"/"}>
+              <Button
+                width={"100px"}
+                color="var(--grey)"
+                background="var(D4C0DE)"
+                hover="var(--grey)"
+                onClick={() =>
+                  alert(
+                    "Thank you. We will let you know when tickets are available"
+                  )
+                }
+              >
+                Submit
+              </Button>
+            </Link>
           </div>
         </div>
       </Div>
-    </div>
+    </CustomerLayout>
   );
 });
 

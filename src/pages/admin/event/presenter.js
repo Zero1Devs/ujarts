@@ -30,6 +30,7 @@ class EventPresenter {
     makeAutoObservable(this);
     autorun(() => {
       this.eventStore.getGridEvents();
+      //this.setInactive();
     });
   }
   setFormValue = (e) => {
@@ -46,6 +47,12 @@ class EventPresenter {
       this.eventStore.getGridEventsByType(e.target.value);
       console.log(this.eventStore.gridEvents);
     }
+  };
+  setInactive = () => {
+    for (var i = 0; i < this.gridEvents.length; i++) {
+      this.gridEvents[i].active = false;
+    }
+    this.active = "";
   };
   setActive = (id) => {
     for (var i = 0; i < this.gridEvents.length; i++) {
