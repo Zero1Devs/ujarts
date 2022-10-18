@@ -223,11 +223,12 @@ const SubscribeSection = styled.section`
     color: white;
   }
   @media only screen and (max-width: 600px) {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin: 0px;
-    align-items:center;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     padding: 0;
     input {
@@ -240,13 +241,19 @@ const SubscribeSection = styled.section`
 `;
 const Interests = styled.div`
   margin-bottom: 30px;
-  border: solid 1px;
+  border: solid 0px;
   div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
   }
   @media only screen and (max-width: 600px) {
+    p {
+      width: 90%;
+      margin-left: 10px;
+      align-self: center;
+    }
   }
 `;
 const SubscribeButton = styled(StyledButton)`

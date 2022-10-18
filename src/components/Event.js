@@ -36,7 +36,9 @@ const Event = observer(({ id, event }) => {
 
           <label title="Date">
             <FiCalendar size="23" color="var(--darkerpurple)" />
-            <span>{event?.dates || "N/A"}</span>
+            <span>
+              Starts on {event?.schedule[0]?.date || "To be announced"}
+            </span>
           </label>
 
           <label title="Venue">
@@ -51,6 +53,9 @@ const Event = observer(({ id, event }) => {
 
           <label title="Duration">
             <FiClock size="23" color="var(--darkerpurple)" />
+            {
+              //event?.schedule[0]?.start_time-event?.schedule[0]?.end_time
+            }
             <span>{event?.duration || "N/A"}</span>
           </label>
         </EventInfo>

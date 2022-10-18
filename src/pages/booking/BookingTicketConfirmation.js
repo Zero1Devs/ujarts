@@ -23,6 +23,7 @@ import { Info } from "../../components/EventSummary";
 import { EventType } from "../../components/Event";
 import { NavigationStore } from "../../stores/navigationStore";
 import { DownloadPhoto } from "../../util/DownloadPhoto";
+import image from "../../assets/image.svg";
 const ref = React.createRef();
 const TicketConfirmation = observer(() => {
   const {
@@ -36,6 +37,7 @@ const TicketConfirmation = observer(() => {
     date,
     quantity,
     getBooking,
+    orderTicket,
   } = useBookingPresenter;
   const options = {
     orientation: "landscape",
@@ -46,14 +48,51 @@ const TicketConfirmation = observer(() => {
   const [refNumber, setRefNumber] = useState("");
   let location = useLocation();
   const search = location.search.split("&");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(image);
   const { gridEvents } = useEventPresenter;
   useEffect(() => {
     getBooking();
-    console.log(search);
     if (search[0] === "?status=successful") {
       console.log(search[1].split("=")[1]);
       setRefNumber(search[1].split("=")[1]);
+      orderTicket(search[1].split("=")[1]);
+      emailjs
+        .send(
+          "default_service",
+          "template_e1u78gk",
+          {
+            name: name,
+            email: email,
+            to_name: name + " " + surname,
+            from_name: "UJ Arts & Culture",
+            message:
+              "Hello " +
+              name +
+              " " +
+              surname +
+              ", how are you? Here is your ticket",
+            myhtml: ReactDOMServer.renderToStaticMarkup(
+              <Ticket
+                time={time}
+                place={place}
+                eventType={eventType}
+                date={date}
+                event={event}
+                quantity={quantity}
+                refNumber={search[1].split("=")[1]}
+              />
+            ),
+          },
+          "kH-h4rehfRqCVNXY-"
+        )
+        .then(
+          function (response) {
+            console.log("SUCCESS!", response.status, response.text);
+          },
+          function (error) {
+            console.log("FAILED...", error);
+          }
+        );
     }
     // eslint-disable-next-line
   }, []);
@@ -62,7 +101,7 @@ const TicketConfirmation = observer(() => {
       setUrl(response);
     });
     // eslint-disable-next-line
-  }, [url]);
+  }, []);
   return (
     <CustomerLayout>
       <Div>
@@ -167,7 +206,12 @@ const TicketConfirmation = observer(() => {
                     email: email,
                     to_name: name + " " + surname,
                     from_name: "UJ Arts & Culture",
-                    message: "Hello, how are you? Here is your ticket",
+                    message:
+                      "Hello " +
+                      name +
+                      " " +
+                      surname +
+                      ", how are you? Here is your ticket",
                     myhtml: ReactDOMServer.renderToStaticMarkup(
                       <Ticket
                         time={time}

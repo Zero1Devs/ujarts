@@ -1,5 +1,4 @@
-import { autorun, makeAutoObservable, runInAction } from "mobx";
-import { makePersistable } from "mobx-persist-store";
+import { makeAutoObservable, runInAction } from "mobx";
 import { SupabaseGateway } from "../gateways/SupaBaseGateway";
 
 class BookingStore {
@@ -26,7 +25,7 @@ class BookingStore {
   addCustomer = async (payload) => {
     try {
       const { data, error } = await this.supabaseGateway.insertToTable(
-        "customers",
+        "customer",
         payload
       );
       if (error) throw new Error(error.message);
@@ -43,6 +42,7 @@ class BookingStore {
         payload
       );
       if (error) throw new Error(error.message);
+      return data;
     } catch (error) {
       console.log(error.message);
     }

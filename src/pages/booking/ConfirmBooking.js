@@ -11,7 +11,6 @@ import {
 } from "../../components/Event";
 import { useEventPresenter } from "../admin/event/presenter";
 import { useBookingPresenter } from "./presenter";
-import { useParams } from "react-router-dom";
 import { DownloadPhoto } from "../../util/DownloadPhoto";
 import image from "../../assets/image.svg";
 const ConfirmBooking = observer(({ id }) => {
@@ -26,6 +25,7 @@ const ConfirmBooking = observer(({ id }) => {
     time,
     getCost,
     setEventPlace,
+    promo,
   } = useBookingPresenter;
 
   const [url, setUrl] = useState(image);
@@ -99,7 +99,9 @@ const ConfirmBooking = observer(({ id }) => {
               </Span>
               <Span>
                 <Heading>Cost</Heading>
-                <SubHeading>R {getCost().toFixed(2)}</SubHeading>
+                <SubHeading>
+                  R {promo ? getCost() * promo[0]?.discount : getCost()}
+                </SubHeading>
               </Span>
             </div>
           </div>

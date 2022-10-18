@@ -19,6 +19,7 @@
 
 .navigation-menu {
     margin-left: auto;
+    margin-right: 30px;
 }
 
 .navigation-menu ul {
@@ -61,7 +62,9 @@
     .hamburger {
         display: block;
     }
-
+.navigation-menu{
+    margin: 0;
+}
     .navigation-menu ul {
         flex-direction: column;
         position: absolute;
@@ -71,6 +74,7 @@
         height: calc(100vh - 60px);
         background-color: #270c3b;
         display: none;
+        z-index: 1;
     }
 
     .navigation-menu li {

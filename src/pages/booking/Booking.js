@@ -25,7 +25,7 @@ import image from "../../assets/image.svg";
 const Booking = observer(() => {
   let params = useParams();
   let eventId = params.event;
-  const [step, setStep] = useState(1);
+  //const [step, setStep] = useState(1);
   const {
     screen,
     setScreen,
@@ -36,6 +36,7 @@ const Booking = observer(() => {
     phone_number,
     email,
     getCost,
+    promo,
   } = useBookingPresenter;
   const { gridEvents } = useEventPresenter;
   const [url, setUrl] = useState(image);
@@ -52,7 +53,7 @@ const Booking = observer(() => {
       case 1:
         return <DateTime id={eventId} />;
       case 2:
-        return <TicketType id={eventId} />;
+        return <TicketType event={gridEvents[eventId]} />;
       case 3:
         return <BookingForm />;
       case 4:
@@ -72,7 +73,8 @@ const Booking = observer(() => {
               name={name + " " + surname}
               email={email}
               phone_number={phone_number}
-              amount={getCost()}
+              //  amount={getCost()}
+              amount={promo ? getCost() * promo[0]?.discount : getCost()}
             />
           );
         case "snap":
@@ -82,7 +84,7 @@ const Booking = observer(() => {
               background="var(--lightgrey)"
               hover="var(--darkorange)"
               color="black"
-              onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
+              //    onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
             >
               <FaLock size="20" color="black" style={{ fontWeight: "bold" }} />
               Pay
@@ -95,7 +97,7 @@ const Booking = observer(() => {
               background="var(--lightgrey)"
               hover="var(--darkorange)"
               color="black"
-              onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
+              //  onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
             >
               <FaLock size="20" color="black" style={{ fontWeight: "bold" }} />
               Pay
@@ -104,9 +106,7 @@ const Booking = observer(() => {
       }
     }
   };
-  const Screen = async () => {
-    await setScreen();
-  };
+
   return (
     <CustomerLayout>
       <Div>
@@ -392,7 +392,7 @@ const PaymentButton = (props) => {
       }}
     >
       <BsFillCreditCardFill size="20" color="white" />
-      Pay with Credit/Debit card
+      Pay R {props?.amount}
     </Button>
   );
 };

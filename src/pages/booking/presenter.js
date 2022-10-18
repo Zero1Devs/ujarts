@@ -1,5 +1,5 @@
 import { autorun, makeAutoObservable, runInAction } from "mobx";
-import { makePersistable } from "mobx-persist-store";
+//import { makePersistable } from "mobx-persist-store";
 import { SupabaseGateway } from "../../gateways/SupaBaseGateway";
 import { NavigationStore } from "../../stores/navigationStore";
 import {
@@ -9,9 +9,11 @@ import {
   getValidationErrorMessage,
 } from "../../util/validator";
 import { useBookingStore } from "../../stores/bookingStore";
+import { usePromoStore } from "../../stores/promoStore";
 class Booking {
   supabase = SupabaseGateway;
   bookingStore = useBookingStore;
+  promoStore = usePromoStore;
   name = "";
   surname = "";
   email = "";
@@ -26,6 +28,8 @@ class Booking {
   screen = 1;
   payment_type = "";
   guest = {};
+  discount = "";
+  promo = {};
   navigation = NavigationStore;
   dates = [];
   constructor() {
@@ -79,7 +83,9 @@ class Booking {
     this.payment_type = e.target.value;
   };
   getCost = () => {
-    let cost = 125.0 * this.quantity;
+    let cost = this.tickets[0]?.price
+      ? this.tickets[0]?.price * this.quantity
+      : 125 * this.quantity;
     return cost;
   };
   MoveForward = () => {};
@@ -183,6 +189,8 @@ class Booking {
         this.quantity = 0;
         this.date = "";
         this.time = "";
+        this.discount = "";
+        this.promo = {};
         sessionStorage.clear();
         this.navigation.push("/");
       }
@@ -252,7 +260,26 @@ class Booking {
   get tickets() {
     return this.bookingStore.tickets;
   }
-  orderTicket = async () => {
+  setDiscount = (message) => {
+    this.discount = message;
+  };
+  checkPromo = async (id) => {
+    try {
+      const data = await this.promoStore.checkPromo(id);
+      runInAction(() => {
+        this.promo = data;
+      });
+      if (this.promo) console.log(this.promo);
+      this.setDiscount(
+        "Discount of " +
+          this.promo[0]?.discount * 100 +
+          "% will be applied at checkout"
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  orderTicket = async (reference) => {
     try {
       let customer = {
         name: this.name,
@@ -262,16 +289,16 @@ class Booking {
       };
       const customerDetails = await this.bookingStore.addCustomer(customer);
       let orderDetails = {
-        id_payment_type: this?.payment_type,
-        customer_id: customerDetails?.id,
-        ticket_id: 0,
+        id_payment_type: 1,
+        customer_id: customerDetails[0]?.id,
+        ticket_id: this.tickets[0]?.id,
         quantity: this?.quantity,
-        price: 0,
-        discount: 0,
-        user_id: 4,
-        reference_number: 0,
+        price: this.getCost() * this.promo?.discount || this.getCost(),
+        discount: this.promo?.discount || 1,
+        user_id: 16,
+        reference_number: reference,
       };
-      const order = await this.bookingStore.orderTicket(orderDetails);
+      await this.bookingStore.orderTicket(orderDetails);
     } catch (error) {
       console.log(error.message);
     }

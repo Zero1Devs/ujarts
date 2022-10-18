@@ -1,9 +1,7 @@
 import { useState } from "react";
 import "./navbar.css";
-import { Link, NavLink } from "react-router-dom";
-import styled from "styled-components";
+import {  NavLink } from "react-router-dom";
 import { BsPersonFill } from "react-icons/bs";
-import { FaBars } from "react-icons/fa";
 
 export default function Navbar() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
@@ -40,6 +38,30 @@ export default function Navbar() {
       >
         <ul>
           <li>
+            <NavLink
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? "#ff4102" : "white",
+                };
+              }}
+              to="/"
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? "#ff4102" : "white",
+                };
+              }}
+              to="/venues"
+            >
+              Venues
+            </NavLink>
+          </li>
+          <li>
             <a style={{ color: "white" }} href="https://movingcube.uj.ac.za/">
               Moving Cube
             </a>
@@ -69,18 +91,7 @@ export default function Navbar() {
               About
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              style={({ isActive }) => {
-                return {
-                  color: isActive ? "#ff4102" : "white",
-                };
-              }}
-              to="/venues"
-            >
-              Venues
-            </NavLink>
-          </li>
+
           <li>
             <NavLink
               style={({ isActive }) => {

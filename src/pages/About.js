@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/index.css";
 import weArtBanner from "../assets/We_ART_Web_banner.width-500.png";
 import CustomerLayout from "../layouts/CustomerLayout";
+import styled from "styled-components";
 
 const About = () => {
   return (
@@ -9,10 +10,9 @@ const About = () => {
       <div className="container" style={{ padding: "50px" }}>
         <h1>About</h1>
         <p>
-          <img
+          <Img
             src={weArtBanner}
             alt=""
-            width={"500px"}
             style={{ float: "left", marginRight: "30px" }}
           />
           UJ Arts & Culture, a division of the Faculty of Art, Design &
@@ -59,4 +59,10 @@ const About = () => {
     </CustomerLayout>
   );
 };
+const Img = styled.img`
+  width: 500px;
+  @media only screen and (max-width: 700px) {
+    width: 100%;
+  }
+`;
 export default About;

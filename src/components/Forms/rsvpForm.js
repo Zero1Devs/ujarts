@@ -32,7 +32,7 @@ const RsvpForm = observer(() => {
         id="name"
         name="email"
         className="textInput"
-        onChange={(e) => console.log(e.target.value)}
+        onChange={(e) => setFormValue(e)}
       />
       <label>Confirm email Address</label>
       <Input
@@ -40,7 +40,7 @@ const RsvpForm = observer(() => {
         id="name"
         name="confirm_email"
         className="textInput"
-        onChange={(e) => console.log(e.target.value)}
+        onChange={(e) => setFormValue(e)}
       />
       <label>Your Telephone Number</label>
       <Input
@@ -48,7 +48,7 @@ const RsvpForm = observer(() => {
         id="name"
         name="Telnumber"
         className="textInput"
-        onChange={(e) => console.log(e.target.value)}
+        onChange={(e) => setFormValue(e)}
       />
       <label>Communication Method</label>
       <div
@@ -88,7 +88,6 @@ const RsvpForm = observer(() => {
             type={"radio"}
           />
         </Radio>
-        
       </div>
     </div>
   );

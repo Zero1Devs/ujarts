@@ -53,6 +53,23 @@ class PromoStore {
       console.log(error.message);
     }
   };
+  checkPromo = async (id) => {
+    try {
+      const { data, error } = await this.supabaseGateway.selectFromTableFilter(
+        "promo",
+        {
+          column: "event_id",
+          value: id,
+        }
+      );
+      if (error) throw new Error(error.message);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      this.getPromos();
+    }
+  };
   deletePromo = async (id) => {
     try {
       const { error } = await this.supabaseGateway.deleteFromTable("promo", {
