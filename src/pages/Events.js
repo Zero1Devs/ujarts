@@ -45,7 +45,7 @@ const Events = observer(() => {
   }, [seconds]);
   return (
     <CustomerLayout>
-      <div style={{ border: "solid 1px" }} className="container">
+      <div className="container">
         <Title border center marginLeft="30px">
           What's On?
         </Title>
@@ -65,8 +65,8 @@ const Events = observer(() => {
 
         <EventList className="eventList">
           {gridEvents.length > 0 ? (
-            gridEvents?.map((data, id) => (
-              <Event key={id} id={id} event={data} />
+            gridEvents?.map((data) => (
+              <Event key={data.id} id={data.id} event={data} />
             ))
           ) : (
             <h1 style={{ textAlign: "center" }}>No events for now</h1>
@@ -94,11 +94,12 @@ export const Div = styled.div`
 
   @media only screen and (max-width: 600px) {
     /* For mobile phones: */
-    max-width: 100px;
-    min-width: 100%
-    border: solid 1px black;
+    width: 80%;
+    align-self: start;
+    border: solid 0px black;
     margin-left: 0px;
     font-size: 10px;
     text-align: left;
+    padding-left: 10vw;
   }
 `;

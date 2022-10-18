@@ -29,7 +29,6 @@ class EventPresenter {
   constructor() {
     makeAutoObservable(this);
     autorun(() => {
-      this.getEvents();
       this.eventStore.getGridEvents();
     });
   }
@@ -41,7 +40,7 @@ class EventPresenter {
   setFilterValue = (e) => {
     this[e.target.name] = e.target.value;
     console.log(e.target.value);
-    if (e.target.value == 0) {
+    if (e.target.value === 0) {
       this.eventStore.getGridEvents();
     } else {
       this.eventStore.getGridEventsByType(e.target.value);
@@ -103,6 +102,7 @@ class EventPresenter {
 
       if (error) throw new Error(error.message);
       console.log(data);
+      alert("Event created");
     } catch (error) {
       console.log(error.message);
     }
@@ -181,7 +181,7 @@ class EventPresenter {
   };
   getUpcomingEvents = async () => {
     try {
-      const data = await this.eventStore.getUpcomingEvents();
+      await this.eventStore.getUpcomingEvents();
 
       //    console.log(this.events);
     } catch (error) {

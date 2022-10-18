@@ -1,4 +1,4 @@
-import { autorun, makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { useAnnouncementStore } from "../../../stores/announcementStore";
 import { NavigationStore } from "../../../stores/navigationStore";
 
@@ -19,7 +19,6 @@ class AnnouncementPresenter {
 
   constructor() {
     makeAutoObservable(this);
-    autorun(() => this.getAnnouncementList);
   }
   getAnnouncementList = async () => {
     try {
@@ -47,10 +46,11 @@ class AnnouncementPresenter {
   makeAnnouncement = async () => {
     try {
       const { subject, event, message } = this.announcement;
+      if (event === 0) return;
       let announcement = { subject, event_id: event, message };
       console.log(announcement);
       await this.announcementStore.makeAnnouncement(announcement);
-      this.navigation.push("/admin/announcements");
+      return true;
     } catch (error) {
       console.log(error.message);
     }

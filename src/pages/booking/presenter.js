@@ -8,9 +8,10 @@ import {
   BookingStepTwo,
   getValidationErrorMessage,
 } from "../../util/validator";
-
+import { useBookingStore } from "../../stores/bookingStore";
 class Booking {
   supabase = SupabaseGateway;
+  bookingStore = useBookingStore;
   name = "";
   surname = "";
   email = "";
@@ -42,7 +43,6 @@ class Booking {
       this.confirm_email = sessionStorage?.getItem("confirm_email") || "";
       this.phone_number = sessionStorage?.getItem("phone_number") || "";
       this.quantity = parseInt(sessionStorage?.getItem("quantity")) || 0;
-      this.getDates();
     });
   }
 
@@ -52,8 +52,6 @@ class Booking {
     console.log(e.target.value);
   };
   setDate = (e) => {
-    //this.date = e.target.name;
-    //this.date = e.target.value;
     this.time = "";
     console.log(e.target.value);
   };
@@ -85,6 +83,7 @@ class Booking {
     return cost;
   };
   MoveForward = () => {};
+  //to delete
   getGuest = async (reference) => {
     try {
       const data = await this.supabase.selectFromTableFilter("booking", {
@@ -100,6 +99,43 @@ class Booking {
       console.log(error.message);
     }
   };
+  switchMonth = (month) => {
+    switch (month) {
+      case "Jan":
+        return "January";
+      case "Feb":
+        return "February";
+      case "Mar":
+        return "March";
+      case "Apr":
+        return "April";
+      case "May":
+        return "May";
+
+      case "Jun":
+        return "June";
+
+      case "Jul":
+        return "July";
+
+      case "Aug":
+        return "August";
+
+      case "Sep":
+        return "September";
+
+      case "Oct":
+        return "October";
+
+      case "Nov":
+        return "November";
+
+      case "Dec":
+        return "December";
+      default:
+        return month;
+    }
+  };
   getDates = async (id) => {
     try {
       const { data, error } = await this.supabase.selectDates(id);
@@ -113,7 +149,9 @@ class Booking {
               new Date(date).toDateString().split(" ")[2] +
               " " +
               new Date(date).toDateString().split(" ")[1],
-            month: new Date(date).toDateString().split(" ")[1],
+            month: this.switchMonth(
+              new Date(date).toDateString().split(" ")[1]
+            ),
             day: new Date(date).toDateString().split(" ")[2],
             weekday: new Date(date).toDateString().split(" ")[0],
             start_time: start_time.substring(0, 5),
@@ -201,6 +239,41 @@ class Booking {
         errors += getValidationErrorMessage(err.path) + err.message + "\n";
       });
       alert(errors);
+    }
+  };
+  getTickets = async (id) => {
+    try {
+      const tickets = await this.bookingStore.getTickets(id);
+      console.log(tickets);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  get tickets() {
+    return this.bookingStore.tickets;
+  }
+  orderTicket = async () => {
+    try {
+      let customer = {
+        name: this.name,
+        surname: this.surname,
+        email: this.email,
+        cellphone: this.phone_number,
+      };
+      const customerDetails = await this.bookingStore.addCustomer(customer);
+      let orderDetails = {
+        id_payment_type: this?.payment_type,
+        customer_id: customerDetails?.id,
+        ticket_id: 0,
+        quantity: this?.quantity,
+        price: 0,
+        discount: 0,
+        user_id: 4,
+        reference_number: 0,
+      };
+      const order = await this.bookingStore.orderTicket(orderDetails);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 }

@@ -179,8 +179,7 @@ const CreateEvent = observer((props) => {
                   background="var(--darkpurple)"
                   onClick={() => {
                     createEvent();
-                    alert("Event created");
-                    //props.onClick();
+                    props.onClick();
                   }}
                 >
                   Create

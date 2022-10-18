@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useBookingPresenter } from "./presenter";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useEventPresenter } from "../admin/event/presenter";
-const DateTime = observer(() => {
+const DateTime = observer(({ id }) => {
   const [checked, setChecked] = useState("");
-  const { date, time, setFormValue, setDate, getDates, dates } =
+  const { date, time, setFormValue, setDate, getDates, dates, getTickets } =
     useBookingPresenter;
   const { gridEvents } = useEventPresenter;
-  let params = useParams();
   const [load, setLoad] = useState(true);
   useEffect(
     () => {
-    getDates(gridEvents[params?.event]?.id);
+      getDates(gridEvents[id]?.id);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -27,13 +25,15 @@ const DateTime = observer(() => {
             <div key={id} style={{ display: "grid", rowGap: "20px" }}>
               <Date
                 htmlFor={"date" + id}
-                checked={checked === dates.id || time === dates.start_time}
+                checked={date === dates.date || time === dates.start_time}
               >
+                <DayOfWeek htmlFor={"date" + id}>{dates?.month}</DayOfWeek>
                 <Day htmlFor={"date" + id}>{dates?.day}</Day>
                 <DayOfWeek htmlFor={"date" + id}>{dates?.weekday}</DayOfWeek>
                 <input
                   id={"date" + id}
                   checked={checked === dates.id}
+                  defaultValue={date}
                   value={dates.date}
                   onChange={(e) => {
                     setFormValue(e);
@@ -45,14 +45,18 @@ const DateTime = observer(() => {
                   type={"radio"}
                 />
               </Date>
-              {checked === dates.id && (
+              {date === dates.date && (
                 <Time checked={time === dates.start_time} htmlFor="11">
                   {dates.start_time}
                   <input
                     id="11"
                     checked={time === dates.start_time}
+                    defaultValue={time}
                     value={dates.start_time}
-                    onChange={(e) => setFormValue(e)}
+                    onChange={(e) => {
+                      setFormValue(e);
+                      getTickets(dates.id);
+                    }}
                     name="time"
                     type={"radio"}
                   />
@@ -115,6 +119,7 @@ const Date = styled.label`
   align-content: center;
   justify-content: center;
   cursor: pointer;
+  padding-top: 2px;
   input {
     visibility: hidden;
   }

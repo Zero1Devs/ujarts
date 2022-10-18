@@ -11,9 +11,9 @@ const CustomerLayout = (props) => {
       {props.children}
       <Float>
         <a href="https://web.whatsapp.com/send?phone=27647770671&text=Hello!%20I%20have%20an%20issue%20with">
-          <My_float>
+          <MyFloat>
             <BsWhatsapp color="white" size={25} />
-          </My_float>
+          </MyFloat>
         </a>
       </Float>
 
@@ -34,17 +34,20 @@ const Float = styled.div`
   border-radius: 50px;
   text-align: center;
   box-shadow: 2px 2px 3px #999;
+  @media only screen and (max-width: 600px) {
+    right: 30%;
+  }
 `;
 
-const My_float = styled.div`
+const MyFloat = styled.div`
   margin-top: 18px;
 `;
 
 const Container = styled.div`
+  width: 100vw;
   @media only screen and (max-width: 600px) {
-    width: 100%;
-    max-width: 600px;
-    border: solid 1px;
+    width: 100vw;
+    border: solid 0px;
     margin: 0px;
   }
 `;

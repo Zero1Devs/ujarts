@@ -19,7 +19,7 @@ class PromoPresenter {
 
   constructor() {
     makeAutoObservable(this);
-    autorun(() => this.getPromos());
+    // autorun(() => this.getPromos());
   }
   setFormValue = (e) => {
     this.promo[e.target.name] = e.target.value;
@@ -47,7 +47,8 @@ class PromoPresenter {
       let promo = { promo_code, event_id: event, discount };
       console.log(promo);
       await this.promoStore.addPromo(promo);
-      this.navigation.push("/admin/promo");
+      return true;
+      //this.navigation.push("/admin/promo");
     } catch (error) {
       console.log(error.message);
     }

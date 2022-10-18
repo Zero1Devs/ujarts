@@ -12,9 +12,10 @@ import Button from "./Button";
 import { observer } from "mobx-react";
 import { DownloadPhoto } from "../util/DownloadPhoto";
 import { useEventPresenter } from "../pages/admin/event/presenter";
+import image from "../assets/image.svg";
 const EventRow = observer(({ event, onClick }) => {
   const [actions, setActions] = useState(false);
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(image);
   const { deleteEvent } = useEventPresenter;
   useEffect(() => {
     DownloadPhoto(event?.thumbnail).then((response) => {

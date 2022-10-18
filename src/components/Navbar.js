@@ -18,7 +18,7 @@ const Navbar = () => {
         <NavLink
           style={({ isActive }) => {
             return {
-              color: isActive ? "#ff4102" : "",
+              color: isActive ? "#ff4102" : "white",
             };
           }}
           to="/"
@@ -29,7 +29,7 @@ const Navbar = () => {
         <NavLink
           style={({ isActive }) => {
             return {
-              color: isActive ? "#ff4102" : "",
+              color: isActive ? "#ff4102" : "white",
             };
           }}
           to="/venues"
@@ -43,7 +43,7 @@ const Navbar = () => {
         <NavLink
           style={({ isActive }) => {
             return {
-              color: isActive ? "#ff4102" : "",
+              color: isActive ? "#ff4102" : "white",
             };
           }}
           to="/about"
@@ -67,7 +67,6 @@ const NavWrapper = styled.div`
       font-size: 50%;
       margin: 10px;
     }
-    max-width: 600px;
     height: 40px;
     padding: 0px;
     justify-content: space-between;
@@ -146,7 +145,6 @@ const Nav = styled.nav`
     a {
       font-size: 20%;
     }
-    align-content: flex-end;
   }
 `;
 export default Navbar;

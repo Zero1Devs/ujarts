@@ -34,6 +34,7 @@ const TicketConfirmation = observer(() => {
     time,
     place,
     date,
+    quantity,
     getBooking,
   } = useBookingPresenter;
   const options = {
@@ -151,6 +152,7 @@ const TicketConfirmation = observer(() => {
           <Ticket
             time={time}
             place={place}
+            quantity={quantity}
             eventType={eventType}
             date={date}
             event={event}
@@ -173,6 +175,7 @@ const TicketConfirmation = observer(() => {
                         eventType={eventType}
                         date={date}
                         event={event}
+                        quantity={quantity}
                         refNumber={refNumber}
                       />
                     ),
@@ -325,7 +328,7 @@ const Ticket = observer((props) => {
               Tickets
             </label>
             <label style={{ color: "#643E77" }}>
-              {props.quantity}x Early Bird
+              {props.quantity}x General Admission
             </label>
           </span>
           <span style={{ display: "grid", textAlign: "center" }}>
@@ -353,7 +356,7 @@ const Ticket = observer((props) => {
               Time
             </label>
             <label style={{ color: "#643E77" }}>
-              {props.time}{" "}
+              {props.time}
               {parseInt(props.time.substring(0, 2)) > 12 ? "pm" : "am"}
             </label>
           </span>

@@ -7,7 +7,10 @@ import Select from "../../../components/Select";
 import Button from "../../../components/Button";
 import percent from "../../../assets/percent.svg";
 import { usePromoPresenter } from "./presenter";
+import { NavigationStore } from "../../../stores/navigationStore";
+
 const AddPromo = observer((props) => {
+  const navigation = NavigationStore;
   const { setFormValue, createPromo, getEvents, events } = usePromoPresenter;
   useEffect(() => {
     getEvents();
@@ -42,7 +45,7 @@ const AddPromo = observer((props) => {
             width="210px"
             name="event"
             onChange={(e) => setFormValue(e)}
-            options={events}
+            options={[{ id: 0, name: "Choose an event" }, ...events]}
           />
         </InputGroup>
         <InputGroup width="250px" marginTop="50px">
@@ -60,7 +63,12 @@ const AddPromo = observer((props) => {
             background="var(--purple)"
             hover="var(--darkpurple)"
             border="solid 1px var(--darkpurple)"
-            onClick={() => createPromo()}
+            onClick={(e) => {
+              let c = createPromo();
+              if (c) {
+                props.onClick((e = false));
+              }
+            }}
           >
             Create
           </Button>

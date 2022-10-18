@@ -31,12 +31,16 @@ class FrontOfHouse {
   };
   getGuest = async (reference) => {
     try {
-      const data = await this.supabase.selectFromTableFilter("booking", {
-        column: "reference",
-        value: reference,
-      });
+      const { data, error } = await this.supabase.selectFromTableFilter(
+        "booking",
+        {
+          column: "reference",
+          value: reference,
+        }
+      );
+      if (error) throw new Error(error.message);
       runInAction(() => {
-        this.guest = data.data;
+        this.guest = data;
       });
       console.log(this.guest);
       return this.guest;

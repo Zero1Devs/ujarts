@@ -25,8 +25,9 @@ const NewAnnouncement = observer((props) => {
           <Select
             width="210px"
             name="event"
+            defaultValue={0}
             onChange={(e) => setFormValue(e)}
-            options={events}
+            options={[{ id: 0, name: "Choose an event" }, ...events]}
           />
         </InputGroup>
         <InputGroup>
@@ -62,7 +63,12 @@ const NewAnnouncement = observer((props) => {
             background="var(--purple)"
             hover="var(--darkpurple)"
             border="solid 1px var(--darkpurple)"
-            onClick={() => makeAnnouncement()}
+            onClick={(e) => {
+              let c = makeAnnouncement();
+              if (c) {
+                props.onClick((e = false));
+              }
+            }}
           >
             Create
           </Button>

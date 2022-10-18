@@ -7,10 +7,10 @@ import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-
+import { useFrontOfHousePresenter } from "./presenter";
 const ScanQRCode = observer(() => {
   const [data, setData] = useState("No result");
-  const { getGuest, guest } = useBookingPresenter;
+  const { getGuest, guest } = useFrontOfHousePresenter;
 
   useEffect(() => {
     getGuest(data);
@@ -20,7 +20,7 @@ const ScanQRCode = observer(() => {
     <FrontOfHouseLayout>
       <Title width="300px">Guest List</Title>
       <h3 border="2px solid blue">Reference: {data}</h3>
-      <div style={{ width: "50%" }}>
+      <div style={{ width: "30%" }}>
         <QrReader
           onResult={(result, error) => {
             if (!!result) {

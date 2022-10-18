@@ -13,6 +13,7 @@ import { useEventPresenter } from "../admin/event/presenter";
 import { useBookingPresenter } from "./presenter";
 import { useParams } from "react-router-dom";
 import { DownloadPhoto } from "../../util/DownloadPhoto";
+import image from "../../assets/image.svg";
 const ConfirmBooking = observer(({ id }) => {
   const { gridEvents } = useEventPresenter;
   const {
@@ -26,9 +27,8 @@ const ConfirmBooking = observer(({ id }) => {
     getCost,
     setEventPlace,
   } = useBookingPresenter;
-  let params = useParams();
-  let eventId = params.event;
-  const [url, setUrl] = useState("");
+
+  const [url, setUrl] = useState(image);
 
   useEffect(() => {
     setEventPlace(gridEvents[id]);
@@ -39,7 +39,7 @@ const ConfirmBooking = observer(({ id }) => {
       setUrl(response);
     });
     // eslint-disable-next-line
-  }, [url]);
+  }, []);
   return (
     <div id="myhtml">
       <h3>Confirm your booking</h3>

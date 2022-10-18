@@ -1,15 +1,14 @@
 import { SupabaseGateway } from "../gateways/SupaBaseGateway";
 import { makeAutoObservable, autorun } from "mobx";
-
+//import { NavigationStore } from "./navigationStore";
 class AnnouncementStore {
+  //navigation = NavigationStore;
   announcementList = [];
   supabaseGateway = SupabaseGateway;
 
   constructor() {
     makeAutoObservable(this);
-    autorun(() => {
-      this.getAnnouncements();
-    });
+    //autorun(() => {this.getAnnouncements();});
   }
 
   getAnnouncements = async () => {
@@ -33,6 +32,7 @@ class AnnouncementStore {
       );
       if (error) throw new Error(error.message);
       alert("Announcement made");
+      //this.navigation.push("/admin/announcements");
     } catch (error) {
       console.log(error.message);
     }

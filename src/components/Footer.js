@@ -196,6 +196,9 @@ const StyledFooter = styled.footer`
   top: 100%;
   margin-top: 100px;
   flex-wrap: wrap;
+  @media only screen and (max-width: 600px) {
+    padding: 10px;
+  }
 `;
 const SubscribeSection = styled.section`
   text-align: center;
@@ -219,12 +222,31 @@ const SubscribeSection = styled.section`
     padding-left: 30px;
     color: white;
   }
+  @media only screen and (max-width: 600px) {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    align-items:center;
+    flex-wrap: wrap;
+    padding: 0;
+    input {
+      width: 80%;
+    }
+    button {
+      width: 80%;
+    }
+  }
 `;
 const Interests = styled.div`
   margin-bottom: 30px;
+  border: solid 1px;
   div {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+  }
+  @media only screen and (max-width: 600px) {
   }
 `;
 const SubscribeButton = styled(StyledButton)`
@@ -267,7 +289,7 @@ const GetInTouch = styled.section`
     margin-right: 5px;
   }
 `;
-const Social = styled.section`
+const Social = styled.div`
   display: flex;
   flex-direction: column;
 `;

@@ -10,9 +10,10 @@ import Input from "../../../components/Input";
 import { useBookingPresenter } from "../../booking/presenter";
 import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
+import { useFrontOfHousePresenter } from "./presenter";
 
 const Search = observer(() => {
-  const { getGuest, guest } = useBookingPresenter;
+  const { getGuest, guest } = useFrontOfHousePresenter;
   const [reference, setReference] = useState("");
   const [table, setTable] = useState(false);
   useEffect(() => {

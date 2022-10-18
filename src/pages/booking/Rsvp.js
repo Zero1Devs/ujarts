@@ -6,7 +6,7 @@ import { useEventPresenter } from "../admin/event/presenter";
 import { DownloadPhoto, Downloadphoto } from "../../util/DownloadPhoto";
 import { Info, StyledEventSummary } from "../../components/EventSummary";
 import Button from "../../components/Button";
-import RsvpForm from "../../components/Forms/rsvpForm";
+import RsvpForm from "../../components/Forms/RsvpForm";
 
 import styled from "styled-components";
 import { Link } from "react-router-dom";

@@ -12,9 +12,7 @@ const StyledSelect = styled.select`
 
   border: none;
   @media only screen and (max-width: 600px) {
-    background-color: #4f2365;
-    color: white;
-    width: 100%;
+    width: 70%;
     height: 30px;
     display: block;
     margin-left: 0px;

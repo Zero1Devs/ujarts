@@ -19,8 +19,9 @@ import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { BsFillCreditCardFill } from "react-icons/bs";
 import { NavigationStore } from "../../stores/navigationStore";
 import DateTime from "./DateTime";
-import { DownloadPhoto, Downloadphoto } from "../../util/DownloadPhoto";
+import { DownloadPhoto } from "../../util/DownloadPhoto";
 import { useEffect } from "react";
+import image from "../../assets/image.svg";
 const Booking = observer(() => {
   let params = useParams();
   let eventId = params.event;
@@ -37,7 +38,7 @@ const Booking = observer(() => {
     getCost,
   } = useBookingPresenter;
   const { gridEvents } = useEventPresenter;
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(image);
 
   useEffect(() => {
     gridEvents.length > 0 &&
@@ -45,19 +46,19 @@ const Booking = observer(() => {
         setUrl(response);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); /**/
+  }, []);
   const Switch = () => {
     switch (screen) {
       case 1:
-        return <DateTime id={gridEvents[eventId]?.id} />;
+        return <DateTime id={eventId} />;
       case 2:
-        return <TicketType id={gridEvents[eventId]?.id} />;
+        return <TicketType id={eventId} />;
       case 3:
-        return <BookingForm id={gridEvents[eventId]?.id} />;
+        return <BookingForm />;
       case 4:
-        return <ConfirmBooking id={gridEvents[eventId]?.id} />;
+        return <ConfirmBooking id={eventId} />;
       case 5:
-        return <Checkout id={gridEvents[eventId]?.id} />;
+        return <Checkout id={eventId} />;
       default:
         return;
     }

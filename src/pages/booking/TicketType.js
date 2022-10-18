@@ -1,12 +1,18 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { useBookingPresenter } from "./presenter";
-const TicketType = observer(() => {
-  const { setFormValue, setQuantity, quantity } = useBookingPresenter;
+const TicketType = observer(({ id }) => {
+  const { setFormValue, setQuantity, quantity, tickets } = useBookingPresenter;
+  useEffect(
+    () => console.log(tickets),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    []
+  );
   return (
     <div
       style={{
@@ -18,6 +24,29 @@ const TicketType = observer(() => {
       }}
     >
       <h3 style={{ textAlign: "left", alignSelf: "start" }}>Type of Ticket</h3>
+      {/*tickets?.map((ticket, id) => (
+        <Wrapper key={id}>
+          <label>{ticket?.description}</label>
+          <label>R {ticket?.price}</label>
+          <div style={{ display: "flex" }}>
+            <AiOutlineMinusCircle
+              onClick={() => setQuantity(quantity > 0 ? quantity - 1 : 0)}
+              size="25"
+              color="var(--orange)"
+              style={{ cursor: "pointer" }}
+            />
+            <Counter>{quantity}</Counter>
+
+            <AiOutlinePlusCircle
+              onClick={() => setQuantity(quantity + 1)}
+              size="25"
+              color="var(--orange)"
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+        </Wrapper>
+      ))
+      */}
       <Wrapper>
         <label>General Admission</label>
         <label>R 125,00</label>
@@ -44,7 +73,7 @@ const TicketType = observer(() => {
           width="50%"
           height="49px"
           color=" var(--darkpurple)"
-          hover=" var(--darkpurple)"
+          hover=" var(--darkerpurple)"
           border="solid 2px  var(--darkpurple)"
         >
           Apply

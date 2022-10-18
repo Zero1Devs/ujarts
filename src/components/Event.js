@@ -8,9 +8,11 @@ import styled from "styled-components";
 import { useEventPresenter } from "../pages/admin/event/presenter";
 import { DownloadPhoto } from "../util/DownloadPhoto";
 import { useEffect } from "react";
+import image from "../assets/image.svg";
+
 const Event = observer(({ id, event }) => {
   const { setActive } = useEventPresenter;
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(image);
   useEffect(() => {
     DownloadPhoto(event?.thumbnail).then((response) => {
       setUrl(response);
@@ -97,10 +99,9 @@ export const EventCard = styled.div`
     }
   }
   @media only screen and (max-width: 600px) {
-    width: 200px;
-    height: 300px;
-    img {
-    }
+    width: 75vw;
+    height: auto;
+    margin: 5px;
   }
 `;
 export const EventName = styled.label`
@@ -123,9 +124,8 @@ export const Thumbnail = styled.div`
     height: 210px;
   }
   @media screen and (max-width: 600px) {
-    ${"" /* display: none; */}
     img {
-      width: auto%;
+      width: 90%;
       height: 100%;
     }
   }

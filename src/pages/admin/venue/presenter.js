@@ -14,7 +14,7 @@ class VenuePresenter {
   screen = false;
   constructor() {
     makeAutoObservable(this);
-    autorun(() => this.getVenues());
+    //   autorun(() => this.getVenues());
   }
   setScreen = (value) => {
     this.screen = value;
