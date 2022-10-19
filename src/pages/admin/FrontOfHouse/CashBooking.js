@@ -183,7 +183,7 @@ const CashBooking = (props) => {
             onChange={(e) => setCustomer_change(e.target.value)}
           />
 
-          <Link to={"/admin/cash-booking/confirm-cash-booking"}>
+          <Link to={"/admin/cash-booking/confirm"}>
             <Button
               width="415px"
               background="var(--purple)"
