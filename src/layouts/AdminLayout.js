@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ujlogo from "../assets/ujLogo.jpg";
 import "../styles/index";
 import * as Icon from "react-icons/fi";
-import { BsFillMegaphoneFill } from "react-icons/bs";
+import { BsCash, BsFillMegaphoneFill } from "react-icons/bs";
 import { FaCashRegister, FaMoneyCheck } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useAdminPresenter } from "../pages/admin/auth/presenter";
@@ -105,6 +105,22 @@ const AdminLayout = (props) => {
           to="/admin/announcements"
         >
           <BsFillMegaphoneFill color="white" size={25} />
+        </NavLink>
+        <NavLink
+          className="navLink"
+          style={({ isActive }) => {
+            return {
+              background: isActive ? "var(--darkpurple)" : "",
+              borderLeft: isActive
+                ? "solid 5px white"
+                : "solid 5px transparent",
+              borderTopLeftRadius: "2px",
+              borderBottomLeftRadius: "2px",
+            };
+          }}
+          to="/admin/search"
+        >
+          <BsCash color="white" size={25} />
         </NavLink>
         <div onClick={() => logout()} className="navLink">
           <Icon.FiLogOut color="white" size={25} />
