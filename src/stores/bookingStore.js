@@ -4,6 +4,7 @@ import { SupabaseGateway } from "../gateways/SupaBaseGateway";
 class BookingStore {
   supabaseGateway = SupabaseGateway;
   tickets = [];
+  orders = [];
   constructor() {
     makeAutoObservable(this);
   }
@@ -45,6 +46,24 @@ class BookingStore {
       return data;
     } catch (error) {
       console.log(error.message);
+    }
+  };
+  getOrders = async () => {
+    try {
+      const { data, error } =
+        await this.supabaseGateway.selectFromTableWithForeignKey(
+          "order",
+          "customer(name,surname), payment_type(type)"
+        );
+      if (error) throw new Error(error.message);
+    //  console.log(data);
+      /*    runInAction(() => {
+        this.orders = data;
+      });*/
+      return data;
+    } catch (error) {
+      console.log(error.message);
+      alert(error.message);
     }
   };
 }

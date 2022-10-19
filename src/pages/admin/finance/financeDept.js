@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../../../components/Title";
 import SearchInput from "../../../components/SearchInput";
 import * as Icon from "react-icons/fi";
@@ -15,8 +15,12 @@ import {
 } from "react-icons/bs";
 import AdminLayout from "../../../layouts/AdminLayout";
 import styled from "styled-components";
-
+//import { useFinancePresenter } from "./presenter";
 const PromoList = () => {
+  /* const { getOrders, orders } = useFinancePresenter;
+  useEffect(() => {
+    getOrders();
+  }, []);*/
   return (
     <AdminLayout>
       <Title width="210px">Ticket Sales</Title>
@@ -85,13 +89,13 @@ export default PromoList;
 const columns = [
   {
     name: "No.",
-    selector: (row) => row.no,
+    selector: (row) => row.id,
     sortable: true,
     width: "120px",
   },
   {
     name: "Name",
-    selector: (row) => row.name,
+    selector: (row) => row.name + " " + row.surname,
     sortable: true,
   },
   {
@@ -101,24 +105,23 @@ const columns = [
   },
   {
     name: "Booking Date",
-    selector: (row) => row.booking_date,
+    selector: (row) => row.created_at,
     sortable: true,
-    width: "30%",
   },
   {
     name: "Ticket Ref",
-    selector: (row) => row.ticket_ref,
+    selector: (row) => row.reference_number,
     sortable: true,
   },
 
   {
     name: "Ticket Qty",
-    selector: (row) => row.ticket_qty,
+    selector: (row) => row.quantity,
     sortable: true,
   },
   {
     name: "Payment Method",
-    selector: (row) => row.payment_method,
+    selector: (row) => row.payment_type,
     sortable: true,
   },
   {
@@ -129,37 +132,48 @@ const columns = [
 ];
 const data = [
   {
-    no: "1",
+    id: "1",
     name: "Zacharias Siphoro",
     email: "zachariasiphoro@gmail.com",
-    booking_date: "21/09/2022",
-    ticket_qty: "1",
-    ticket_ref: "1663764713375",
+    created_at: "21/09/2022",
+    quantity: "1",
+    reference_number: "1663764713375",
     ticket_type: "Early Bird",
-    payment_method: "Credit Card",
+    payment_type: "Credit Card",
     total: "150",
   },
   {
-    no: "2",
+    id: "2",
     name: "Zacharias Siphoro",
     email: "zachariasiphoro@gmail.com",
-    booking_date: "21/09/2022",
-    ticket_qty: "2",
-    ticket_ref: "2683745713375",
+    created_at: "21/09/2022",
+    quantity: "2",
+    reference_number: "2683745713375",
     ticket_type: "Early Bird",
-    payment_method: "Cash",
+    payment_type: "Cash",
     total: "150",
   },
   {
-    no: "3",
+    id: "3",
     name: "Vivaldo Gaston",
     email: "vivaldo2009@live.com.pt",
-    booking_date: "03/09/2022",
-    ticket_qty: "2",
-    ticket_ref: "1662199160261",
+    created_at: "03/09/2022",
+    quantity: "2",
+    reference_number: "1662199160261",
     ticket_type: "Early Bird",
-    payment_method: "Credit Card",
+    payment_type: "Credit Card",
     total: "300",
+  },
+  {
+    id: "3",
+    name: "Nandi Dithebe",
+    email: "nandi@live.com.pt",
+    created_at: "18/10/2022",
+    quantity: "1",
+    reference_number: "165488789787",
+    ticket_type: "General Admission",
+    payment_type: "Credit Card",
+    total: "125",
   },
 ];
 

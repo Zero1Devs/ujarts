@@ -54,9 +54,9 @@ const Event = observer(({ id, event }) => {
           <label title="Duration">
             <FiClock size="23" color="var(--darkerpurple)" />
             {
-              //event?.schedule[0]?.start_time-event?.schedule[0]?.end_time
+              //event?.schedule[0]?.start_time-event?.schedule[0]?.end_time new Date()  <span>{event?.duration || "N/A"}</span>
             }
-            <span>{event?.duration || "N/A"}</span>
+          
           </label>
         </EventInfo>
       </EventCard>
@@ -130,7 +130,7 @@ export const Thumbnail = styled.div`
   }
   @media screen and (max-width: 600px) {
     img {
-      width: 90%;
+      width: 87%;
       height: 100%;
     }
   }

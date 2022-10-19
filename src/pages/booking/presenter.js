@@ -83,9 +83,10 @@ class Booking {
     this.payment_type = e.target.value;
   };
   getCost = () => {
-    let cost = this.tickets[0]?.price
-      ? this.tickets[0]?.price * this.quantity
-      : 125 * this.quantity;
+    let cost = 0;
+    if (this.tickets[0]?.price > 0) {
+      cost = this.tickets[0]?.price * this.quantity;
+    } else cost = 125 * this.quantity;
     return cost;
   };
   MoveForward = () => {};
