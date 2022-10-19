@@ -91,7 +91,7 @@ const ConfirmBooking = observer(({ id }) => {
             <div style={{ display: "grid", rowGap: "20px" }}>
               <Span>
                 <Heading>Your Tickets</Heading>
-                <SubHeading>{quantity}x Full Price</SubHeading>
+                <SubHeading>{quantity}x</SubHeading>
               </Span>
               <Span>
                 <Heading>Time</Heading>
