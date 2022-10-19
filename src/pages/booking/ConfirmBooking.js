@@ -100,7 +100,7 @@ const ConfirmBooking = observer(({ id }) => {
               <Span>
                 <Heading>Cost</Heading>
                 <SubHeading>
-                  R {promo ? getCost() * promo[0]?.discount : getCost()}
+                  R {promo[0] ? getCost() * promo[0]?.discount : getCost()}
                 </SubHeading>
               </Span>
             </div>

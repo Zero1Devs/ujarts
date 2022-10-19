@@ -1,4 +1,5 @@
 import React from "react";
+//, { useState, useEffect }
 import "../styles/index.css";
 import "../styles/customerLayout.css";
 import venuePhoto from "../assets/Studio1.jpg";
@@ -8,7 +9,19 @@ import { MdEventSeat, MdCheckroom } from "react-icons/md";
 import { FaWheelchair } from "react-icons/fa";
 import { GiViolin } from "react-icons/gi";
 import { EventCard, EventInfo, EventName, Thumbnail } from "./Event";
+//import { DownloadPhoto } from "../util/DownloadPhoto";
+//import image from "../assets/image.svg";
 const Venue = ({ venue }) => {
+  /* const [url, setUrl] = useState(image);
+
+  useEffect(() => {
+    DownloadPhoto(venue?.photo)
+      .then((response) => {
+        setUrl(response);
+      })
+      .catch((error) => setUrl(image));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);*/
   return (
     <VenueCard>
       <Thumbnail>

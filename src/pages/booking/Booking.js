@@ -74,7 +74,7 @@ const Booking = observer(() => {
               email={email}
               phone_number={phone_number}
               //  amount={getCost()}
-              amount={promo ? getCost() * promo[0]?.discount : getCost()}
+              amount={promo[0] ? getCost() * promo[0]?.discount : getCost()}
             />
           );
         case "snap":

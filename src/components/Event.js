@@ -17,8 +17,11 @@ const Event = observer(({ id, event }) => {
     DownloadPhoto(event?.thumbnail).then((response) => {
       setUrl(response);
     });
+    /*    .catch((error) => {
+        setUrl(image);
+      });*/
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, []);
 
   return (
     <div>
@@ -51,13 +54,13 @@ const Event = observer(({ id, event }) => {
             <span>{event?.host || "UJ Arts & Culture"}</span>
           </label>
 
-          <label title="Duration">
+          {/* <label title="Duration">
             <FiClock size="23" color="var(--darkerpurple)" />
-            {
+           
               //event?.schedule[0]?.start_time-event?.schedule[0]?.end_time new Date()  <span>{event?.duration || "N/A"}</span>
-            }
+           
           
-          </label>
+          </label>*/}
         </EventInfo>
       </EventCard>
       <EventSummary id={id} event={event} />

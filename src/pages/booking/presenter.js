@@ -87,6 +87,7 @@ class Booking {
     if (this.tickets[0]?.price > 0) {
       cost = this.tickets[0]?.price * this.quantity;
     } else cost = 125 * this.quantity;
+    console.log(cost);
     return cost;
   };
   MoveForward = () => {};

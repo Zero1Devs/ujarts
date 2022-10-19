@@ -175,6 +175,17 @@ const data = [
     payment_type: "Credit Card",
     total: "125",
   },
+  {
+    id: "4",
+    name: "Sabrin Mohamed",
+    email: "sabrin@live.com.pt",
+    created_at: "19/10/2022",
+    quantity: "1",
+    reference_number: "1666166515387",
+    ticket_type: "General Admission",
+    payment_type: "Credit Card",
+    total: "125",
+  },
 ];
 
 //Export data
