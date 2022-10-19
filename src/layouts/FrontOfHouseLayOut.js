@@ -3,7 +3,7 @@ import ujlogo from "../assets/ujLogo.jpg";
 import "../styles/index";
 import * as Icon from "react-icons/fi";
 import { BsList, BsListTask, BsCashCoin, BsBack } from "react-icons/bs";
-import { BiArrowBack } from "react-icons/bs";
+import { BiArrowBack } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import { useAdminPresenter } from "../pages/admin/auth/presenter";
 import { useUserStore } from "../stores/userStore";
