@@ -14,15 +14,8 @@ const Events = observer(() => {
       <Toggle
         OnClick={(e) => setScreen(e)}
         width="400px"
-        options={["Promo Code List", "New Promo Code"]}
+  
       >
-        <Option
-          background={screen === "booking" ? "var(--darkpurple)" : "none"}
-          color={screen === "booking" ? "white" : "black"}
-          onClick={() => setScreen("booking")}
-        >
-          Booking List
-        </Option>
         <Option
           background={screen === "event" ? "var(--darkpurple)" : "none"}
           color={screen === "event" ? "white" : "black"}
@@ -39,11 +32,11 @@ const Events = observer(() => {
         </Option>
       </Toggle>
       {screen === "event" ? (
-        <EventList />
+        <EventList onClick={() => setScreen("event")} />
       ) : screen === "booking" ? (
         <BookingList />
       ) : (
-       <CreateEvent onClick={() => setScreen("event")}/>
+        <CreateEvent onClick={() => setScreen("event")} />
       )}
     </AdminLayout>
   );

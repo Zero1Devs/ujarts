@@ -30,7 +30,7 @@ const Checkout = observer(() => {
 });
 //{checked === "card" && <PaymentButton />}
 export default Checkout;
-const Radio = styled.div`
+export const Radio = styled.div`
   height: 40px;
   width: 30%;
   display: flex;

@@ -8,15 +8,20 @@ import styled from "styled-components";
 import { useEventPresenter } from "../pages/admin/event/presenter";
 import { DownloadPhoto } from "../util/DownloadPhoto";
 import { useEffect } from "react";
+import image from "../assets/image.svg";
+
 const Event = observer(({ id, event }) => {
   const { setActive } = useEventPresenter;
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(image);
   useEffect(() => {
     DownloadPhoto(event?.thumbnail).then((response) => {
       setUrl(response);
     });
+    /*    .catch((error) => {
+        setUrl(image);
+      });*/
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, []);
 
   return (
     <div>
@@ -34,7 +39,9 @@ const Event = observer(({ id, event }) => {
 
           <label title="Date">
             <FiCalendar size="23" color="var(--darkerpurple)" />
-            <span>{event?.dates || "N/A"}</span>
+            <span>
+              Starts on {event?.schedule[0]?.date || "To be announced"}
+            </span>
           </label>
 
           <label title="Venue">
@@ -47,10 +54,13 @@ const Event = observer(({ id, event }) => {
             <span>{event?.host || "UJ Arts & Culture"}</span>
           </label>
 
-          <label title="Duration">
+          {/* <label title="Duration">
             <FiClock size="23" color="var(--darkerpurple)" />
-            <span>{event?.duration || "N/A"}</span>
-          </label>
+           
+              //event?.schedule[0]?.start_time-event?.schedule[0]?.end_time new Date()  <span>{event?.duration || "N/A"}</span>
+           
+          
+          </label>*/}
         </EventInfo>
       </EventCard>
       <EventSummary id={id} event={event} />
@@ -96,6 +106,11 @@ export const EventCard = styled.div`
       cursor: pointer;
     }
   }
+  @media only screen and (max-width: 600px) {
+    width: 75vw;
+    height: auto;
+    margin: 5px;
+  }
 `;
 export const EventName = styled.label`
   font-size: 18px;
@@ -115,6 +130,12 @@ export const Thumbnail = styled.div`
     border-bottom-left-radius: 0;
     width: 100%;
     height: 210px;
+  }
+  @media screen and (max-width: 600px) {
+    img {
+      width: 87%;
+      height: 100%;
+    }
   }
 `;
 export const EventType = styled.span`

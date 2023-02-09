@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../../../components/Title";
 import SearchInput from "../../../components/SearchInput";
 import * as Icon from "react-icons/fi";
 import { Header, Table } from "../venue/VenuesList";
 import DataTable from "react-data-table-component";
 import search from "../../../assets/search.svg";
-const PromoList = () => {
+import { observer } from "mobx-react";
+import { usePromoPresenter } from "./presenter";
+
+const PromoList = observer(() => {
+  const { getPromos, promos } = usePromoPresenter;
+  useEffect(() => {
+    getPromos();
+    // eslint-disable-next-line
+  }, []);
   return (
     <>
       <Title width="210px">Promo Codes List</Title>
@@ -20,11 +28,11 @@ const PromoList = () => {
         />
       </Header>
       <Table>
-        <DataTable columns={columns} data={data} fixedHeader />
+        <DataTable columns={columns} data={promos} fixedHeader />
       </Table>
     </>
   );
-};
+});
 export default PromoList;
 
 const columns = [
@@ -36,7 +44,7 @@ const columns = [
   },
   {
     name: "Promo Code",
-    selector: (row) => row.code,
+    selector: (row) => row.promo_code,
     sortable: true,
   },
   {
@@ -45,15 +53,15 @@ const columns = [
     sortable: true,
   },
   {
-    name: "Event Name",
-    selector: (row) => row.eventName,
+    name: "Event ID",
+    selector: (row) => row.event.id,
     sortable: true,
-    width: "30%",
   },
   {
-    name: "Event ID",
-    selector: (row) => row.eventId,
+    name: "Event Name",
+    selector: (row) => row.event.name,
     sortable: true,
+    width: "30%",
   },
   {
     button: true,
@@ -64,22 +72,6 @@ const columns = [
     cell: (row) => <DeleteButton id={row.id} />,
   },
 ];
-const data = [
-  {
-    id: "#003",
-    code: "SHOWTIME123",
-    discount: "30%",
-    eventName: "Futures and Beyond :: Creativity and 4IR Conference 2022",
-    eventId: "#008",
-  },
-  {
-    id: "#002",
-    code: "ArtStudent",
-    discount: "100%",
-    eventName: "Urban Soundscapes- Crafting Spaces of Belonging",
-    eventId: "#003",
-  },
-];
 
 const EditButton = ({ row }) => {
   return (
@@ -87,10 +79,11 @@ const EditButton = ({ row }) => {
   );
 };
 const DeleteButton = (id) => {
+  const { deletePromo } = usePromoPresenter;
   return (
     <Icon.FiTrash2
       style={{ cursor: "pointer" }}
-      onClick={() => alert("deleted")}
+      onClick={() => deletePromo(id)}
       color="red"
       size={25}
     />

@@ -1,5 +1,5 @@
 import { autorun, makeAutoObservable, runInAction } from "mobx";
-import { makePersistable } from "mobx-persist-store";
+//import { makePersistable } from "mobx-persist-store";
 import { SupabaseGateway } from "../../gateways/SupaBaseGateway";
 import { NavigationStore } from "../../stores/navigationStore";
 import {
@@ -8,9 +8,12 @@ import {
   BookingStepTwo,
   getValidationErrorMessage,
 } from "../../util/validator";
-
+import { useBookingStore } from "../../stores/bookingStore";
+import { usePromoStore } from "../../stores/promoStore";
 class Booking {
   supabase = SupabaseGateway;
+  bookingStore = useBookingStore;
+  promoStore = usePromoStore;
   name = "";
   surname = "";
   email = "";
@@ -25,6 +28,8 @@ class Booking {
   screen = 1;
   payment_type = "";
   guest = {};
+  discount = "";
+  promo = {};
   navigation = NavigationStore;
   dates = [];
   constructor() {
@@ -42,7 +47,6 @@ class Booking {
       this.confirm_email = sessionStorage?.getItem("confirm_email") || "";
       this.phone_number = sessionStorage?.getItem("phone_number") || "";
       this.quantity = parseInt(sessionStorage?.getItem("quantity")) || 0;
-      this.getDates();
     });
   }
 
@@ -52,8 +56,6 @@ class Booking {
     console.log(e.target.value);
   };
   setDate = (e) => {
-    //this.date = e.target.name;
-    //this.date = e.target.value;
     this.time = "";
     console.log(e.target.value);
   };
@@ -81,10 +83,15 @@ class Booking {
     this.payment_type = e.target.value;
   };
   getCost = () => {
-    let cost = 125.0 * this.quantity;
+    let cost = 0;
+    if (this.tickets[0]?.price > 0) {
+      cost = this.tickets[0]?.price * this.quantity;
+    } else cost = 125 * this.quantity;
+    console.log(cost);
     return cost;
   };
   MoveForward = () => {};
+  //to delete
   getGuest = async (reference) => {
     try {
       const data = await this.supabase.selectFromTableFilter("booking", {
@@ -94,9 +101,47 @@ class Booking {
       runInAction(() => {
         this.guest = data.data;
       });
+      console.log(this.guest);
       return this.guest;
     } catch (error) {
       console.log(error.message);
+    }
+  };
+  switchMonth = (month) => {
+    switch (month) {
+      case "Jan":
+        return "January";
+      case "Feb":
+        return "February";
+      case "Mar":
+        return "March";
+      case "Apr":
+        return "April";
+      case "May":
+        return "May";
+
+      case "Jun":
+        return "June";
+
+      case "Jul":
+        return "July";
+
+      case "Aug":
+        return "August";
+
+      case "Sep":
+        return "September";
+
+      case "Oct":
+        return "October";
+
+      case "Nov":
+        return "November";
+
+      case "Dec":
+        return "December";
+      default:
+        return month;
     }
   };
   getDates = async (id) => {
@@ -112,7 +157,9 @@ class Booking {
               new Date(date).toDateString().split(" ")[2] +
               " " +
               new Date(date).toDateString().split(" ")[1],
-            month: new Date(date).toDateString().split(" ")[1],
+            month: this.switchMonth(
+              new Date(date).toDateString().split(" ")[1]
+            ),
             day: new Date(date).toDateString().split(" ")[2],
             weekday: new Date(date).toDateString().split(" ")[0],
             start_time: start_time.substring(0, 5),
@@ -144,6 +191,8 @@ class Booking {
         this.quantity = 0;
         this.date = "";
         this.time = "";
+        this.discount = "";
+        this.promo = {};
         sessionStorage.clear();
         this.navigation.push("/");
       }
@@ -200,6 +249,60 @@ class Booking {
         errors += getValidationErrorMessage(err.path) + err.message + "\n";
       });
       alert(errors);
+    }
+  };
+  getTickets = async (id) => {
+    try {
+      const tickets = await this.bookingStore.getTickets(id);
+      console.log(tickets);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  get tickets() {
+    return this.bookingStore.tickets;
+  }
+  setDiscount = (message) => {
+    this.discount = message;
+  };
+  checkPromo = async (id) => {
+    try {
+      const data = await this.promoStore.checkPromo(id);
+      runInAction(() => {
+        this.promo = data;
+      });
+      if (this.promo) console.log(this.promo);
+      this.setDiscount(
+        "Discount of " +
+          this.promo[0]?.discount * 100 +
+          "% will be applied at checkout"
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  orderTicket = async (reference) => {
+    try {
+      let customer = {
+        name: this.name,
+        surname: this.surname,
+        email: this.email,
+        cellphone: this.phone_number,
+      };
+      const customerDetails = await this.bookingStore.addCustomer(customer);
+      let orderDetails = {
+        id_payment_type: 1,
+        customer_id: customerDetails[0]?.id,
+        ticket_id: this.tickets[0]?.id,
+        quantity: this?.quantity,
+        price: this.getCost() * this.promo?.discount || this.getCost(),
+        discount: this.promo?.discount || 1,
+        user_id: 16,
+        reference_number: reference,
+      };
+      await this.bookingStore.orderTicket(orderDetails);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 }

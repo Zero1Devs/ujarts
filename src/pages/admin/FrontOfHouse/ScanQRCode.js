@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { QrReader } from "react-qr-reader";
 import Title from "../../../components/Title";
-import FrontOfHouseLayOut from "../../../layouts/FrontOfHouseLayOut";
+import FrontOfHouseLayout from "../../../layouts/FrontOfHouseLayOut";
 import { useBookingPresenter } from "../../booking/presenter";
 import DataTable from "react-data-table-component";
 import { Table } from "../venue/VenuesList";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-
-const Scan_Qr_Code = observer(() => {
+import { useFrontOfHousePresenter } from "./presenter";
+const ScanQRCode = observer(() => {
   const [data, setData] = useState("No result");
-  const { getGuest, guest } = useBookingPresenter;
+  const { getGuest, guest } = useFrontOfHousePresenter;
 
   useEffect(() => {
     getGuest(data);
   }, [data]);
 
   return (
-    <FrontOfHouseLayOut>
+    <FrontOfHouseLayout>
       <Title width="300px">Guest List</Title>
       <h3 border="2px solid blue">Reference: {data}</h3>
-      <div style={{ width: "50%" }}>
+      <div style={{ width: "30%" }}>
         <QrReader
           onResult={(result, error) => {
             if (!!result) {
@@ -38,10 +38,10 @@ const Scan_Qr_Code = observer(() => {
           <DataTable columns={columns} data={guest} fixedHeader />
         </Table>
       )}
-    </FrontOfHouseLayOut>
+    </FrontOfHouseLayout>
   );
 });
-export default Scan_Qr_Code;
+export default ScanQRCode;
 const columns = [
   {
     name: "Booking.ID",

@@ -11,8 +11,8 @@ import {
 } from "../../components/Event";
 import { useEventPresenter } from "../admin/event/presenter";
 import { useBookingPresenter } from "./presenter";
-import { useParams } from "react-router-dom";
 import { DownloadPhoto } from "../../util/DownloadPhoto";
+import image from "../../assets/image.svg";
 const ConfirmBooking = observer(({ id }) => {
   const { gridEvents } = useEventPresenter;
   const {
@@ -25,10 +25,10 @@ const ConfirmBooking = observer(({ id }) => {
     time,
     getCost,
     setEventPlace,
+    promo,
   } = useBookingPresenter;
-  let params = useParams();
-  let eventId = params.event;
-  const [url, setUrl] = useState("");
+
+  const [url, setUrl] = useState(image);
 
   useEffect(() => {
     setEventPlace(gridEvents[id]);
@@ -39,7 +39,7 @@ const ConfirmBooking = observer(({ id }) => {
       setUrl(response);
     });
     // eslint-disable-next-line
-  }, [url]);
+  }, []);
   return (
     <div id="myhtml">
       <h3>Confirm your booking</h3>
@@ -91,7 +91,7 @@ const ConfirmBooking = observer(({ id }) => {
             <div style={{ display: "grid", rowGap: "20px" }}>
               <Span>
                 <Heading>Your Tickets</Heading>
-                <SubHeading>{quantity}x Full Price</SubHeading>
+                <SubHeading>{quantity}x</SubHeading>
               </Span>
               <Span>
                 <Heading>Time</Heading>
@@ -99,7 +99,9 @@ const ConfirmBooking = observer(({ id }) => {
               </Span>
               <Span>
                 <Heading>Cost</Heading>
-                <SubHeading>R {getCost().toFixed(2)}</SubHeading>
+                <SubHeading>
+                  R {promo[0] ? getCost() * promo[0]?.discount : getCost()}
+                </SubHeading>
               </Span>
             </div>
           </div>

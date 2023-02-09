@@ -60,7 +60,6 @@ class AdminPresenter {
         user_type: 3,
         is_active: true,
       });
-      //   console.log(data);
 
       alert("Check your mailbox and confirm your email.\nThen you may login");
       this.clearFields();

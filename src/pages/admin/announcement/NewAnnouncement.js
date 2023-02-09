@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../../../components/Title";
 import styled from "styled-components";
 import { StyledInput } from "../../../components/Input";
 import Select from "../../../components/Select";
 import Button from "../../../components/Button";
 import { useEventPresenter } from "../event/presenter";
+import { useAnnouncementPresenter } from "./presenter";
+import { observer } from "mobx-react-lite";
 
-const NewAnnouncement = (props) => {
+const NewAnnouncement = observer((props) => {
   const { events } = useEventPresenter;
-
+  const { setFormValue, getAnnouncementList, makeAnnouncement } =
+    useAnnouncementPresenter;
+  useEffect(() => {
+    getAnnouncementList();
+  });
   return (
     <>
       <Title width="350px">New Announcement</Title>
@@ -19,8 +25,9 @@ const NewAnnouncement = (props) => {
           <Select
             width="210px"
             name="event"
-            onChange={(e) => console.log(e.target.value)}
-            options={events}
+            defaultValue={0}
+            onChange={(e) => setFormValue(e)}
+            options={[{ id: 0, name: "Choose an event" }, ...events]}
           />
         </InputGroup>
         <InputGroup>
@@ -28,8 +35,9 @@ const NewAnnouncement = (props) => {
           <Input
             width="200px"
             type="text"
-            name="discount"
-            onChange={(e) => console.log(e.target.value)}
+            name="subject"
+            placeholder="Subject"
+            onChange={(e) => setFormValue(e)}
           />
         </InputGroup>
         <InputGroup>
@@ -37,7 +45,7 @@ const NewAnnouncement = (props) => {
           <TextArea
             placeholder="Message"
             name="message"
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setFormValue(e)}
           />
         </InputGroup>
         <InputGroup width="250px" marginTop="50px">
@@ -55,7 +63,12 @@ const NewAnnouncement = (props) => {
             background="var(--purple)"
             hover="var(--darkpurple)"
             border="solid 1px var(--darkpurple)"
-            onClick={() => alert("Announcement sent")}
+            onClick={(e) => {
+              let c = makeAnnouncement();
+              if (c) {
+                props.onClick((e = false));
+              }
+            }}
           >
             Create
           </Button>
@@ -63,7 +76,7 @@ const NewAnnouncement = (props) => {
       </Div>
     </>
   );
-};
+});
 
 export default NewAnnouncement;
 const Div = styled.div`

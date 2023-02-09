@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import ujlogo from "../assets/ujLogo.jpg";
 import "../styles/index";
 import * as Icon from "react-icons/fi";
-import { BsFillMegaphoneFill } from "react-icons/bs";
-import { FaCashRegister } from "react-icons/fa";
+import { BsCash, BsFillMegaphoneFill } from "react-icons/bs";
+import { FaCashRegister, FaMoneyCheck } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useAdminPresenter } from "../pages/admin/auth/presenter";
 import styled from "styled-components";
@@ -12,12 +12,13 @@ import { NavigationStore } from "../stores/navigationStore";
 
 const AdminLayout = (props) => {
   const { logout } = useAdminPresenter;
-  const { isLoggedIn } = useUserStore;
+  const { isLoggedIn /*, checkUser */ } = useUserStore;
   const { replace } = NavigationStore;
-  useEffect(() => {
-    if (!isLoggedIn) replace("/admin");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (!isLoggedIn) replace("/admin");
+  //   else checkUser();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   return (
     <AdminWrapper>
       <VerticalNavBar>
@@ -72,6 +73,22 @@ const AdminLayout = (props) => {
         >
           <Icon.FiPercent color="white" size={25} />
         </NavLink>
+        <NavLink
+          className="navLink"
+          style={({ isActive }) => {
+            return {
+              background: isActive ? "var(--darkpurple)" : "",
+              borderLeft: isActive
+                ? "solid 5px white"
+                : "solid 5px transparent",
+              borderTopLeftRadius: "2px",
+              borderBottomLeftRadius: "2px",
+            };
+          }}
+          to="/admin/finance"
+        >
+          <FaMoneyCheck color="white" size={25} />
+        </NavLink>
 
         <NavLink
           className="navLink"
@@ -101,9 +118,9 @@ const AdminLayout = (props) => {
               borderBottomLeftRadius: "2px",
             };
           }}
-          to="/admin/foh"
+          to="/admin/search"
         >
-          <FaCashRegister color="white" size={25} />
+          <BsCash color="white" size={25} />
         </NavLink>
         <div onClick={() => logout()} className="navLink">
           <Icon.FiLogOut color="white" size={25} />
@@ -116,14 +133,14 @@ const AdminLayout = (props) => {
 
 export default AdminLayout;
 
-const AdminWrapper = styled.div`
+export const AdminWrapper = styled.div`
   display: flex;
   width: 100%;
   padding: 0px;
   border: solid 0px blue;
   height: 100vh;
 `;
-const Div = styled.div`
+export const Div = styled.div`
   flex: 2;
   padding: 0px 20px;
   height: 100%;
@@ -131,7 +148,7 @@ const Div = styled.div`
   border: solid 0px red;
   overflow-y: scroll;
 `;
-const VerticalNavBar = styled.div`
+export const VerticalNavBar = styled.div`
   max-width: 162px;
   border: solid 0px;
   flex: 1;
@@ -142,7 +159,7 @@ const VerticalNavBar = styled.div`
   padding: 0px 0px;
   color: white;
 `;
-const Img = styled.img`
+export const Img = styled.img`
   padding: 10px;
   width: 75%;
   height: 18%;

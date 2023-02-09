@@ -11,16 +11,18 @@ import { GiPlainCircle, GiTicket } from "react-icons/gi";
 import Button from "./Button";
 import { observer } from "mobx-react";
 import { DownloadPhoto } from "../util/DownloadPhoto";
-
-const EventRow = observer(({ event }) => {
+import { useEventPresenter } from "../pages/admin/event/presenter";
+import image from "../assets/image.svg";
+const EventRow = observer(({ event, onClick }) => {
   const [actions, setActions] = useState(false);
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(image);
+  const { deleteEvent } = useEventPresenter;
   useEffect(() => {
     DownloadPhoto(event?.thumbnail).then((response) => {
       setUrl(response);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, []);
   return (
     <EventCard
       onMouseLeave={() => {
@@ -101,7 +103,7 @@ const EventRow = observer(({ event }) => {
                 />
               </div>
             </Label>
-            <label>{event?.sold - 10}</label>
+            <label>{event?.sold > 10 ? event?.sold - 10 : 0}</label>
           </Attendence>
         </TagsGroup>
         <MakeAnnoncement>
@@ -137,7 +139,8 @@ const EventRow = observer(({ event }) => {
               </ActionButton>
               <ActionButton
                 onClick={() => {
-                  alert("delete");
+                  deleteEvent(event?.id);
+                  onClick();
                 }}
               >
                 <HiTrash color="white" size={20} />
@@ -162,6 +165,7 @@ const EventCard = styled.div`
   color: white;
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 const EventTitle = styled.div`

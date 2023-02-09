@@ -19,12 +19,13 @@ import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { BsFillCreditCardFill } from "react-icons/bs";
 import { NavigationStore } from "../../stores/navigationStore";
 import DateTime from "./DateTime";
-import { DownloadPhoto, Downloadphoto } from "../../util/DownloadPhoto";
+import { DownloadPhoto } from "../../util/DownloadPhoto";
 import { useEffect } from "react";
+import image from "../../assets/image.svg";
 const Booking = observer(() => {
   let params = useParams();
   let eventId = params.event;
-  const [step, setStep] = useState(1);
+  //const [step, setStep] = useState(1);
   const {
     screen,
     setScreen,
@@ -35,9 +36,10 @@ const Booking = observer(() => {
     phone_number,
     email,
     getCost,
+    promo,
   } = useBookingPresenter;
   const { gridEvents } = useEventPresenter;
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(image);
 
   useEffect(() => {
     gridEvents.length > 0 &&
@@ -45,15 +47,15 @@ const Booking = observer(() => {
         setUrl(response);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); /**/
+  }, []);
   const Switch = () => {
     switch (screen) {
       case 1:
         return <DateTime id={eventId} />;
       case 2:
-        return <TicketType id={eventId} />;
+        return <TicketType event={gridEvents[eventId]} />;
       case 3:
-        return <BookingForm id={eventId} />;
+        return <BookingForm />;
       case 4:
         return <ConfirmBooking id={eventId} />;
       case 5:
@@ -71,7 +73,8 @@ const Booking = observer(() => {
               name={name + " " + surname}
               email={email}
               phone_number={phone_number}
-              amount={getCost()}
+              //  amount={getCost()}
+              amount={promo[0] ? getCost() * promo[0]?.discount : getCost()}
             />
           );
         case "snap":
@@ -81,7 +84,7 @@ const Booking = observer(() => {
               background="var(--lightgrey)"
               hover="var(--darkorange)"
               color="black"
-              onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
+              //    onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
             >
               <FaLock size="20" color="black" style={{ fontWeight: "bold" }} />
               Pay
@@ -94,7 +97,7 @@ const Booking = observer(() => {
               background="var(--lightgrey)"
               hover="var(--darkorange)"
               color="black"
-              onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
+              //  onClick={() => setStep((prev) => (prev < 3 ? prev + 1 : 3))}
             >
               <FaLock size="20" color="black" style={{ fontWeight: "bold" }} />
               Pay
@@ -103,9 +106,7 @@ const Booking = observer(() => {
       }
     }
   };
-  const Screen = async () => {
-    await setScreen();
-  };
+
   return (
     <CustomerLayout>
       <Div>
@@ -391,7 +392,7 @@ const PaymentButton = (props) => {
       }}
     >
       <BsFillCreditCardFill size="20" color="white" />
-      Pay with Credit/Debit card
+      Pay R {props?.amount}
     </Button>
   );
 };

@@ -5,9 +5,10 @@ import { useEventPresenter } from "./presenter";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 const RunningEvents = observer(() => {
-  const { runningEvents,getRunningEvents } = useEventPresenter;
+  const { runningEvents,events,getRunningEvents } = useEventPresenter;
 useEffect(()=>{
   getRunningEvents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 },[])
   return (
     <div>
@@ -18,7 +19,7 @@ useEffect(()=>{
         placeholder="Search Here"
         onChange={(e) => console.log(e.target.value)}
       />
-      {runningEvents.map((event, id) => (
+      {events.map((event, id) => (
         <EventRow key={id} event={event} />
       ))}
     </div>

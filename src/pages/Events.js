@@ -10,12 +10,10 @@ import { useLocation } from "react-router-dom";
 import { NavigationStore } from "../stores/navigationStore";
 import { useEventPresenter } from "./admin/event/presenter";
 import Select from "../components/Select";
-import EventSummary from "../components/EventSummary";
 const Events = observer(() => {
   let location = useLocation();
   const navigation = NavigationStore;
-  const { events, gridEvents, setFilterValue, getEventTypes, eventTypes } =
-    useEventPresenter;
+  const { gridEvents, setFilterValue, eventTypes } = useEventPresenter;
 
   useEffect(() => {
     const hash = location.hash.split("&");
@@ -25,11 +23,11 @@ const Events = observer(() => {
 
     // eslint-disable-next-line
   }, []);
-  useEffect(() => {
+  /* useEffect(() => {
     getEventTypes();
 
     // eslint-disable-next-line
-  }, [eventTypes]);
+  }, []);*/
   const [seconds, setSeconds] = useState(5);
 
   useEffect(() => {
@@ -58,16 +56,21 @@ const Events = observer(() => {
             <Select
               name="evenType"
               onChange={(e) => setFilterValue(e)}
-              options={eventTypes}
+              defaultValue={0}
+              options={[...eventTypes, { id: 0, name: "All" }]}
               width="50%"
             ></Select>
           )}
         </Div>
 
         <EventList className="eventList">
-          {gridEvents.map((data, id) => (
-            <Event key={id} id={id} event={data} />
-          ))}
+          {gridEvents.length > 0 ? (
+            gridEvents?.map((data,id) => (
+              <Event key={id} id={id} event={data} />
+            ))
+          ) : (
+            <h1 style={{ textAlign: "center" }}>No events for now</h1>
+          )}
         </EventList>
       </div>
     </CustomerLayout>
@@ -86,6 +89,17 @@ export const EventList = styled.div`
 export const Div = styled.div`
   align-self: center;
   border: solid 0px black;
-  width: 24%;
+  width: 25%;
   text-align: center;
+
+  @media only screen and (max-width: 600px) {
+    /* For mobile phones: */
+    width: 80%;
+    align-self: start;
+    border: solid 0px black;
+    margin-left: 0px;
+    font-size: 10px;
+    text-align: left;
+    padding-left: 10vw;
+  }
 `;

@@ -1,11 +1,14 @@
-import React from "react";
+import React,{useEffect} from "react";
 import EventRow from "../../../components/EventRow";
 import SearchInput from "../../../components/SearchInput";
 import { useEventPresenter } from "./presenter";
 import { observer } from "mobx-react-lite";
 const AllEvents = observer(() => {
-  const { events } = useEventPresenter;
-
+  const { events,getEvents } = useEventPresenter;
+  useEffect(()=>{
+    getEvents();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
   return (
     <div>
       <SearchInput

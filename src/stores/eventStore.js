@@ -15,6 +15,9 @@ class EventStore {
     id: new Int32Array(),
     name: String(),
   };
+  events = [];
+  upcomingEvents = [];
+  runningEvents = [];
   constructor() {
     makeAutoObservable(this);
     autorun(() => {
@@ -23,12 +26,36 @@ class EventStore {
   }
   createEvent = async (event) => {
     try {
-      const { error } = await this.supabaseGateway.insertToTable(
+      const { data, error } = await this.supabaseGateway.insertToTable(
         "events",
         event
       );
       if (error) throw new Error(error.message);
       alert("Event created!");
+      return data;
+    } catch (error) {
+      console.log(error.message);
+      alert(error.message);
+    }
+  };
+  deleteEvent = async (id) => {
+    try {
+      const { error } = await this.supabaseGateway.deleteFromTable("events", {
+        id: id,
+      });
+      if (error) throw new Error(error.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  addSchedule = async (payload) => {
+    try {
+      const { data, error } = await this.supabaseGateway.insertToTable(
+        "schedule",
+        payload
+      );
+      if (error) throw new Error(error.message);
+      return data;
     } catch (error) {
       console.log(error.message);
       alert(error.message);
@@ -55,12 +82,37 @@ class EventStore {
   getEvents = async () => {
     try {
       const { data, error } =
-        await this.supabaseGateway.selectFromTableWithForeignKey(
+        await this.supabaseGateway.selectFromTableWithForeignKey2(
           "events",
           "event_types(id,type), venues(name)"
         );
-
-      //  console.log(this.events);
+      if (error) throw new Error(error.message);
+      runInAction(() => {
+        this.events = data.map(
+          ({
+            id,
+            name,
+            description,
+            state,
+            host,
+            thumbnail,
+            venues,
+            event_types,
+          }) => ({
+            id,
+            name,
+            description,
+            state,
+            thumbnail,
+            host,
+            venues,
+            event_types,
+            sold: Math.floor(
+              Math.random() * (Math.floor(100) - Math.ceil(0)) + Math.ceil(0)
+            ),
+          })
+        );
+      });
       return data;
     } catch (error) {
       console.log(error.message);
@@ -68,14 +120,8 @@ class EventStore {
   };
   getGridEvents = async () => {
     try {
-      const { data, error } = await this.supabaseGateway.selectGridEvents(
-        "events",
-        "event_types(id,type), venues(name),schedule(event_id,*)"
-      );
-      /*
-         "schedule",
-        "events(*,event_types(id,type), venues(name))"
-       */
+      const { data, error } = await this.supabaseGateway.selectGridEvents();
+
       if (error) throw new Error(error.message);
 
       runInAction(() => {
@@ -106,8 +152,51 @@ class EventStore {
             })
           );
       });
-      //  console.log(this.events);
       return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getGridEventsByType = async (type) => {
+    try {
+      if (type === 0) {
+        await this.getGridEvents();
+      } else {
+        const { data, error } =
+          await this.supabaseGateway.selectGridEventsByType(type);
+
+        if (error) throw new Error(error.message);
+
+        runInAction(() => {
+          this.gridEvents = data
+            .filter((events) => events.schedule.length > 0)
+            .map(
+              ({
+                id,
+                name,
+                description,
+                state,
+                host,
+                thumbnail,
+                venues,
+                event_types,
+                schedule,
+              }) => ({
+                id,
+                name,
+                description,
+                state,
+                thumbnail,
+                host,
+                venues,
+                event_types,
+                schedule,
+                active: false,
+              })
+            );
+        });
+        return data;
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -121,7 +210,32 @@ class EventStore {
           { column: "state", value: "running" }
         );
       if (error) throw new Error(error.message);
-      //  console.log(data);
+      runInAction(() => {
+        this.events = data.map(
+          ({
+            id,
+            name,
+            description,
+            state,
+            host,
+            thumbnail,
+            venues,
+            event_types,
+          }) => ({
+            id,
+            name,
+            description,
+            state,
+            thumbnail,
+            host,
+            venues,
+            event_types,
+            sold: Math.floor(
+              Math.random() * (Math.floor(100) - Math.ceil(0)) + Math.ceil(0)
+            ),
+          })
+        );
+      });
       return data;
     } catch (error) {
       console.log(error.message);
@@ -136,7 +250,29 @@ class EventStore {
           { column: "state", value: "upcoming" }
         );
       if (error) throw new Error(error.message);
-      //  console.log(data);
+      runInAction(() => {
+        this.events = data.map(
+          ({
+            id,
+            name,
+            description,
+            state,
+            host,
+            thumbnail,
+            venues,
+            event_types,
+          }) => ({
+            id,
+            name,
+            description,
+            state,
+            thumbnail,
+            host,
+            venues,
+            event_types,
+          })
+        );
+      });
       return data;
     } catch (error) {
       console.log(error.message);
