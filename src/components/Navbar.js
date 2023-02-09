@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./navbar.css";
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { BsPersonFill } from "react-icons/bs";
 
 export default function Navbar() {
@@ -45,6 +45,7 @@ export default function Navbar() {
                 };
               }}
               to="/"
+              end
             >
               Home
             </NavLink>
